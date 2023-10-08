@@ -27,8 +27,8 @@ public class MainActivity extends AppCompatActivity {
         //place holder to make sure that we can use this if statement, you can change the if conditions if you have to
         //using admin for username and password just to test change to be more general
         if (strUsername.equals("admin") && strPassword.equals("admin")) {
-            Intent intent = new Intent(getApplicationContext(), Welcome.class);
-            startActivityForResult(intent, 0);
+            Intent welcome = new Intent(getApplicationContext(), Welcome.class);
+            startActivity(welcome);
         } else {
             TextView tv1 = (TextView) findViewById(R.id.txtTryAgain);
             tv1.setText("Either password or username does not match");
