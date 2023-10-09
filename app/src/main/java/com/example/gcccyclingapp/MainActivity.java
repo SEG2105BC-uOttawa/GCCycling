@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         String strPassword = password.getText().toString();
         //place holder to make sure that we can use this if statement, you can change the if conditions if you have to
         //using admin for username and password just to test change to be more general
-        if (strUsername.equals("a") && strPassword.equals("a")) {
+        if (strUsername.equals("admin") && strPassword.equals("admin")) {
             Intent i = new Intent(getApplicationContext(), Welcome.class);
             i.putExtra("name", strUsername);
             startActivity(i);
