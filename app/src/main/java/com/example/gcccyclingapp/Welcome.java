@@ -14,13 +14,15 @@ public class Welcome extends AppCompatActivity {
             setContentView(R.layout.welcome_screen);
 
             String name = null;
+            String role = null;
+
             Bundle bundle = getIntent().getExtras();
-            if(bundle.getString("name")!=null){
+            if(bundle.getString("name")!=null && bundle.getString("role") != null){
                 name = bundle.getString("name");
+                role = bundle.getString("role");
             }
 
             TextView welcometxt = (TextView) findViewById(R.id.txtWelcome);
-            String role = "admin";
             welcometxt.setText("Welcome " + name + " you are logged in as " + role);
         }
 

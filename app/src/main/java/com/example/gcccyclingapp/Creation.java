@@ -1,5 +1,6 @@
 package com.example.gcccyclingapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -29,7 +30,7 @@ public class Creation extends AppCompatActivity implements AdapterView.OnItemSel
 
         public void onNothingSelected(AdapterView<?> parent) {}
 
-        public boolean createAccount() {
+        public void createAccount(View view) {
             Admin admin = new Admin(getApplicationContext());
             Club club = new Club("No Club", "test", "test", "Club");
 
@@ -44,17 +45,21 @@ public class Creation extends AppCompatActivity implements AdapterView.OnItemSel
             if (strName.isEmpty() || strUsername.isEmpty() || strPassword.isEmpty()) {
                 TextView tv1 = (TextView) findViewById(R.id.txtIncomplete);
                 tv1.setText("Please fill in all fields.");
-                return false;
             }
-
-            if (accountType.equals("Participant")) {
+            else if (accountType.equals("Participant")) {
                 admin.addParticipant(club, new Participant(strName, strUsername, strPassword, "Participant"));
+                Intent i = new Intent(getApplicationContext(), Welcome.class);
+                i.putExtra("name", strUsername);
+                i.putExtra("role", "Participant");
+                startActivity(i);
             }
             else if (accountType.equals("Club Owner")) {
                 admin.createClub(new Club(strName, strUsername, strPassword, "Club Owner"));
+                Intent i = new Intent(getApplicationContext(), Welcome.class);
+                i.putExtra("name", strUsername);
+                i.putExtra("role", "Club Owner");
+                startActivity(i);
             }
-
-            return true;
         }
 
 

@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         if (strUsername.equals("admin") && strPassword.equals("admin")) {
             Intent i = new Intent(getApplicationContext(), Welcome.class);
             i.putExtra("name", strUsername);
+            i.putExtra("role", "admin");
             startActivity(i);
         } else {
             TextView tv1 = (TextView) findViewById(R.id.txtTryAgain);
