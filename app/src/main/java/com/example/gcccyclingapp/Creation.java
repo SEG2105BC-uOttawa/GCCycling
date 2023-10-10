@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Spinner;
 
@@ -22,6 +23,13 @@ public class Creation extends AppCompatActivity implements AdapterView.OnItemSel
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
             accountType.setAdapter(adapter);
             accountType.setOnItemSelectedListener(this);
+
+            Button button = findViewById(R.id.createAccount);
+            button.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View view) {
+                    createAccount();
+                }
+            });
         }
 
         public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
@@ -30,9 +38,10 @@ public class Creation extends AppCompatActivity implements AdapterView.OnItemSel
 
         public void onNothingSelected(AdapterView<?> parent) {}
 
-        public void createAccount(View view) {
+        public void createAccount() {
             Admin admin = new Admin(getApplicationContext());
-            Club club = new Club("No Club", "test", "test", "Club");
+            Club club = new Club("ClubClub", "test", "test", "Club");
+            admin.createClub(club);
 
             TextView name = findViewById(R.id.editTextName);
             TextView username = findViewById(R.id.editTxtUsername);
@@ -47,17 +56,17 @@ public class Creation extends AppCompatActivity implements AdapterView.OnItemSel
                 tv1.setText("Please fill in all fields.");
             }
             else if (accountType.equals("Participant")) {
-                admin.addParticipant(club, new Participant(strName, strUsername, strPassword, "Participant"));
+                admin.addParticipant(club, new Participant(strName, strUsername, strPassword, accountType));
                 Intent i = new Intent(getApplicationContext(), Welcome.class);
                 i.putExtra("name", strUsername);
-                i.putExtra("role", "Participant");
+                i.putExtra("role", accountType);
                 startActivity(i);
             }
             else if (accountType.equals("Club Owner")) {
-                admin.createClub(new Club(strName, strUsername, strPassword, "Club Owner"));
+                admin.createClub(new Club(strName, strUsername, strPassword, accountType));
                 Intent i = new Intent(getApplicationContext(), Welcome.class);
                 i.putExtra("name", strUsername);
-                i.putExtra("role", "Club Owner");
+                i.putExtra("role", accountType);
                 startActivity(i);
             }
         }
