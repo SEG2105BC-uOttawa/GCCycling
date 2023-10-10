@@ -35,6 +35,12 @@ public class MainActivity extends AppCompatActivity {
             tv1.setText("Either password or username does not match");
         }
     }
+
+    public void create(View view) {
+        Intent i = new Intent(getApplicationContext(), Creation.class);
+        startActivity(i);
+    }
+
         public EditText getUsername(){
             EditText username = (EditText) findViewById(R.id.edtTxtUsername);
             return username;

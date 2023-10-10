@@ -75,6 +75,7 @@
         android:layout_height="37dp"
         android:layout_marginEnd="47dp"
         android:layout_marginBottom="81dp"
+        android:onClick="create"
         android:text="Sign Up"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
