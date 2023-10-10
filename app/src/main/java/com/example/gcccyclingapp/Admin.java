@@ -1,12 +1,18 @@
 package com.example.gcccyclingapp;
 
-public class Admin {
+import android.content.Context;
 
-    public String username = "admin";
-    public String pwd = "admin";
-    public String role = "Admin";
+public class Admin extends Account {
+    DBAdmin dbAdmin;
+    DBClubs dbClubs;
 
-    public void createClub(DBAdmin dbAdmin, DBClubs dbClubs, Club club){
+    public Admin(Context context) {
+        super("admin", "admin", "Admin");
+        dbAdmin = new DBAdmin(context);
+        dbClubs = new DBClubs(context);
+    }
+
+    public void createClub(Club club){
         dbAdmin.insert(club.getClubName(), club.username, club.password);
         dbClubs.createTable(club.getClubName());
     }
@@ -16,7 +22,7 @@ public class Admin {
 //        dbAdmin.delete(club.getClubName());
 //    }
 
-    public void addParticipant(DBClubs dbClubs, Club club, Participant participant){
+    public void addParticipant(Club club, Participant participant){
         dbClubs.addParticipant(club.getClubName(), participant.name, participant.username, participant.password); // delete participant from a club table
     }
 //    public void deleteParticipant(DBClubs dbClubs, Club club, Participant participant){
