@@ -4,8 +4,9 @@ public class Club extends Account {
 
     private String clubName;
 
-    public Club(String username, String password, String role) {
+    public Club(String clubName, String username, String password, String role) {
         super(username, password, role);
+        this.clubName = clubName;
     }
 
     public void setClubName(String clubName) {
