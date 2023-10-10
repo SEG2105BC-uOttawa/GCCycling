@@ -41,12 +41,12 @@ public class MainActivity extends AppCompatActivity {
         startActivity(i);
     }
 
-        public EditText getUsername(){
-            EditText username = (EditText) findViewById(R.id.edtTxtUsername);
-            return username;
-        }
-        public EditText getPassword(){
-            EditText password = (EditText) findViewById(R.id.edtTxtPassword);
-            return password;
-        }
+    public EditText getUsername(){
+        EditText username = (EditText) findViewById(R.id.edtTxtUsername);
+        return username;
+    }
+    public EditText getPassword(){
+        EditText password = (EditText) findViewById(R.id.edtTxtPassword);
+        return password;
+    }
 }
