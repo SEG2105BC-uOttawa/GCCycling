@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">GCC Cycling App</string>
+    <string-array name="account_types">
+        <item>Participant</item>
+        <item>Club Owner</item>
+    </string-array>
 </resources>
