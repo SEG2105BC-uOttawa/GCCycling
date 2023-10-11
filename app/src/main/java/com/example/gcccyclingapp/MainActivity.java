@@ -31,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
             i.putExtra("name", strUsername);
             i.putExtra("role", "admin");
             startActivity(i);
+        } else if (strUsername.equals("admin") && strPassword.equals("admin")) {
+            
         } else {
             TextView tv1 = (TextView) findViewById(R.id.txtTryAgain);
             tv1.setText("Either password or username does not match");

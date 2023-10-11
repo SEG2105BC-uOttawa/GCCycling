@@ -13,8 +13,12 @@ public class Admin extends Account {
     }
 
     public void createClub(Club club){
-        dbAdmin.insert(club.getClubName(), club.username, club.password);
+        dbAdmin.insertClub(club.getClubName(), club.username, club.password);
         dbClubs.createTable(club.getClubName());
+    }
+    public void createParticipant(Participant participant){
+        dbAdmin.insertParticipant(participant.name, participant.username, participant.password);
+//        dbClubs.createTable(club.getClubName());
     }
 
 //    public void deleteClub(DBAdmin dbAdmin, DBClubs dbClubs, Club club){
@@ -22,7 +26,7 @@ public class Admin extends Account {
 //        dbAdmin.delete(club.getClubName());
 //    }
 
-    public void addParticipant(Club club, Participant participant){
+    public void addParticipant(Club club, Participant participant){ // add a participant to a club, will have to change for future use
         dbClubs.addParticipant(club.getClubName(), participant.name, participant.username, participant.password); // delete participant from a club table
     }
 //    public void deleteParticipant(DBClubs dbClubs, Club club, Participant participant){

@@ -56,7 +56,7 @@ public class Creation extends AppCompatActivity implements AdapterView.OnItemSel
                 tv1.setText("Please fill in all fields.");
             }
             else if (accountType.equals("Participant")) {
-                admin.addParticipant(club, new Participant(strName, strUsername, strPassword, accountType));
+                admin.createParticipant(new Participant(strName, strUsername, strPassword, accountType));
                 Intent i = new Intent(getApplicationContext(), Welcome.class);
                 i.putExtra("name", strUsername);
                 i.putExtra("role", accountType);
