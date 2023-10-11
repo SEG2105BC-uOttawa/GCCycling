@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     
 
     public void verify(View view) {
+        DBAdmin dbAdmin = new DBAdmin(getApplicationContext());
         EditText username = (EditText) findViewById(R.id.edtTxtUsername);
         EditText password = (EditText) findViewById(R.id.edtTxtPassword);
         String strUsername = username.getText().toString();
@@ -31,8 +32,11 @@ public class MainActivity extends AppCompatActivity {
             i.putExtra("name", strUsername);
             i.putExtra("role", "admin");
             startActivity(i);
-        } else if (strUsername.equals("admin") && strPassword.equals("admin")) {
-            
+        } else if (dbAdmin.verifyLogin(strUsername, strPassword)) {
+            Intent i = new Intent(getApplicationContext(), Welcome.class);
+            i.putExtra("name", strUsername);
+            i.putExtra("role", dbAdmin.getAccountType(strUsername, strPassword));
+            startActivity(i);
         } else {
             TextView tv1 = (TextView) findViewById(R.id.txtTryAgain);
             tv1.setText("Either password or username does not match");

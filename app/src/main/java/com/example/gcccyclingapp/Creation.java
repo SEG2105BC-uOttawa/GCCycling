@@ -40,8 +40,6 @@ public class Creation extends AppCompatActivity implements AdapterView.OnItemSel
 
         public void createAccount() {
             Admin admin = new Admin(getApplicationContext());
-            Club club = new Club("ClubClub", "test", "test", "Club");
-            admin.createClub(club);
 
             TextView name = findViewById(R.id.editTextName);
             TextView username = findViewById(R.id.editTxtUsername);
@@ -56,14 +54,18 @@ public class Creation extends AppCompatActivity implements AdapterView.OnItemSel
                 tv1.setText("Please fill in all fields.");
             }
             else if (accountType.equals("Participant")) {
-                admin.createParticipant(new Participant(strName, strUsername, strPassword, accountType));
+                System.out.println("Participant");
+                Participant p = new Participant(strName, strUsername, strPassword, accountType);
+                admin.createParticipant(p);
                 Intent i = new Intent(getApplicationContext(), Welcome.class);
                 i.putExtra("name", strUsername);
                 i.putExtra("role", accountType);
                 startActivity(i);
             }
             else if (accountType.equals("Club Owner")) {
-                admin.createClub(new Club(strName, strUsername, strPassword, accountType));
+                System.out.println("Club");
+                Club c = new Club(strName, strUsername, strPassword, accountType);
+                admin.createClub(c);
                 Intent i = new Intent(getApplicationContext(), Welcome.class);
                 i.putExtra("name", strUsername);
                 i.putExtra("role", accountType);

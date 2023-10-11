@@ -8,6 +8,8 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
+import javax.microedition.khronos.egl.EGL;
+
 public class DBAdmin extends SQLiteOpenHelper{
 
     public static final int DATABASE_VERSION = 1;
@@ -64,8 +66,37 @@ public class DBAdmin extends SQLiteOpenHelper{
         db.insert(PARTICIPANT_TABLE, null, cv);
     }
 
-    public void verifyLogin(String username, String pwd){
-        // check if username and password are in database, check both tables
+    public boolean verifyLogin(String username, String pwd){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursorP = db.rawQuery("SELECT * FROM " + PARTICIPANT_TABLE + " WHERE " + PARTICIPANT_USERNAME + " = ?", new String[]{username});
+        Cursor cursorC = db.rawQuery("SELECT * FROM " + CLUB_TABLE + " WHERE " + CLUB_USERNAME + " = ?", new String[]{username});
+
+        if (cursorP.getCount() > 0 || cursorC.getCount() > 0){
+            cursorP.close();
+            cursorC.close();
+            return true;
+        }
+        cursorP.close();
+        cursorC.close();
+        return false;
+    }
+
+    public String getAccountType(String username, String pwd){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursorP = db.rawQuery("SELECT COUNT(1) FROM " + PARTICIPANT_TABLE + " WHERE " + PARTICIPANT_USERNAME + " = ?", new String[]{username});
+        Cursor cursorC = db.rawQuery("SELECT COUNT(1) FROM " + CLUB_TABLE + " WHERE " + CLUB_USERNAME + " = ?", new String[]{username});
+
+        if (cursorP.getCount() > 0){
+            cursorP.close();
+            cursorC.close();
+            return "Participant";
+        } else{
+            cursorP.close();
+            cursorC.close();
+            return "Club";
+        }
     }
 
 //    public void delete(String clubName){ // change to work with Club class
