@@ -13,11 +13,15 @@ public class Account {
     }
 
     public String getUsername() {
-        return username;
+        return this.username;
     }
 
     public String getPassword() {
         return this.password;
+    }
+
+    public String getRole() {
+        return this.role;
     }
 
     public void setUsername(String username) {
