@@ -1,4 +1,5 @@
 package com.example.gcccyclingapp;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -7,8 +8,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
-
-import javax.microedition.khronos.egl.EGL;
 
 public class DBAdmin extends SQLiteOpenHelper{
 
@@ -69,16 +68,26 @@ public class DBAdmin extends SQLiteOpenHelper{
     public boolean verifyLogin(String username, String pwd){
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursorP = db.rawQuery("SELECT COUNT(1) FROM " + PARTICIPANT_TABLE + " WHERE " + PARTICIPANT_USERNAME + " = ? AND " + PARTICIPANT_PASSWORD + " = ?", new String[]{username, pwd});
-        Cursor cursorC = db.rawQuery("SELECT COUNT(1) FROM " + CLUB_TABLE + " WHERE " + CLUB_USERNAME + " = ? AND " + CLUB_PASSWORD + " = ?", new String[]{username, pwd});
+        Log.d("user", username);
+        Log.d("pwd", pwd);
+
+        Cursor cursorP = db.rawQuery("SELECT 1 FROM " + PARTICIPANT_TABLE + " WHERE " + PARTICIPANT_USERNAME + " = ? AND " + PARTICIPANT_PASSWORD + " = ?", new String[]{username, pwd});
+        Cursor cursorC = db.rawQuery("SELECT 1 FROM " + CLUB_TABLE + " WHERE " + CLUB_USERNAME + " = ? AND " + CLUB_PASSWORD + " = ?", new String[]{username, pwd});
+
 
         if (cursorP.getCount() > 0 || cursorC.getCount() > 0){
+            String countP = String.valueOf(cursorP.getCount());
+            Log.d("count", countP);
             cursorP.close();
             cursorC.close();
+            Log.d("message", "True credintials");
             return true;
         }
+        String countP = String.valueOf(cursorP.getCount());
+        Log.d("count", countP);
         cursorP.close();
         cursorC.close();
+        Log.d("message", "False credintials");
         return false;
     }
 
