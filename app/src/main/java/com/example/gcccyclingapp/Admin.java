@@ -21,10 +21,10 @@ public class Admin extends Account {
 //        dbClubs.createTable(club.getClubName());
     }
 
-//    public void deleteClub(DBAdmin dbAdmin, DBClubs dbClubs, Club club){
+    public void deleteClub(DBAdmin dbAdmin, DBClubs dbClubs, Club club){
 //        dbClubs.deleteTable(club.getClubName());
-//        dbAdmin.delete(club.getClubName());
-//    }
+        dbAdmin.deleteClub(club.getClubName());
+    }
 
     public void addParticipant(Club club, Participant participant){ // add a participant to a club, will have to change for future use
         dbClubs.addParticipant(club.getClubName(), participant.name, participant.username, participant.password); // delete participant from a club table
