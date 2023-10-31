@@ -9,6 +9,8 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
+import java.io.IOException;
+
 public class DBAdmin extends SQLiteOpenHelper{
 
     public static final int DATABASE_VERSION = 1;
@@ -108,14 +110,52 @@ public class DBAdmin extends SQLiteOpenHelper{
         }
     }
 
-//    public void delete(String clubName){ // change to work with Club class
-//        SQLiteDatabase db = this.getWritableDatabase(); // for insert actions
-//
-//        String queryString = "DELETE FROM " + ADMIN_TABLE + " WHERE " + ADMIN_CLUB_NAME + " = " + clubName;
-//        Cursor cursor = db.rawQuery(queryString, null);
-//
-//        db.delete(ADMIN_TABLE, ADMIN_CLUB_NAME+" = "+clubName, null);
-//        db.execSQL("DELETE FROM " + ADMIN_TABLE + " WHERE " + ADMIN_CLUB_NAME + " = " + clubName);
-//    }
+    public String[] getAllClubs(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursorClubs = db.rawQuery("SELECT " + CLUB_USERNAME + " FROM " + CLUB_TABLE, null);
+        String[] clubNames = new String[cursorClubs.getCount()];
+
+        int i = 0;
+        while (cursorClubs.moveToNext()){
+            clubNames[i] = cursorClubs.getString(0); //only one column selected
+            i++;
+        }
+        cursorClubs.close();
+        return clubNames;
+    }
+    public String[] getAllParticipants(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursorParticipants = db.rawQuery("SELECT " + PARTICIPANT_USERNAME + " FROM " + PARTICIPANT_TABLE, null);
+        String[] participantsNames = new String[cursorParticipants.getCount()];
+
+        int i = 0;
+        while (cursorParticipants.moveToNext()){
+            participantsNames[i] = cursorParticipants.getString(0); //only one column selected
+            i++;
+        }
+        cursorParticipants.close();
+        return participantsNames;
+    }
+
+    public void deleteClub(String clubName){ // change to work with Club class
+        SQLiteDatabase db = this.getWritableDatabase(); // for insert actions
+
+        try {
+            String addClubStatement = "DELETE FROM " + CLUB_TABLE + " WHERE " + CLUB_USERNAME +" = '" + clubName + "'";
+            db.execSQL(addClubStatement);
+        } catch (Exception e){
+            Log.d("Error", "Can't delete null value");
+        }
+    }
+    public void deleteParticipant(String clubName){ // change to work with Club class
+        SQLiteDatabase db = this.getWritableDatabase(); // for insert actions
+
+        try {
+            String addClubStatement = "DELETE FROM " + PARTICIPANT_TABLE + " WHERE " + PARTICIPANT_USERNAME +" = '" + clubName + "'";
+            db.execSQL(addClubStatement);
+        } catch (Exception e){
+            Log.d("Error", "Can't delete null value");
+        }
+    }
 
 }
