@@ -3,7 +3,7 @@ package com.example.gcccyclingapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,6 +28,11 @@ public class Welcome extends AppCompatActivity {
 
             TextView welcometxt = (TextView) findViewById(R.id.txtWelcome);
             welcometxt.setText("Welcome " + name + " you are logged in as " + role);
+
+            if(role.equals("admin")){
+                Button setEvent = (Button) findViewById(R.id.createEventBtn);
+                setEvent.setVisibility(View.VISIBLE);
+            }
         }
 
         public void createEvent(View view) {
@@ -41,16 +46,18 @@ public class Welcome extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == LAUNCH_EVENT_CREATION) {
-            if(resultCode == RESULT_OK){
-                String age=data.getStringExtra("age");
-                String pace=data.getStringExtra("pace");
-                String level=data.getStringExtra("level");
-                String location=data.getStringExtra("location");
-                String time=data.getStringExtra("time");
-                String details=data.getStringExtra("details");
-                String eventType=data.getStringExtra("event_type");
+            if (resultCode == RESULT_OK) {
+                String age = data.getStringExtra("age");
+                String pace = data.getStringExtra("pace");
+                String level = data.getStringExtra("level");
+                String location = data.getStringExtra("location");
+                String eventType = data.getStringExtra("event_type");
+                String time = data.getStringExtra("time");
+                String details = data.getStringExtra("details");
             }
         }
+
+
     }
 
 
