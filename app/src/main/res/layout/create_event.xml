@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/agetxt"
+    android:id="@+id/eventCreateLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -88,8 +88,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:hint="Enter Minimum Age"
+                    android:hint="Enter Age"
                     android:inputType="text" />
+
             </TableRow>
 
             <TableRow
@@ -172,23 +173,36 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/detailstxt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="124dp"
+            android:layout_width="406dp"
+            android:layout_height="166dp"
+            android:layout_marginBottom="128dp"
             android:hint="Enter Details"
-            android:lines="7"
+            android:lines="5"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent" />
 
+        <TextView
+            android:id="@+id/warningtxt"
+            android:layout_width="352dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="29dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="3dp"
+            android:gravity="center_horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/setEventBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/setEventBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="147dp"
             android:layout_marginEnd="148dp"
             android:layout_marginBottom="41dp"
+            android:onClick="set"
             android:text="Set Event"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
