@@ -43,7 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="112dp"
-            android:layout_marginBottom="112dp"
+            android:layout_marginBottom="152dp"
             android:maxWidth="190dp"
             android:minWidth="190dp"
             android:onClick="createEvent"
@@ -53,11 +53,25 @@
             app:layout_constraintEnd_toEndOf="parent" />
 
         <Button
+            android:id="@+id/viewEventsBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="112dp"
+            android:layout_marginBottom="112dp"
+            android:maxWidth="190dp"
+            android:minWidth="190dp"
+            android:onClick="createEvent"
+            android:text="View Events"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <Button
             android:id="@+id/viewClubsBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="112dp"
-            android:layout_marginBottom="152dp"
+            android:layout_marginBottom="192dp"
             android:maxWidth="190dp"
             android:minWidth="190dp"
             android:onClick="createEvent"

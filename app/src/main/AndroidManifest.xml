@@ -15,6 +15,9 @@
         android:theme="@style/Theme.GCCCyclingApp"
         tools:targetApi="31">
         <activity
+            android:name=".ViewEvent"
+            android:exported="false" />
+        <activity
             android:name=".ViewClub"
             android:exported="false" />
         <activity

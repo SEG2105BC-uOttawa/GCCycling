@@ -13,6 +13,7 @@ public class Welcome extends AppCompatActivity {
     int LAUNCH_EVENT_CREATION = 1;
     Button btnParticipant;
     Button btnClub;
+    Button btnEvent;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +47,14 @@ public class Welcome extends AppCompatActivity {
                 setEvent.setVisibility(View.VISIBLE);
             }
 
+            if(role.equals("admin")) {
+                Button setEvent = (Button) findViewById(R.id.viewEventsBtn);
+                setEvent.setVisibility(View.VISIBLE);
+            }
+
             btnParticipant = findViewById(R.id.viewParticipantsBtn);
             btnClub = findViewById(R.id.viewClubsBtn);
+            btnEvent = findViewById(R.id.viewEventsBtn);
             btnParticipant.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -60,6 +67,14 @@ public class Welcome extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(Welcome.this, ViewClub.class);
+                    startActivity(intent);
+                }
+            });
+
+            btnEvent.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(Welcome.this, ViewEvent.class);
                     startActivity(intent);
                 }
             });

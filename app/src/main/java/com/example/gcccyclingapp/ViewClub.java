@@ -46,7 +46,7 @@ public class ViewClub extends AppCompatActivity{
         AlertDialog.Builder popUp = new AlertDialog.Builder(this);
         popUp.setTitle("Confirm Deletion")
                 .setIcon(android.R.drawable.ic_delete)
-                .setMessage("Are you sure you want to delete club " + clubName + " ?")
+                .setMessage("Are you sure you want to delete club " + clubName + "?")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {

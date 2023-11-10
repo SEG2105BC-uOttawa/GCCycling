@@ -46,7 +46,7 @@ public class ViewParticipant extends AppCompatActivity {
         AlertDialog.Builder popUp = new AlertDialog.Builder(this);
         popUp.setTitle("Confirm Deletion")
                 .setIcon(android.R.drawable.ic_delete)
-                .setMessage("Are you sure you want to delete participant " + participantName + " ?")
+                .setMessage("Are you sure you want to delete participant " + participantName + "?")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
