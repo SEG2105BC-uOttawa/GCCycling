@@ -2,6 +2,7 @@ package com.example.gcccyclingapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -9,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class EventCreation extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     String eventSelected;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +57,7 @@ public class EventCreation extends AppCompatActivity implements AdapterView.OnIt
 
 
     public void set(View view) {
+        DBAdmin db = new DBAdmin(this);
         EditText type = (EditText) findViewById(R.id.eventTypetxt);
         EditText age = (EditText) findViewById(R.id.agetxt);
         EditText pace = (EditText) findViewById(R.id.pacetxt);
@@ -102,6 +106,9 @@ public class EventCreation extends AppCompatActivity implements AdapterView.OnIt
             returnIntent.putExtra("details", strDetails);
 //            returnIntent.putExtra("event_type", eventSelected);
             setResult(RESULT_OK, returnIntent);
+            Log.d("Event", strType);
+            db.insertEvent(strType, strAge, strPace, strLevel, strLocation, strTime, strDetails);
+            Toast.makeText(EventCreation.this, "Event type " + strType + " has been created.", Toast.LENGTH_LONG).show();
             finish();
         }
 

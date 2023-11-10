@@ -27,15 +27,6 @@ public class Admin extends Account {
         dbAdmin.deleteClub(club.getClubName());
     }
 
-    public void createEvent(EventType eventType){
-        dbAdmin.insertEvent(eventType.getName(), eventType.getAge(), eventType.getPace(), eventType.getLevel(), eventType.getLocation(), eventType.getTime(), eventType.getDetails());
-    }
-    public void deleteEvent(EventType eventType){
-        dbAdmin.deleteEvent(eventType.getName());
-    }
-    public void updateEvent(EventType eventType, String category, String info){
-        dbAdmin.updateEvent(eventType.getName(), category, info);
-    }
 
     public void addParticipant(Club club, Participant participant){ // add a participant to a club, will have to change for future use
         dbClubs.addParticipant(club.getClubName(), participant.name, participant.username, participant.password); // delete participant from a club table
