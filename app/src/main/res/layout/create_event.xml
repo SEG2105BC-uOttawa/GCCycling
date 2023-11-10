@@ -66,11 +66,14 @@
                     android:layout_height="wrap_content"
                     android:text="  Event Type:" />
 
-                <Spinner
-                    android:id="@+id/eventType"
-                    android:layout_width="match_parent"
+                <EditText
+                    android:id="@+id/eventTypetxt"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:spinnerMode="dropdown" />
+                    android:ems="10"
+                    android:hint="Enter Event Title"
+                    android:inputType="text" />
+
             </TableRow>
 
             <TableRow
