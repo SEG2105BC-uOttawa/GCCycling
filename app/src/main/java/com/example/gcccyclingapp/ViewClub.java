@@ -50,7 +50,7 @@ public class ViewClub extends AppCompatActivity{
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        DB.deleteParticipant(clubName);
+                        DB.deleteClub(clubName);
                         refreshListView();
                         Toast.makeText(ViewClub.this, "Participant " + clubName + " has been deleted.", Toast.LENGTH_LONG).show();
                     }
