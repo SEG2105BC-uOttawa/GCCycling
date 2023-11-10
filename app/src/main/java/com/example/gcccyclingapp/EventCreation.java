@@ -2,6 +2,7 @@ package com.example.gcccyclingapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -9,10 +10,10 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class eventCreation extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class EventCreation extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     String eventSelected;
 
@@ -29,6 +30,18 @@ public class eventCreation extends AppCompatActivity implements AdapterView.OnIt
 
         eventType.setAdapter(ad);
 
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            this.finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {

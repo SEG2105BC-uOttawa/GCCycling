@@ -1,8 +1,10 @@
 package com.example.gcccyclingapp;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -25,6 +27,9 @@ public class ViewParticipant extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.participantList);
         listView.setAdapter(adapter);
 
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             public void onItemClick(AdapterView<?> parent, View view, int position, long id){
 
@@ -37,6 +42,15 @@ public class ViewParticipant extends AppCompatActivity {
                 Toast.makeText(ViewParticipant.this, "Participant " + selectedParticipantName + " Has Been Deleted.", Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            this.finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void refreshListView(){

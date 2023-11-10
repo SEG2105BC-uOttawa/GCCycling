@@ -66,7 +66,7 @@ public class Welcome extends AppCompatActivity {
         }
 
         public void createEvent(View view) {
-            Intent i = new Intent(getApplicationContext(), eventCreation.class);
+            Intent i = new Intent(getApplicationContext(), EventCreation.class);
             startActivityForResult(i, LAUNCH_EVENT_CREATION);
         }
 
