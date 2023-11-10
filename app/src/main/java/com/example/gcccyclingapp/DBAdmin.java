@@ -139,20 +139,23 @@ public class DBAdmin extends SQLiteOpenHelper{
 
     public void deleteClub(String clubName){ // change to work with Club class
         SQLiteDatabase db = this.getWritableDatabase(); // for insert actions
+        Log.d("function", "deleteClub");
 
         try {
-            String addClubStatement = "DELETE FROM " + CLUB_TABLE + " WHERE " + CLUB_USERNAME +" = '" + clubName + "'";
-            db.execSQL(addClubStatement);
+            String delClubStatement = "DELETE FROM " + CLUB_TABLE + " WHERE " + CLUB_USERNAME +" = '" + clubName + "'";
+            db.execSQL(delClubStatement);
+            Log.d("Deleted", clubName+" was removed from database");
         } catch (Exception e){
             Log.d("Error", "Can't delete null value");
         }
     }
-    public void deleteParticipant(String clubName){ // change to work with Club class
+    public void deleteParticipant(String participant){ // change to work with Club class
         SQLiteDatabase db = this.getWritableDatabase(); // for insert actions
 
         try {
-            String addClubStatement = "DELETE FROM " + PARTICIPANT_TABLE + " WHERE " + PARTICIPANT_USERNAME +" = '" + clubName + "'";
+            String addClubStatement = "DELETE FROM " + PARTICIPANT_TABLE + " WHERE " + PARTICIPANT_USERNAME +" = '" + participant + "'";
             db.execSQL(addClubStatement);
+            Log.d("Deleted", participant+" was removed from database");
         } catch (Exception e){
             Log.d("Error", "Can't delete null value");
         }

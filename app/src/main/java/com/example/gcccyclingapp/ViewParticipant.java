@@ -7,10 +7,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.Toast;
 
 public class ViewParticipant extends AppCompatActivity {
-
     ListView listView;
     DBAdmin DB;
     @Override
@@ -21,7 +21,7 @@ public class ViewParticipant extends AppCompatActivity {
         DB = new DBAdmin(this);
         String[] participantNames = DB.getAllParticipants();
 
-        ArrayAdapter adapter = new ArrayAdapter<String>(this, R.layout.activity_view_participant, participantNames);
+        ArrayAdapter<String> adapter = new ArrayAdapter(this, R.layout.account_list_item, R.id.list_item, participantNames);
         listView = (ListView) findViewById(R.id.participantList);
         listView.setAdapter(adapter);
 
@@ -30,7 +30,7 @@ public class ViewParticipant extends AppCompatActivity {
 
                 String selectedParticipantName = (String) parent.getItemAtPosition(position);
 
-                DB.deleteClub(selectedParticipantName);
+                DB.deleteParticipant(selectedParticipantName);
 
                 refreshListView();
 
@@ -43,7 +43,7 @@ public class ViewParticipant extends AppCompatActivity {
 
         String[] participantNames = DB.getAllParticipants();
 
-        ArrayAdapter adapter = new ArrayAdapter<String>(this, R.layout.activity_view_participant, participantNames);
+        ArrayAdapter adapter = new ArrayAdapter<String>(this, R.layout.account_list_item, R.id.list_item, participantNames);
         listView.setAdapter(adapter);
     }
 

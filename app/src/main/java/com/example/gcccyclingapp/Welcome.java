@@ -29,7 +29,7 @@ public class Welcome extends AppCompatActivity {
             }
 
             TextView welcometxt = (TextView) findViewById(R.id.txtWelcome);
-            welcometxt.setText("Welcome " + name + " you are logged in as " + role);
+            welcometxt.setText("Welcome " + name + "!\nYou are logged in as " + role);
 
             if(role.equals("admin")){
                 Button setEvent = (Button) findViewById(R.id.createEventBtn);

@@ -21,7 +21,7 @@ public class ViewClub extends AppCompatActivity{
         DB = new DBAdmin(this);
         String[] clubNames = DB.getAllClubs();
 
-        ArrayAdapter adapter = new ArrayAdapter<String>(this, R.layout.activity_view_club, clubNames);
+        ArrayAdapter adapter = new ArrayAdapter<String>(this, R.layout.account_list_item, R.id.list_item, clubNames);
         listView = (ListView) findViewById(R.id.clubList);
         listView.setAdapter(adapter);
 
@@ -43,7 +43,7 @@ public class ViewClub extends AppCompatActivity{
 
         String[] clubNames = DB.getAllClubs();
 
-        ArrayAdapter adapter = new ArrayAdapter<String>(this, R.layout.activity_view_club, clubNames);
+        ArrayAdapter adapter = new ArrayAdapter<String>(this, R.layout.account_list_item, R.id.list_item, clubNames);
         listView.setAdapter(adapter);
     }
 
