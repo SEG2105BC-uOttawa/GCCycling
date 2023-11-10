@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 public class Welcome extends AppCompatActivity {
 
     int LAUNCH_EVENT_CREATION = 1;
+    Button btnParticipant;
+    Button btnClub;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -33,12 +35,39 @@ public class Welcome extends AppCompatActivity {
                 Button setEvent = (Button) findViewById(R.id.createEventBtn);
                 setEvent.setVisibility(View.VISIBLE);
             }
+
+            if(role.equals("admin")) {
+                Button setEvent = (Button) findViewById(R.id.viewParticipantsBtn);
+                setEvent.setVisibility(View.VISIBLE);
+            }
+
+            if(role.equals("admin")) {
+                Button setEvent = (Button) findViewById(R.id.viewClubsBtn);
+                setEvent.setVisibility(View.VISIBLE);
+            }
+
+            btnParticipant = findViewById(R.id.viewParticipantsBtn);
+            btnClub = findViewById(R.id.viewClubsBtn);
+            btnParticipant.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(Welcome.this, ViewParticipant.class);
+                    startActivity(intent);
+                }
+            });
+
+            btnClub.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(Welcome.this, ViewClub.class);
+                    startActivity(intent);
+                }
+            });
         }
 
         public void createEvent(View view) {
             Intent i = new Intent(getApplicationContext(), eventCreation.class);
             startActivityForResult(i, LAUNCH_EVENT_CREATION);
-
         }
 
     @Override
