@@ -1,8 +1,10 @@
 package com.example.gcccyclingapp;
 
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,15 +35,31 @@ public class ViewClub extends AppCompatActivity{
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             public void onItemClick(AdapterView<?> parent, View view, int position, long id){
 
-                String selectedClubName = (String) parent.getItemAtPosition(position);
+                final String selectedClubName = (String) parent.getItemAtPosition(position);
 
-                DB.deleteClub(selectedClubName);
-
-                refreshListView();
-
-                Toast.makeText(ViewClub.this, "Club " + selectedClubName + " Has Been Deleted.", Toast.LENGTH_LONG).show();
+                deleteConfirmationPopUp(selectedClubName);
             }
         });
+    }
+
+    private void deleteConfirmationPopUp(final String clubName){
+        AlertDialog.Builder popUp = new AlertDialog.Builder(this);
+        popUp.setTitle("Confirm Deletion")
+                .setIcon(android.R.drawable.ic_delete)
+                .setMessage("Are you sure you want to delete club: " + clubName + " ?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        DB.deleteParticipant(clubName);
+                        refreshListView();
+                        Toast.makeText(ViewClub.this, "Participant " + clubName + " has been deleted.", Toast.LENGTH_LONG).show();
+                    }
+                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // don't do anything.
+                    }
+                }).show();
     }
 
     @Override

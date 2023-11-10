@@ -1,8 +1,10 @@
 package com.example.gcccyclingapp;
 
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,15 +35,31 @@ public class ViewParticipant extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             public void onItemClick(AdapterView<?> parent, View view, int position, long id){
 
-                String selectedParticipantName = (String) parent.getItemAtPosition(position);
+                final String selectedParticipantName = (String) parent.getItemAtPosition(position);
 
-                DB.deleteParticipant(selectedParticipantName);
-
-                refreshListView();
-
-                Toast.makeText(ViewParticipant.this, "Participant " + selectedParticipantName + " Has Been Deleted.", Toast.LENGTH_LONG).show();
+                deleteConfirmationPopUp(selectedParticipantName);
             }
         });
+    }
+
+    private void deleteConfirmationPopUp(final String participantName){
+        AlertDialog.Builder popUp = new AlertDialog.Builder(this);
+        popUp.setTitle("Confirm Deletion")
+                .setIcon(android.R.drawable.ic_delete)
+                .setMessage("Are you sure you want to delete participant: " + participantName + " ?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        DB.deleteParticipant(participantName);
+                        refreshListView();
+                        Toast.makeText(ViewParticipant.this, "Participant " + participantName + " has been deleted.", Toast.LENGTH_LONG).show();
+                    }
+                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // don't do anything.
+                    }
+                }).show();
     }
 
     @Override
