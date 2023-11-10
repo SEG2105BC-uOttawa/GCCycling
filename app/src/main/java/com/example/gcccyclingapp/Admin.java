@@ -1,6 +1,7 @@
 package com.example.gcccyclingapp;
 
 import android.content.Context;
+import android.media.metrics.Event;
 
 public class Admin extends Account {
     DBAdmin dbAdmin;
@@ -24,6 +25,16 @@ public class Admin extends Account {
     public void deleteClub(DBAdmin dbAdmin, DBClubs dbClubs, Club club){
 //        dbClubs.deleteTable(club.getClubName());
         dbAdmin.deleteClub(club.getClubName());
+    }
+
+    public void createEvent(EventType eventType){
+        dbAdmin.insertEvent(eventType.getName(), eventType.getAge(), eventType.getPace(), eventType.getLevel(), eventType.getLocation(), eventType.getTime(), eventType.getDetails());
+    }
+    public void deleteEvent(EventType eventType){
+        dbAdmin.deleteEvent(eventType.getName());
+    }
+    public void updateEvent(EventType eventType, String category, String info){
+        dbAdmin.updateEvent(eventType.getName(), category, info);
     }
 
     public void addParticipant(Club club, Participant participant){ // add a participant to a club, will have to change for future use
