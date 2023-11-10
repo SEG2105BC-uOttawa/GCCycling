@@ -70,6 +70,8 @@ public class DBAdmin extends SQLiteOpenHelper{
     public boolean verifyLogin(String username, String pwd){
         SQLiteDatabase db = this.getReadableDatabase();
 
+        username = username.trim();
+
         Log.d("user", username);
         Log.d("pwd", pwd);
 
@@ -82,14 +84,14 @@ public class DBAdmin extends SQLiteOpenHelper{
             Log.d("count", countP);
             cursorP.close();
             cursorC.close();
-            Log.d("message", "True credintials");
+            Log.d("message", "True credentials");
             return true;
         }
         String countP = String.valueOf(cursorP.getCount());
         Log.d("count", countP);
         cursorP.close();
         cursorC.close();
-        Log.d("message", "False credintials");
+        Log.d("message", "False credentials");
         return false;
     }
 

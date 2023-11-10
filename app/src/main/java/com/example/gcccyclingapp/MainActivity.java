@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         DBAdmin dbAdmin = new DBAdmin(getApplicationContext());
         EditText username = (EditText) findViewById(R.id.edtTxtUsername);
         EditText password = (EditText) findViewById(R.id.edtTxtPassword);
-        String strUsername = username.getText().toString();
+        String strUsername = username.getText().toString().trim();
         String strPassword = password.getText().toString();
         //place holder to make sure that we can use this if statement, you can change the if conditions if you have to
         //using admin for username and password just to test change to be more general
