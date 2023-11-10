@@ -34,7 +34,7 @@ public class ViewClub extends AppCompatActivity{
 
                 refreshListView();
 
-                Toast.makeText(ViewClub.this, "Club " + selectedClubName + "Has Been Deleted.", Toast.LENGTH_LONG).show();
+                Toast.makeText(ViewClub.this, "Club " + selectedClubName + " Has Been Deleted.", Toast.LENGTH_LONG).show();
             }
         });
     }

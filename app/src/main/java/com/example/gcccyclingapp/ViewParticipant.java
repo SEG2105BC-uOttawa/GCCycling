@@ -34,7 +34,7 @@ public class ViewParticipant extends AppCompatActivity {
 
                 refreshListView();
 
-                Toast.makeText(ViewParticipant.this, "Participant " + selectedParticipantName + "Has Been Deleted.", Toast.LENGTH_LONG).show();
+                Toast.makeText(ViewParticipant.this, "Participant " + selectedParticipantName + " Has Been Deleted.", Toast.LENGTH_LONG).show();
             }
         });
     }
