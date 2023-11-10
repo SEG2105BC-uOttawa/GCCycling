@@ -13,7 +13,7 @@ import java.io.IOException;
 
 public class DBAdmin extends SQLiteOpenHelper{
 
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 3;
     public static final String DATABASE_NAME = "admin.db";
 
     public static final String CLUB_TABLE = "CLUB_TABLE";
@@ -51,15 +51,16 @@ public class DBAdmin extends SQLiteOpenHelper{
     public void onCreate(SQLiteDatabase db) { // this is called when the database is first accessed
         String createClubTableStatement = "CREATE TABLE " + CLUB_TABLE + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, " + CLUB_NAME +" TEXT, " + CLUB_USERNAME +" TEXT, " + CLUB_PASSWORD + " TEXT)";
         String createParticipantTableStatement = "CREATE TABLE " + PARTICIPANT_TABLE + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, " + PARTICIPANT_NAME + " TEXT, " + PARTICIPANT_USERNAME +" TEXT, " + PARTICIPANT_PASSWORD + " TEXT)";
-        String createEventTableStatement = "CREATE TABLE "
-                + EVENTS_TABLE + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, "
+        String createEventTableStatement = "CREATE TABLE " + EVENTS_TABLE + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + EVENT_TYPE +" TEXT, "
                 + EVENT_AGE +" TEXT, "
                 + EVENT_PACE + " TEXT, "
                 + EVENT_LEVEL + " TEXT, "
                 + EVENT_LOCATION + " TEXT, "
                 + EVENT_TIME + " TEXT, "
-                + EVENT_DETAILS + "TEXT)";
+                + EVENT_DETAILS + " TEXT)";
+
+        Log.d("Create event table", createEventTableStatement);
 
         db.execSQL(createClubTableStatement);
         db.execSQL(createParticipantTableStatement);
@@ -68,7 +69,12 @@ public class DBAdmin extends SQLiteOpenHelper{
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) { // called if database version number changes
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + CLUB_TABLE);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + PARTICIPANT_TABLE);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + EVENTS_TABLE);
 
+        // Recreate the tables
+        onCreate(sqLiteDatabase);
     }
 
     public void insertClub(String clubName, String clubUser, String clubPWD){ // change to work with Club class
@@ -103,6 +109,8 @@ public class DBAdmin extends SQLiteOpenHelper{
         cv.put(EVENT_LOCATION, eventLocation);
         cv.put(EVENT_TIME, eventTime);
         cv.put(EVENT_DETAILS, eventDetails);
+
+        Log.d("DB", "Event added");
 
 
         db.insert(EVENTS_TABLE, null, cv);
@@ -244,6 +252,7 @@ public class DBAdmin extends SQLiteOpenHelper{
                 break;
             case "level":
                 cv.put(EVENT_LEVEL, info);
+                break;
             case "location":
                 cv.put(EVENT_LOCATION, info);
                 break;

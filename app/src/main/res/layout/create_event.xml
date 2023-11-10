@@ -32,14 +32,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="60dp"
-            android:layout_marginTop="31dp"
             android:layout_marginEnd="60dp"
             android:text="Enter Details About Event Below:"
             android:textColor="#03A9F4"
             android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/detailstxt"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/eventInfoTable" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -50,11 +49,12 @@
         <TableLayout
             android:id="@+id/eventInfoTable"
             android:layout_width="410dp"
-            android:layout_height="254dp"
-            android:layout_marginBottom="355dp"
+            android:layout_height="280dp"
+            android:layout_marginBottom="300dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/eventtxt">
 
             <TableRow
                 android:layout_width="match_parent"
@@ -155,7 +155,7 @@
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/textView10"
@@ -166,7 +166,7 @@
                 <EditText
                     android:id="@+id/timetxt"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="55dp"
                     android:ems="10"
                     android:hint="Enter Time"
                     android:inputType="text" />
@@ -176,8 +176,8 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/detailstxt"
-            android:layout_width="406dp"
-            android:layout_height="166dp"
+            android:layout_width="411dp"
+            android:layout_height="144dp"
             android:layout_marginBottom="128dp"
             android:hint="Enter Details"
             android:lines="5"
@@ -206,7 +206,7 @@
             android:layout_marginEnd="148dp"
             android:layout_marginBottom="41dp"
             android:onClick="set"
-            android:text="Set Event"
+            android:text="SetEvent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
