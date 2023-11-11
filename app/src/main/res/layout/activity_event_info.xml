@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/eventCreateLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/eventtxt"
+            android:layout_width="300dp"
+            android:layout_height="69dp"
+            android:layout_marginStart="77dp"
+            android:layout_marginTop="36dp"
+            android:layout_marginEnd="77dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="Event Information"
+            android:textColor="#03A9F4"
+            android:textSize="34sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:layout_marginEnd="60dp"
+            android:text="Details About Event Below:"
+            android:textColor="#03A9F4"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/detailstxt"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/eventInfoTable" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TableLayout
+            android:id="@+id/eventInfoTable"
+            android:layout_width="410dp"
+            android:layout_height="280dp"
+            android:layout_marginBottom="300dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/eventtxt">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="63dp">
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="142dp"
+                    android:layout_height="50dp"
+                    android:text="  Event Type:" />
+
+                <TextView
+                    android:id="@+id/eventTypetxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:ems="10"
+                    android:inputType="text" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:text="  Set Minimum Age Requirement: " />
+
+                <TextView
+                    android:id="@+id/agetxt"
+                    android:layout_width="203dp"
+                    android:layout_height="match_parent"
+                    android:ems="10"
+                    android:inputType="text" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:text="  Set Pace:" />
+
+                <TextView
+                    android:id="@+id/pacetxt"
+                    android:layout_width="197dp"
+                    android:layout_height="match_parent"
+                    android:ems="10"
+                    android:inputType="text" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:text="  Minimum Level:" />
+
+                <TextView
+                    android:id="@+id/leveltxt"
+                    android:layout_width="201dp"
+                    android:layout_height="match_parent"
+                    android:ems="10"
+                    android:inputType="text" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:text="  Location:" />
+
+                <TextView
+                    android:id="@+id/locationtxt"
+                    android:layout_width="199dp"
+                    android:layout_height="match_parent"
+                    android:ems="10"
+                    android:inputType="text" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/textView10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:text="  Time of Event:" />
+
+                <TextView
+                    android:id="@+id/timetxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="55dp"
+                    android:ems="10"
+                    android:inputType="text" />
+            </TableRow>
+
+        </TableLayout>
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/detailstxt"
+            android:layout_width="405dp"
+            android:layout_height="252dp"
+            android:lines="5"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

@@ -15,7 +15,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class EventCreation extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class EventCreation extends AppCompatActivity {
 
     String eventSelected;
 
@@ -24,14 +24,6 @@ public class EventCreation extends AppCompatActivity implements AdapterView.OnIt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_event);
-
-//        Spinner eventType = findViewById(R.id.eventType);
-//        String[] event_types = {"TT", "Hill Climb", "Road Stage Race", "Road Race", "Group Rides"};
-//        ArrayAdapter ad = new ArrayAdapter(this, android.R.layout.simple_spinner_item, event_types);
-
-//        ad.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-//        eventType.setAdapter(ad);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -47,13 +39,7 @@ public class EventCreation extends AppCompatActivity implements AdapterView.OnIt
         return super.onOptionsItemSelected(item);
     }
 
-    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-        eventSelected = parent.getItemAtPosition(pos).toString();
-    }
 
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-    }
 
 
     public void set(View view) {

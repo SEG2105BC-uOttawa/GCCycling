@@ -1,5 +1,6 @@
 package com.example.gcccyclingapp;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -190,15 +191,41 @@ public class DBAdmin extends SQLiteOpenHelper{
     public String[] getAllEvents(){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursorEvents = db.rawQuery("SELECT "+ EVENT_TYPE + " FROM " + EVENTS_TABLE, null);
-        String[] eventIDs = new String[cursorEvents.getCount()];
+        String[] eventNames = new String[cursorEvents.getCount()];
 
         int i = 0;
         while (cursorEvents.moveToNext()){
-            eventIDs[i] = cursorEvents.getString(0); //only one column selected
+            eventNames[i] = cursorEvents.getString(0); //only one column selected
             i++;
         }
         cursorEvents.close();
-        return eventIDs; // returns array of event ID's, use ID to get event information when putting on screen
+        return eventNames;
+    }
+
+    @SuppressLint("Range")
+    public String[] getEventInfo(String eventType){
+        SQLiteDatabase db = this.getReadableDatabase();
+//        Cursor cursor = db.rawQuery("SELECT " + EVENT_AGE + " FROM " + EVENTS_TABLE + " WHERE EVENT_TYPE = '" + eventType +"'", null);
+        Cursor cursor = db.rawQuery("SELECT * FROM " + EVENTS_TABLE + " WHERE EVENT_TYPE = '" + eventType + "'", null); // get all col info for specific event type
+        String[] eventInfo;
+
+        if (cursor.moveToFirst()) {
+            String[] columnNames = cursor.getColumnNames();
+
+            eventInfo = new String[columnNames.length];
+
+            // Get col values
+            for (int i = 0; i < columnNames.length; i++) {
+                eventInfo[i] = cursor.getString(cursor.getColumnIndex(columnNames[i]));
+                Log.d("eventInfo:", columnNames[i] + ": " + eventInfo[i]);
+            }
+        } else {
+            Log.d("getEventInfo", "No rows found for eventType: " + eventType);
+            eventInfo = new String[0];
+        }
+
+        cursor.close();
+        return eventInfo;
     }
 
     public void deleteClub(String clubName){ // change to work with Club class
@@ -236,35 +263,19 @@ public class DBAdmin extends SQLiteOpenHelper{
         }
     }
 
-    public void updateEvent(String eventType, String category, String info){
+    public void updateEvent(String prevEventType, String eventType, String eventAge, String eventPace, String eventLevel, String eventLocation, String eventTime, String eventDetails){
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues cv = new ContentValues();
 
-        switch(category){
-            case "type":
-                cv.put(EVENT_TYPE, info);
-                break;
-            case "age":
-                cv.put(EVENT_AGE, info);
-                break;
-            case "pace":
-                cv.put(EVENT_PACE, info);
-                break;
-            case "level":
-                cv.put(EVENT_LEVEL, info);
-                break;
-            case "location":
-                cv.put(EVENT_LOCATION, info);
-                break;
-            case "time":
-                cv.put(EVENT_TIME, info);
-                break;
-            case "details":
-                cv.put(EVENT_DETAILS, info);
-                break;
-        }
+        Log.d("DB", "Event updated");
 
-        db.update(EVENTS_TABLE, cv, "EVENT_TYPE = ?", new String[]{eventType});
+        db.execSQL("UPDATE "+ EVENTS_TABLE + " SET " + EVENT_TYPE + " = '" + eventType + "' WHERE " + EVENT_TYPE + " = '" + prevEventType + "'");
+        db.execSQL("UPDATE "+ EVENTS_TABLE + " SET " + EVENT_AGE + " = '" + eventAge + "' WHERE " + EVENT_TYPE + " = '" + prevEventType + "'");
+        db.execSQL("UPDATE "+ EVENTS_TABLE + " SET " + EVENT_PACE + " = '" + eventPace + "' WHERE " + EVENT_TYPE + " = '" + prevEventType + "'");
+        db.execSQL("UPDATE "+ EVENTS_TABLE + " SET " + EVENT_LEVEL + " = '" + eventLevel + "' WHERE " + EVENT_TYPE + " = '" + prevEventType + "'");
+        db.execSQL("UPDATE "+ EVENTS_TABLE + " SET " + EVENT_LOCATION + " = '" + eventLocation + "' WHERE " + EVENT_TYPE + " = '" + prevEventType + "'");
+        db.execSQL("UPDATE "+ EVENTS_TABLE + " SET " + EVENT_TIME + " = '" + eventTime + "' WHERE " + EVENT_TYPE + " = '" + prevEventType + "'");
+        db.execSQL("UPDATE "+ EVENTS_TABLE + " SET " + EVENT_DETAILS + " = '" + eventDetails + "' WHERE " + EVENT_TYPE + " = '" + prevEventType + "'");
+
 
     }
 
