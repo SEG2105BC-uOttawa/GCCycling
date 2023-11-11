@@ -26,15 +26,15 @@ public class EventInfo extends AppCompatActivity {
 
         DBAdmin db = new DBAdmin(this);
 
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
 //        String name = "no name";
 
         Bundle bundle = getIntent().getExtras();
         if(bundle.getString("name")!=null){
             name = bundle.getString("name");
         }
-
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
 
         TextView type = (TextView) findViewById(R.id.eventTypetxt);
         TextView age = (TextView) findViewById(R.id.agetxt);
@@ -59,5 +59,14 @@ public class EventInfo extends AppCompatActivity {
 //            Log.d("info", s);
 //        }
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            this.finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
