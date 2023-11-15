@@ -21,6 +21,9 @@ public class DBAdmin extends SQLiteOpenHelper{
     public static final String CLUB_NAME = "CLUB_NAME";
     public static final String CLUB_USERNAME = "CLUB_USERNAME";
     public static final String CLUB_PASSWORD = "CLUB_PASSWORD";
+    public static final String CLUB_LINK = "CLUB_LINK";
+    public static final String CLUB_CONTACT = "CLUB_CONTACT";
+    public static final String CLUB_PHONE = "CLUB_PHONE";
 
     public static final String PARTICIPANT_TABLE = "PARTICIPANT_TABLE";
     public static final String PARTICIPANT_NAME = "PARTICIPANT_NAME";
@@ -50,7 +53,14 @@ public class DBAdmin extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase db) { // this is called when the database is first accessed
-        String createClubTableStatement = "CREATE TABLE " + CLUB_TABLE + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, " + CLUB_NAME +" TEXT, " + CLUB_USERNAME +" TEXT, " + CLUB_PASSWORD + " TEXT)";
+        String createClubTableStatement = "CREATE TABLE "
+                + CLUB_TABLE + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + CLUB_NAME +" TEXT, "
+                + CLUB_USERNAME +" TEXT, "
+                + CLUB_PASSWORD +" TEXT, "
+                + CLUB_LINK +" TEXT, "
+                + CLUB_CONTACT +" TEXT, "
+                + CLUB_PHONE + " TEXT)";
         String createParticipantTableStatement = "CREATE TABLE " + PARTICIPANT_TABLE + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, " + PARTICIPANT_NAME + " TEXT, " + PARTICIPANT_USERNAME +" TEXT, " + PARTICIPANT_PASSWORD + " TEXT)";
         String createEventTableStatement = "CREATE TABLE " + EVENTS_TABLE + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + EVENT_TYPE +" TEXT, "
@@ -275,8 +285,15 @@ public class DBAdmin extends SQLiteOpenHelper{
         db.execSQL("UPDATE "+ EVENTS_TABLE + " SET " + EVENT_LOCATION + " = '" + eventLocation + "' WHERE " + EVENT_TYPE + " = '" + prevEventType + "'");
         db.execSQL("UPDATE "+ EVENTS_TABLE + " SET " + EVENT_TIME + " = '" + eventTime + "' WHERE " + EVENT_TYPE + " = '" + prevEventType + "'");
         db.execSQL("UPDATE "+ EVENTS_TABLE + " SET " + EVENT_DETAILS + " = '" + eventDetails + "' WHERE " + EVENT_TYPE + " = '" + prevEventType + "'");
+    }
+    public void completeClubAccount(String clubName, String link, String contactName, String phone){
+        SQLiteDatabase db = this.getWritableDatabase();
 
+        Log.d("DB", "Club updated");
 
+        db.execSQL("UPDATE "+ CLUB_TABLE + " SET " + CLUB_LINK + " = '" + link  + "' WHERE " + CLUB_NAME + " = '" + clubName + "'");
+        db.execSQL("UPDATE "+ CLUB_TABLE + " SET " + CLUB_CONTACT + " = '" + contactName  + "' WHERE " + CLUB_NAME + " = '" + clubName + "'");
+        db.execSQL("UPDATE "+ CLUB_TABLE + " SET " + CLUB_PHONE + " = '" + phone  + "' WHERE " + CLUB_NAME + " = '" + clubName + "'");
     }
 
 }

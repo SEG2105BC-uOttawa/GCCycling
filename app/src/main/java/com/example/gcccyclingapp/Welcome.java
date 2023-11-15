@@ -14,6 +14,7 @@ public class Welcome extends AppCompatActivity {
     Button btnParticipant;
     Button btnClub;
     Button btnEvent;
+    public Admin admin;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,7 @@ public class Welcome extends AppCompatActivity {
             welcometxt.setText("Welcome " + name + "!\nYou are logged in as " + role);
 
             if(role.equals("admin")){
+                admin = new Admin(this);
                 Button setEvent = (Button) findViewById(R.id.createEventBtn);
                 setEvent.setVisibility(View.VISIBLE);
             }
