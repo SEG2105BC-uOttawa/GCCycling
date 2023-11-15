@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:visibility="invisible">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -17,12 +18,12 @@
             android:layout_marginStart="55dp"
             android:layout_marginTop="107dp"
             android:layout_marginEnd="55dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:gravity="center"
             android:textSize="21sp"
             android:textStyle="bold"
-            android:gravity="center"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/createEventBtn"
@@ -76,6 +77,18 @@
             android:minWidth="190dp"
             android:onClick="createEvent"
             android:text="View Clubs"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <Button
+            android:id="@+id/completeClubBtn"
+            android:layout_width="192dp"
+            android:layout_height="57dp"
+            android:layout_marginEnd="110dp"
+            android:layout_marginBottom="63dp"
+            android:onClick="completeAccount"
+            android:text="Complete Account"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
