@@ -19,8 +19,6 @@ public class MainActivity extends AppCompatActivity {
 
         DBAdmin db = new DBAdmin(this);
 
-        db.completeClubAccount("club", "test", "test", "test");
-
     }
     
 
