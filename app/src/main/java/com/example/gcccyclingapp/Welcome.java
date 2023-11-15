@@ -54,6 +54,11 @@ public class Welcome extends AppCompatActivity {
                 setEvent.setVisibility(View.VISIBLE);
             }
 
+            if(role.equals("Club Owner")){
+                Button completeAccount = (Button) findViewById(R.id.completeClubBtn);
+                completeAccount.setVisibility(View.VISIBLE);
+            }
+
             btnParticipant = findViewById(R.id.viewParticipantsBtn);
             btnClub = findViewById(R.id.viewClubsBtn);
             btnEvent = findViewById(R.id.viewEventsBtn);
@@ -85,6 +90,11 @@ public class Welcome extends AppCompatActivity {
         public void createEvent(View view) {
             Intent i = new Intent(getApplicationContext(), EventCreation.class);
             startActivityForResult(i, LAUNCH_EVENT_CREATION);
+        }
+
+        public void completeAccount(View view) {
+            Intent i = new Intent(getApplicationContext(), CompleteAccount.class);
+            startActivity(i);
         }
 
     @Override
