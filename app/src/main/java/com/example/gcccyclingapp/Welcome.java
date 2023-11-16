@@ -14,6 +14,7 @@ public class Welcome extends AppCompatActivity {
     Button btnParticipant;
     Button btnClub;
     Button btnEvent;
+    Button btnComplete;
     public Admin admin;
 
         @Override
@@ -55,13 +56,14 @@ public class Welcome extends AppCompatActivity {
             }
 
             if(role.equals("Club Owner")){
-                Button completeAccount = (Button) findViewById(R.id.completeClubBtn);
-                completeAccount.setVisibility(View.VISIBLE);
+                Button setEvent = (Button) findViewById(R.id.completeClubBtn);
+                setEvent.setVisibility(View.VISIBLE);
             }
 
             btnParticipant = findViewById(R.id.viewParticipantsBtn);
             btnClub = findViewById(R.id.viewClubsBtn);
             btnEvent = findViewById(R.id.viewEventsBtn);
+            btnComplete = findViewById(R.id.completeClubBtn);
             btnParticipant.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -85,16 +87,19 @@ public class Welcome extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
+
+            btnComplete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(Welcome.this, CompleteAccount.class);
+                    startActivity(intent);
+                }
+            });
         }
 
         public void createEvent(View view) {
             Intent i = new Intent(getApplicationContext(), EventCreation.class);
             startActivityForResult(i, LAUNCH_EVENT_CREATION);
-        }
-
-        public void completeAccount(View view) {
-            Intent i = new Intent(getApplicationContext(), CompleteAccount.class);
-            startActivity(i);
         }
 
     @Override

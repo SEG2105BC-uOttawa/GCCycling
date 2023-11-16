@@ -83,10 +83,12 @@
 
         <Button
             android:id="@+id/completeClubBtn"
-            android:layout_width="192dp"
-            android:layout_height="57dp"
-            android:layout_marginEnd="110dp"
-            android:layout_marginBottom="63dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="112dp"
+            android:layout_marginBottom="72dp"
+            android:maxWidth="190dp"
+            android:minWidth="190dp"
             android:onClick="completeAccount"
             android:text="Complete Account"
             android:visibility="invisible"
