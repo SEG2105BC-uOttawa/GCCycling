@@ -29,14 +29,14 @@ public class CompleteAccount extends AppCompatActivity {
         String strClubName = clubName.getText().toString();
 
         Boolean check = false;
-        if(strLink.equals("") || strNumber.equals("")){
+        if(Validate.isNotValidLink(strLink) || Validate.isNotValidPhoneNumber(strNumber)){
             TextView warning = (TextView) findViewById(R.id.warningtxt);
-            warning.setText("Either Social Media Link or Phone Number are missing please fill those out");
+            warning.setText("Either Social Media Link or Phone Number are incorrect please fill those out");
         } else {
             check = true;
         }
 
-        if(check == true){
+        if(check){
             db.completeClubAccount(strClubName,strLink,strName,strNumber);
             Toast.makeText(CompleteAccount.this, "Club " + strClubName + " has been created.", Toast.LENGTH_LONG).show();
             finish();

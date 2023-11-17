@@ -30,19 +30,25 @@ public class MainActivity extends AppCompatActivity {
         String strPassword = password.getText().toString();
         //place holder to make sure that we can use this if statement, you can change the if conditions if you have to
         //using admin for username and password just to test change to be more general
-        if (strUsername.equals("admin") && strPassword.equals("admin")) {
-            Intent i = new Intent(getApplicationContext(), Welcome.class);
-            i.putExtra("name", strUsername);
-            i.putExtra("role", "admin");
-            startActivity(i);
-        } else if (dbAdmin.verifyLogin(strUsername, strPassword)) {
-            Intent i = new Intent(getApplicationContext(), Welcome.class);
-            i.putExtra("name", strUsername);
-            i.putExtra("role", dbAdmin.getAccountType(strUsername, strPassword));
-            startActivity(i);
-        } else {
+        if (Validate.isValidUsername(strUsername)) {
+            if (strUsername.equals("admin") && strPassword.equals("admin")) {
+                Intent i = new Intent(getApplicationContext(), Welcome.class);
+                i.putExtra("name", strUsername);
+                i.putExtra("role", "admin");
+                startActivity(i);
+            } else if (dbAdmin.verifyLogin(strUsername, strPassword)) {
+                Intent i = new Intent(getApplicationContext(), Welcome.class);
+                i.putExtra("name", strUsername);
+                i.putExtra("role", dbAdmin.getAccountType(strUsername, strPassword));
+                startActivity(i);
+            } else {
+                TextView tv1 = (TextView) findViewById(R.id.txtTryAgain);
+                tv1.setText("Either password or username does not match");
+            }
+        }
+        else {
             TextView tv1 = (TextView) findViewById(R.id.txtTryAgain);
-            tv1.setText("Either password or username does not match");
+            tv1.setText("Illegal username.");
         }
     }
 
