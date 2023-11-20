@@ -1,102 +1,129 @@
 package com.example.gcccyclingapp;
-import android.content.ContentValues;
-import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
+import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteDatabase;
+import android.content.Context;
+import android.content.ContentValues;
+import android.util.Log;
+import android.database.Cursor;
+import android.widget.EditText;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-public class DBClubs extends SQLiteOpenHelper{
+public class DBClubs extends SQLiteOpenHelper {
 
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "clubs.db";
-    public static final String CLUB_NAME = "CLUB_NAME";
-    public static final String CLUB_LINK = "CLUB_LINK";
-    public static final String CLUB_CONTACT = "CLUB_CONTACT";
-    public static final String CLUB_PHONE = "CLUB_PHONE";
 
+//    public static final String CLUB = "club";
+//    public static final String CLUB_NAME = "clubName";
+//    public static final String CLUB_LINK = "clubLink";
+//    public static final String CLUB_CONTACT = "clubContact";
+//    public static final String CLUB_PHONE = "clubPhone";
+//    public static final String CLUB_EVENT = "clubEvent";
 
-    public DBClubs(@Nullable Context context) {
+//    EditText type = (EditText) findViewById(R.id.eventTypetxt);
+//    EditText age = (EditText) findViewById(R.id.agetxt);
+//    EditText pace = (EditText) findViewById(R.id.pacetxt);
+//    EditText level = (EditText) findViewById(R.id.leveltxt);
+//    EditText location = (EditText) findViewById(R.id.locationtxt);
+//    EditText time = (EditText) findViewById(R.id.timetxt);
+//    EditText details = (EditText) findViewById(R.id.detail
+
+    public static final String EVENT_NAME = "eventName";
+    public static final String EVENT_TYPE = "eventType";
+    public static final String EVENT_AGE = "eventAge";
+    public static final String EVENT_PACE = "eventPace";
+    public static final String EVENT_LEVEL = "eventLevel";
+    public static final String EVENT_LOCATION = "eventLocation";
+    public static final String EVENT_TIME = "eventTime";
+    public static final String EVENT_DETAILS = "eventDetails";
+
+    public DBClubs(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
-
-
     @Override
-    public void onCreate(SQLiteDatabase db) { // this is called when the database is first accessed
-        // start with no tables
+    public void onCreate(SQLiteDatabase db) {
+        // no tables will be created when the database is created
     }
 
-    @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) { // called if database version number changes
-//        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS *");
-//
-//
-//        // Recreate the tables
-//        onCreate(sqLiteDatabase);
-    }
-
-    public void createTable(String clubName){
+    // each club will get its own table
+    public void addClub(String clubName) {
         SQLiteDatabase db = getWritableDatabase();
-        String createTableStatement = "CREATE TABLE " + clubName +
-                " (ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                CLUB_NAME +" TEXT, " +
-                CLUB_LINK +" TEXT, " +
-                CLUB_CONTACT +" TEXT, " +
-                CLUB_PHONE +" TEXT)";
-
-        db.execSQL(createTableStatement);
-
-
+        String createClubTable = "CREATE TABLE " + clubName +
+                " ( INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                EVENT_NAME + " TEXT )";
+        db.execSQL(createClubTable);
         db.close();
-
-        Log.d("Club", clubName+" created");
-    }
-    public void deleteClub(String clubName){
-        Log.d("Club Name to be deleted", clubName);
-        SQLiteDatabase db = getWritableDatabase();
-        String deleteTableStatement = "DROP TABLE " + clubName;
-        db.execSQL(deleteTableStatement);
-        db.close();
-
-        Log.d("Club", clubName+" deleted");
+        Log.d("Club table ", clubName + " created");
     }
 
-    public void completeClubAccount(String clubName, String link, String contactName, String phone){
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        Log.d("DB", "Club updated");
-
-        db.execSQL("UPDATE "+ clubName + " SET " + CLUB_LINK + " = '" + link + "'");
-        db.execSQL("UPDATE "+ clubName + " SET " + CLUB_CONTACT + " = '" + contactName + "'");
-        db.execSQL("UPDATE "+ clubName + " SET " + CLUB_PHONE + " = '" + phone + "'");
-    }
-
-//    public void addParticipant(String clubName, String clubName, String participantUser, String participantPWD){
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        ContentValues cv = new ContentValues();
-//
-//        cv.put(CLUB_PARTICIPANT_NAME, participantName); // inserts data into club column
-//        cv.put(CLUB_PARTICIPANT_USERNAME, participantUser);
-//        cv.put(CLUB_PARTICIPANT_PASSWORD, participantPWD);
-//        db.insert(clubName, null, cv);
-//
-//        Log.d("Data Insert", "Participant added to "+clubName);
-//    }
-//    public void deleteParticipant(String clubName, String participantName){
-//        SQLiteDatabase db = this.getWritableDatabase();
-//
-//        db.delete(clubName, null, null);
-//        db.execSQL("DELETE FROM " + clubName + " WHERE " + CLUB_PARTICIPANT_NAME + " = " + participantName);
+//    public void addClub(String clubName){
+//        SQLiteDatabase db = getWritableDatabase();
+//        String createClubTable = "CREATE TABLE " + clubName +
+//                " ( INTEGER PRIMARY KEY AUTOINCREMENT, " +
+//                EVENT_NAME +" TEXT, " +
+//                EVENT_TYPE +" TEXT, " +
+//                EVENT_AGE +" TEXT, " +
+//                EVENT_PACE +" TEXT, " +
+//                EVENT_LEVEL +" TEXT, " +
+//                EVENT_LOCATION +" TEXT, " +
+//                EVENT_TIME +" TEXT, " +
+//                EVENT_DETAILS +" TEXT)";
+//        db.execSQL(createClubTable);
 //        db.close();
-//
-//        Log.d("Data Deleted", participantName+" deleted");
+//        Log.d("Club table ", clubName+" created");
 //    }
 
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+//        db.execSQL("DROP TABLE IF EXISTS " + EVENT_TABLE);
+//        onCreate(db);
+        //empty
+    }
 
 
+    // could possibly be simplified with an event class
+    public void addEvent(String clubName, Event event) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(EVENT_NAME, event.getName());
+        db.insert(clubName, null, values);
+        db.close();
+    }
 
+    public boolean findEvent(String clubName, String eventName) {
+        SQLiteDatabase db = this.getReadableDatabase();
 
+        String query = "Select * FROM " + clubName + " WHERE " + EVENT_NAME + " =\"" + eventName + "\"";
+        db.close();
+
+        if (query != null) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public void deleteEvent(String clubName, String event) {
+        Log.d("Event to be deleted", event);
+        SQLiteDatabase db = getWritableDatabase();
+        String query = "Select * FROM " + clubName;
+        db.delete(clubName, clubName, null);
+        db.close();
+        Log.d("Event", event + " from " + clubName + " deleted");
+    }
+
+//    public void completeClubAccount(String clubName, String link, String contactName, String phone) {
+//        SQLiteDatabase db = this.getWritableDatabase();
+//
+//        Log.d("DB", "Club updated");
+//
+//        db.execSQL("UPDATE " + clubName + " SET " + CLUB_LINK + " = '" + link + "'");
+//        db.execSQL("UPDATE " + clubName + " SET " + CLUB_CONTACT + " = '" + contactName + "'");
+//        db.execSQL("UPDATE " + clubName + " SET " + CLUB_PHONE + " = '" + phone + "'");
+//    }
 
 }
