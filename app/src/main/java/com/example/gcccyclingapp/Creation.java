@@ -49,9 +49,9 @@ public class Creation extends AppCompatActivity implements AdapterView.OnItemSel
             String strUsername = username.getText().toString();
             String strPassword = password.getText().toString();
 
-            if (strName.isEmpty() || strUsername.isEmpty() || strPassword.isEmpty()) {
+            if (Validate.isNotAlphaNumeric(strName) || !Validate.isValidUsername(strUsername) || strPassword.isEmpty()) {
                 TextView tv1 = (TextView) findViewById(R.id.txtIncomplete);
-                tv1.setText("Please fill in all fields.");
+                tv1.setText("Please fill in all fields with valid characters.");
             }
             else if (accountType.equals("Participant")) {
                 System.out.println("Participant");

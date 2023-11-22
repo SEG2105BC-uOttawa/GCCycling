@@ -63,27 +63,41 @@ public class EventCreation extends AppCompatActivity {
         String strDetails = details.getText().toString();
 //        event.setOnItemSelectedListener(this);
 
-        Boolean check = false;
+        Boolean check = true;
+        String warningText = "";
 
-        if (strLocation.equals("") || strTime.equals("") || strDetails.equals("")) {
-            TextView warning = (TextView) findViewById(R.id.warningtxt);
-            warning.setText("Either Location, Time, or Details are missing please fill those out");
-        } else {
-            check = true;
+        if (Validate.isNotAlphaNumeric(strLocation)) {
+            warningText += "Location is invalid. ";
+            check = false;
+        }
+        if (Validate.isNotValidTime(strTime)) {
+            warningText += "Time is invalid. ";
+            check = false;
+        }
+        if (strDetails.equals("")) {
+            warningText += "Details is empty. ";
+            check = false;
         }
 
-        if (strAge.equals("")) {
+        TextView warning = (TextView) findViewById(R.id.warningtxt);
+        warning.setText(warningText);
+
+        if (Validate.isNotNumeric(strAge)) {
             strAge = "25";
         }
-        if (strPace.equals("")) {
+        if (Validate.isNotNumeric(strPace)) {
             strPace = "20";
         }
-        if (strLevel.equals("")) {
+        if (Validate.isNotNumeric(strLevel)) {
             strLevel = "5";
         }
 
+<<<<<<< HEAD
         if (check == true) {
 
+=======
+        if (check) {
+>>>>>>> 01b9f3f5ff5268d90948609f3241f2e95e13d372
             Intent returnIntent = new Intent();
             returnIntent.putExtra("type", strAge);
             returnIntent.putExtra("age", strAge);
