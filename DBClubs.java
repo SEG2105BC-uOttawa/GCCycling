@@ -1,5 +1,6 @@
 package com.example.gcccyclingapp;
 
+import android.database.Cursor;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase;
 import android.content.Context;
@@ -65,21 +66,27 @@ public class DBClubs extends SQLiteOpenHelper {
 
     public boolean findEvent(String clubName, String eventName) {
         SQLiteDatabase db = this.getReadableDatabase();
-
         String query = "Select * FROM " + clubName + " WHERE " + EVENT_NAME + " =\"" + eventName + "\"";
-        db.close();
+        Cursor cursor = db.rawQuery(query, null);
 
-        if (query != null) {
+        if (cursor.moveToFirst()) {
+            db.close();
             return true;
         }
-
+        db.close();
         return false;
     }
 
     public void deleteEvent(String clubName, String event) {
-        Log.d("Event to be deleted", event);
         SQLiteDatabase db = getWritableDatabase();
-        String query = "Select * FROM " + clubName;
+        String query = "Select * FROM " + clubName + " WHERE " +
+                EVENT_NAME + " = \"" + event + "\"";
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            String idStr = cursor.getString(0);
+            db.delete(clubName)
+
+        }
         db.delete(clubName, clubName, null);
         db.close();
         Log.d("Event", event + " from " + clubName + " deleted");
