@@ -36,11 +36,11 @@ public class CompleteAccount extends AppCompatActivity {
             check = true;
         }
 
-        if(check == true){
-            db.completeClubAccount(strClubName,strLink,strName,strNumber);
-            Toast.makeText(CompleteAccount.this, "Club " + strClubName + " has been created.", Toast.LENGTH_LONG).show();
-            finish();
-        }
+//        if(check == true){
+//            db.completeClubAccount(strClubName,strLink,strName,strNumber);
+//            Toast.makeText(CompleteAccount.this, "Club " + strClubName + " has been created.", Toast.LENGTH_LONG).show();
+//            finish();
+//        }
 
     }
 }

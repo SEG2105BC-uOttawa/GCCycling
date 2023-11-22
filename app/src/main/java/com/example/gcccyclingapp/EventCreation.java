@@ -44,6 +44,7 @@ public class EventCreation extends AppCompatActivity {
 
     public void set(View view) {
         DBAdmin db = new DBAdmin(this);
+
         EditText type = (EditText) findViewById(R.id.eventTypetxt);
         EditText age = (EditText) findViewById(R.id.agetxt);
         EditText pace = (EditText) findViewById(R.id.pacetxt);
@@ -82,6 +83,7 @@ public class EventCreation extends AppCompatActivity {
         }
 
         if (check == true) {
+
             Intent returnIntent = new Intent();
             returnIntent.putExtra("type", strAge);
             returnIntent.putExtra("age", strAge);
@@ -93,7 +95,9 @@ public class EventCreation extends AppCompatActivity {
 //            returnIntent.putExtra("event_type", eventSelected);
             setResult(RESULT_OK, returnIntent);
             Log.d("Event", strType);
+
             db.insertEvent(strType, strAge, strPace, strLevel, strLocation, strTime, strDetails);
+
             Toast.makeText(EventCreation.this, "Event type " + strType + " has been created.", Toast.LENGTH_LONG).show();
             finish();
         }
