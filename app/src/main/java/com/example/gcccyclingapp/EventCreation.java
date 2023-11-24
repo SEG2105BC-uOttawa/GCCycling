@@ -92,12 +92,7 @@ public class EventCreation extends AppCompatActivity {
             strLevel = "5";
         }
 
-<<<<<<< HEAD
-        if (check == true) {
-
-=======
         if (check) {
->>>>>>> 01b9f3f5ff5268d90948609f3241f2e95e13d372
             Intent returnIntent = new Intent();
             returnIntent.putExtra("type", strAge);
             returnIntent.putExtra("age", strAge);
