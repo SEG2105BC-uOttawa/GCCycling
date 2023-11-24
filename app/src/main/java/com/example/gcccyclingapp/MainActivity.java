@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent i = new Intent(getApplicationContext(), Welcome.class);
                 i.putExtra("name", strUsername);
                 i.putExtra("role", dbAdmin.getAccountType(strUsername, strPassword));
+                Log.d("Role", dbAdmin.getAccountType(strUsername, strPassword));
                 startActivity(i);
             } else {
                 TextView tv1 = (TextView) findViewById(R.id.txtTryAgain);
