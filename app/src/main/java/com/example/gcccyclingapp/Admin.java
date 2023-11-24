@@ -10,12 +10,12 @@ public class Admin extends Account {
     public Admin(Context context) {
         super("admin", "admin", "Admin");
         dbAdmin = new DBAdmin(context);
-//        dbClubs = new DBClubs(context);
+        dbClubs = new DBClubs(context);
     }
 
     public void createClub(Club club){
         dbAdmin.insertClub(club.getClubName(), club.username, club.password);
-//        dbClubs.createTable(club.getClubName());
+        dbClubs.addClub(club.getClubName());
     }
     public void createParticipant(Participant participant){
         dbAdmin.insertParticipant(participant.name, participant.username, participant.password);
