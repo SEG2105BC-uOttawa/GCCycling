@@ -1,29 +1,29 @@
 package com.example.gcccyclingapp;
 
+import android.database.Cursor;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase;
 import android.content.Context;
 import android.content.ContentValues;
 
 public class DBClubs extends SQLiteOpenHelper {
-    public static final int DATABASE_VERSION = 3;
+    public static final int DATABASE_VERSION = 4;
     public static final String DATABASE_NAME = "clubs.db";
     public static final String EVENT_NAME = "EVENT_NAME";
     public static final String EVENT_TYPE = "EVENT_TYPE";
-    public static final String EVENT_AGE = "EVENT_AGE";
 
-    public static final String EVENT_PACE = "EVENT_PACE";
-
-    public static final String EVENT_LEVEL = "EVENT_LEVEL";
-    public static final String EVENT_LOCATION = "EVENT_LOCATION";
-
-    public static final String EVENT_TIME = "EVENT_TIME";
-    public static final String EVENT_DETAILS = "EVENT_DETAILS";
+//    public static final String EVENT_AGE = "EVENT_AGE";
+//
+//    public static final String EVENT_PACE = "EVENT_PACE";
+//
+//    public static final String EVENT_LEVEL = "EVENT_LEVEL";
+//    public static final String EVENT_LOCATION = "EVENT_LOCATION";
+//
+//    public static final String EVENT_TIME = "EVENT_TIME";
+//    public static final String EVENT_DETAILS = "EVENT_DETAILS";
 
     public static final String EVENT_DIFFICULTY = "EVENT_DIFFICULTY";
-
     public static final String EVENT_ROUTE = "EVENT_ROUTE";
-
     public static final String EVENT_FEE = "EVENT_FEE";
     public static final String EVENT_PARTICIPANT_LIMIT = "EVENT_PARTICIPANT_LIMIT";
 
@@ -49,32 +49,36 @@ public class DBClubs extends SQLiteOpenHelper {
         this.clubName = clubName;
         String createEventTableStatement = "CREATE TABLE IF NOT EXISTS " + this.clubName + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + EVENT_TYPE +" TEXT, "
-                + EVENT_AGE +" TEXT, "
-                + EVENT_PACE + " TEXT, "
-                + EVENT_LEVEL + " TEXT, "
-                + EVENT_LOCATION + " TEXT, "
-                + EVENT_TIME + " TEXT, "
-                + EVENT_DETAILS + " TEXT)";
+//                + EVENT_AGE +" TEXT, "
+//                + EVENT_PACE + " TEXT, "
+//                + EVENT_LEVEL + " TEXT, "
+//                + EVENT_LOCATION + " TEXT, "
+//                + EVENT_TIME + " TEXT, "
+//                + EVENT_DETAILS + " TEXT)"
+                + EVENT_DIFFICULTY + " TEXT, "
+                + EVENT_FEE + " TEXT, "
+                + EVENT_ROUTE + " TEXT, "
+                + EVENT_PARTICIPANT_LIMIT + " TEXT)";
 
         db.execSQL(createEventTableStatement);
     }
-    public void insertEvent(String clubName, String type, String age, String pace, String level, String location, String time, String details){
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues cv = new ContentValues();
-
-        this.clubName = clubName;
-
-        cv.put(EVENT_TYPE, type);
-        cv.put(EVENT_AGE, age);
-        cv.put(EVENT_PACE, pace);
-        cv.put(EVENT_LEVEL, level);
-        cv.put(EVENT_LOCATION, location);
-        cv.put(EVENT_TIME, time);
-        cv.put(EVENT_DETAILS, details);
-
-        addClub(this.clubName);
-        db.insert(this.clubName, null, cv);
-    }
+//    public void insertEvent(String clubName, String difficulty, String fee, String route, String limit){
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        ContentValues cv = new ContentValues();
+//
+//        this.clubName = clubName;
+//
+//        cv.put(EVENT_TYPE, type);
+//        cv.put(EVENT_AGE, age);
+//        cv.put(EVENT_PACE, pace);
+//        cv.put(EVENT_LEVEL, level);
+//        cv.put(EVENT_LOCATION, location);
+//        cv.put(EVENT_TIME, time);
+//        cv.put(EVENT_DETAILS, details);
+//
+//        addClub(this.clubName);
+//        db.insert(this.clubName, null, cv);
+//    }
 
     public void insertEvent(String clubName, String type, String difficulty, String route, String fee, String participantLimit) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -131,6 +135,29 @@ public class DBClubs extends SQLiteOpenHelper {
         String query = "DROP TABLE IF EXISTS " + clubName + ";";
         db.execSQL(query);
         db.close();
+    }
+
+    public Event[] getAllEvents(String clubName) {
+        String table = clubName;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + table, null);
+
+        Event[] events = new Event[cursor.getCount()];
+        Event event;
+
+        int i = 0;
+        while (cursor.moveToNext()){
+            String type = cursor.getString(1);
+            String difficulty = cursor.getString(2);
+            String fee = cursor.getString(3);
+            String route = cursor.getString(4);
+            String limit = cursor.getString(5);
+//            event = new Event(type, difficulty, fee, route, limit);
+//            events[i] = event;
+            i++;
+        }
+        cursor.close();
+        return events;
     }
 
 }
