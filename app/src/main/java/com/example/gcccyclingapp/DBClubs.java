@@ -126,4 +126,11 @@ public class DBClubs extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void deleteClub(String clubName) {
+        SQLiteDatabase db = getWritableDatabase();
+        String query = "DROP TABLE IF EXISTS " + clubName + ";";
+        db.execSQL(query);
+        db.close();
+    }
+
 }

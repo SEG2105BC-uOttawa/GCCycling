@@ -17,12 +17,14 @@ public class ViewClub extends AppCompatActivity{
 
     ListView listView;
     DBAdmin DB;
+    DBClubs DBc;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_club);
 
         DB = new DBAdmin(this);
+        DBc = new DBClubs(this);
         String[] clubNames = DB.getAllClubs();
 
         ArrayAdapter adapter = new ArrayAdapter<String>(this, R.layout.account_list_item, R.id.list_item, clubNames);
@@ -51,6 +53,7 @@ public class ViewClub extends AppCompatActivity{
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         DB.deleteClub(clubName);
+                        DBc.deleteClub(clubName);
                         refreshListView();
                         Toast.makeText(ViewClub.this, "Participant " + clubName + " has been deleted.", Toast.LENGTH_LONG).show();
                     }
