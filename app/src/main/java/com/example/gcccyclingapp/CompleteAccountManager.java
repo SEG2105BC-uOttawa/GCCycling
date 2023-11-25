@@ -3,6 +3,7 @@ package com.example.gcccyclingapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -11,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class CompleteAccountManager extends AppCompatActivity {
     private String clubUser;
+    Button btnCompleteAccount;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,6 +23,16 @@ public class CompleteAccountManager extends AppCompatActivity {
         if (intent.hasExtra("name")) {
             String clubUser = intent.getStringExtra("name");
         }
+
+        btnCompleteAccount = findViewById(R.id.button);
+
+        btnCompleteAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CompleteAccountManager.this, EventCreation.class);
+                startActivity(intent);
+            }
+        });
     }
 
     public void complete(View view){
