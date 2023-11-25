@@ -91,7 +91,7 @@ public class Welcome extends AppCompatActivity {
             btnComplete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(Welcome.this, CompleteAccount.class);
+                    Intent intent = new Intent(Welcome.this, CompleteAccountManager.class);
                     startActivity(intent);
                 }
             });
