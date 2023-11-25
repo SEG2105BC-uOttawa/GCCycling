@@ -14,11 +14,10 @@ import java.io.IOException;
 
 public class DBAdmin extends SQLiteOpenHelper{
 
-    public static final int DATABASE_VERSION = 4;
+    public static final int DATABASE_VERSION = 7;
     public static final String DATABASE_NAME = "admin.db";
 
     public static final String CLUB_TABLE = "CLUB_TABLE";
-    public static final String CLUB_OWNER_NAME = "CLUB_OWNER_NAME";
     public static final String CLUB_NAME = "CLUB_NAME";
     public static final String CLUB_USERNAME = "CLUB_USERNAME";
     public static final String CLUB_PASSWORD = "CLUB_PASSWORD";
@@ -56,10 +55,9 @@ public class DBAdmin extends SQLiteOpenHelper{
     public void onCreate(SQLiteDatabase db) { // this is called when the database is first accessed
         String createClubTableStatement = "CREATE TABLE "
                 + CLUB_TABLE + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + CLUB_OWNER_NAME +" TEXT, "
+                + CLUB_NAME +" TEXT, "
                 + CLUB_USERNAME +" TEXT, "
                 + CLUB_PASSWORD +" TEXT, "
-                + CLUB_NAME +" TEXT, "
                 + CLUB_LINK +" TEXT, "
                 + CLUB_CONTACT +" TEXT, "
                 + CLUB_PHONE + " TEXT)";
@@ -94,7 +92,7 @@ public class DBAdmin extends SQLiteOpenHelper{
         SQLiteDatabase db = this.getWritableDatabase(); // for insert actions
         ContentValues cv = new ContentValues();
 
-        cv.put(CLUB_OWNER_NAME, clubName); // inserts data into club column
+        cv.put(CLUB_NAME, clubName); // inserts data into club column
         cv.put(CLUB_USERNAME, clubUser); // inserts data into club column
         cv.put(CLUB_PASSWORD, clubPWD); // inserts data into club column
 
@@ -240,14 +238,14 @@ public class DBAdmin extends SQLiteOpenHelper{
         return eventInfo;
     }
 
-    public void deleteClub(String clubUser){ // change to work with Club class
+    public void deleteClub(String clubName){ // change to work with Club class
         SQLiteDatabase db = this.getWritableDatabase(); // for insert actions
         Log.d("function", "deleteClub");
 
         try {
-            String delClubStatement = "DELETE FROM " + CLUB_TABLE + " WHERE " + CLUB_USERNAME +" = '" + clubUser + "'";
+            String delClubStatement = "DELETE FROM " + CLUB_TABLE + " WHERE " + CLUB_USERNAME +" = '" + clubName + "'";
             db.execSQL(delClubStatement);
-            Log.d("Deleted", clubUser+" was removed from database");
+            Log.d("Deleted", clubName+" was removed from database");
         } catch (Exception e){
             Log.d("Error", "Can't delete null value");
         }
@@ -288,15 +286,14 @@ public class DBAdmin extends SQLiteOpenHelper{
         db.execSQL("UPDATE "+ EVENTS_TABLE + " SET " + EVENT_TIME + " = '" + eventTime + "' WHERE " + EVENT_TYPE + " = '" + prevEventType + "'");
         db.execSQL("UPDATE "+ EVENTS_TABLE + " SET " + EVENT_DETAILS + " = '" + eventDetails + "' WHERE " + EVENT_TYPE + " = '" + prevEventType + "'");
     }
-    public void completeClubAccount(String clubUser, String clubName, String link, String contactName, String phone){
+    public void completeClubAccount(String clubName, String link, String contactName, String phone){
         SQLiteDatabase db = this.getWritableDatabase();
 
         Log.d("DB", "Club updated");
 
-        db.execSQL("UPDATE "+ CLUB_TABLE + " SET " + CLUB_NAME + " = '" + clubName  + "' WHERE " + CLUB_OWNER_NAME + " = '" + clubUser + "'");
-        db.execSQL("UPDATE "+ CLUB_TABLE + " SET " + CLUB_LINK + " = '" + link  + "' WHERE " + CLUB_OWNER_NAME + " = '" + clubUser + "'");
-        db.execSQL("UPDATE "+ CLUB_TABLE + " SET " + CLUB_CONTACT + " = '" + contactName  + "' WHERE " + CLUB_OWNER_NAME + " = '" + clubUser + "'");
-        db.execSQL("UPDATE "+ CLUB_TABLE + " SET " + CLUB_PHONE + " = '" + phone  + "' WHERE " + CLUB_OWNER_NAME + " = '" + clubUser + "'");
+        db.execSQL("UPDATE "+ CLUB_TABLE + " SET " + CLUB_LINK + " = '" + link  + "' WHERE " + CLUB_NAME + " = '" + clubName + "'");
+        db.execSQL("UPDATE "+ CLUB_TABLE + " SET " + CLUB_CONTACT + " = '" + contactName  + "' WHERE " + CLUB_NAME + " = '" + clubName + "'");
+        db.execSQL("UPDATE "+ CLUB_TABLE + " SET " + CLUB_PHONE + " = '" + phone  + "' WHERE " + CLUB_NAME + " = '" + clubName + "'");
     }
 
 }

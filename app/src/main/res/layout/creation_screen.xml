@@ -72,7 +72,7 @@
                 android:layout_width="283dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:hint="Club Name or Full Name"
+                android:hint="Club Name"
                 android:inputType="text" />
 
         </TableRow>

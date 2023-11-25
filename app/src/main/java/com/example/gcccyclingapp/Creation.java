@@ -69,7 +69,7 @@ public class Creation extends AppCompatActivity implements AdapterView.OnItemSel
                 admin.createClub(c);
                 Intent i = new Intent(getApplicationContext(), Welcome.class);
                 i.putExtra("name", strUsername);
-                i.putExtra("role", accountType);
+                i.putExtra("role", "Club");
                 startActivity(i);
             }
         }

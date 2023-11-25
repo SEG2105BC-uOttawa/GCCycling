@@ -20,8 +20,8 @@ public class CompleteAccountManager extends AppCompatActivity {
         setContentView(R.layout.complete_account);
 
         Intent intent = getIntent();
-        if (intent.hasExtra("name")) {
-            String clubUser = intent.getStringExtra("name");
+        if (intent.hasExtra("clubUser")) {
+            this.clubUser = intent.getStringExtra("clubUser");
         }
 
         btnCompleteAccount = findViewById(R.id.button);
@@ -41,12 +41,12 @@ public class CompleteAccountManager extends AppCompatActivity {
         EditText link = (EditText) findViewById(R.id.socialTxt);
         EditText name = (EditText) findViewById(R.id.nameTxt);
         EditText number = (EditText) findViewById(R.id.phoneTxt);
-        EditText clubName = (EditText) findViewById(R.id.clubNameTxt);
+//        EditText clubName = (EditText) findViewById(R.id.clubNameTxt);
 
         String strLink = link.getText().toString();
         String strName = name.getText().toString();
         String strNumber = number.getText().toString();
-        String strClubName = clubName.getText().toString();
+//        String strClubName = clubName.getText().toString();
 
         Boolean check = false;
         if(Validate.isNotValidLink(strLink) || Validate.isNotValidPhoneNumber(strNumber)){
@@ -62,8 +62,9 @@ public class CompleteAccountManager extends AppCompatActivity {
 //            finish();
 //        }
         if(check){
-            Toast.makeText(CompleteAccountManager.this, "Club " + strClubName + " has been created.", Toast.LENGTH_LONG).show();
-            db.completeClubAccount(clubUser, strClubName, strLink, strName, strNumber);
+//            Toast.makeText(CompleteAccountManager.this, "Club " + strClubName + " has been created.", Toast.LENGTH_LONG).show();
+            Toast.makeText(CompleteAccountManager.this, "Club " + clubUser + " has been completed.", Toast.LENGTH_LONG).show();
+            db.completeClubAccount(clubUser, strLink, strName, strNumber);
             finish();
         }
 

@@ -24,8 +24,8 @@
 
     <TableLayout
         android:id="@+id/tableLayout"
-        android:layout_width="0dp"
-        android:layout_height="270dp"
+        android:layout_width="401dp"
+        android:layout_height="206dp"
         android:layout_marginTop="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -92,25 +92,25 @@
                 android:inputType="text" />
         </TableRow>
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <!--        <TableRow-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="match_parent">-->
 
-            <TextView
-                android:id="@+id/textView14"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Enter Club Name"
-                android:textSize="15dp" />
+        <!--            <TextView-->
+        <!--                android:id="@+id/textView14"-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:text="Enter Club Name"-->
+        <!--                android:textSize="15dp" />-->
 
-            <EditText
-                android:id="@+id/clubNameTxt"
-                android:layout_width="wrap_content"
-                android:layout_height="66dp"
-                android:ems="10"
-                android:hint="Enter Name"
-                android:inputType="text" />
-        </TableRow>
+        <!--            <EditText-->
+        <!--                android:id="@+id/clubNameTxt"-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="66dp"-->
+        <!--                android:ems="10"-->
+        <!--                android:hint="Enter Name"-->
+        <!--                android:inputType="text" />-->
+        <!--        </TableRow>-->
 
     </TableLayout>
 
