@@ -13,13 +13,13 @@ import android.widget.Toast;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class EditEvent extends AppCompatActivity {
+public class EditEventType extends AppCompatActivity {
 
     private String name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_event);
+        setContentView(R.layout.activity_edit_event_type);
 
         DBAdmin db = new DBAdmin(this);
 
@@ -132,7 +132,7 @@ public class EditEvent extends AppCompatActivity {
 //            setResult(RESULT_OK, returnIntent);
             Log.d("Event", strAge);
             db.updateEvent(name, strType, strAge, strPace, strLevel, strLocation, strTime, strDetails);
-            Toast.makeText(EditEvent.this, "Event type " + strType + " has been updated.", Toast.LENGTH_LONG).show();
+            Toast.makeText(EditEventType.this, "Event type " + strType + " has been updated.", Toast.LENGTH_LONG).show();
 //            ViewEvent refresh = new ViewEvent();
 //            refresh.refreshListView();
             setResult(RESULT_OK, returnIntent);

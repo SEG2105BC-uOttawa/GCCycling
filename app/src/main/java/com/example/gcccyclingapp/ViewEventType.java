@@ -15,7 +15,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class ViewEvent extends AppCompatActivity {
+public class ViewEventType extends AppCompatActivity {
 
     ListView listView;
     DBAdmin DB;
@@ -26,7 +26,7 @@ public class ViewEvent extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_event);
+        setContentView(R.layout.activity_view_event_type);
 
         DB = new DBAdmin(this);
 
@@ -63,7 +63,7 @@ public class ViewEvent extends AppCompatActivity {
                 .setPositiveButton("Edit", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        Intent editPage = new Intent(getApplicationContext(), EditEvent.class);
+                        Intent editPage = new Intent(getApplicationContext(), EditEventType.class);
                         editPage.putExtra("name", eventType);
 //                        startActivity(editPage);
                         startActivityForResult(editPage, EDIT_EVENT_REQUEST_CODE);
@@ -76,7 +76,7 @@ public class ViewEvent extends AppCompatActivity {
                 }).setNeutralButton("Info", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        Intent infoPage = new Intent(getApplicationContext(), EventInfo.class);
+                        Intent infoPage = new Intent(getApplicationContext(), EventTypeInfo.class);
                         infoPage.putExtra("name", eventType);
                         startActivity(infoPage);
                     }
@@ -102,7 +102,7 @@ public class ViewEvent extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         DB.deleteEvent(eventType);
                         refreshListView();
-                        Toast.makeText(ViewEvent.this, "Event " + eventType + " has been deleted.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(ViewEventType.this, "Event " + eventType + " has been deleted.", Toast.LENGTH_LONG).show();
                     }
                 }).setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
