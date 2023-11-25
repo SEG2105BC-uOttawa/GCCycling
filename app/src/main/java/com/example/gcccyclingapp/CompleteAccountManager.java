@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class CompleteAccount extends AppCompatActivity {
+public class CompleteAccountManager extends AppCompatActivity {
     private String clubUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +37,7 @@ public class CompleteAccount extends AppCompatActivity {
 
         Boolean check = false;
         if(Validate.isNotValidLink(strLink) || Validate.isNotValidPhoneNumber(strNumber)){
-            TextView warning = (TextView) findViewById(R.id.warningTxt);
+            TextView warning = (TextView) findViewById(R.id.warningtxt);
             warning.setText("Either Social Media Link or Phone Number are incorrect please fill those out");
         } else {
             check = true;
@@ -49,8 +49,8 @@ public class CompleteAccount extends AppCompatActivity {
 //            finish();
 //        }
         if(check){
+            Toast.makeText(CompleteAccountManager.this, "Club " + strClubName + " has been created.", Toast.LENGTH_LONG).show();
             db.completeClubAccount(clubUser, strClubName, strLink, strName, strNumber);
-            Toast.makeText(CompleteAccount.this, "Club " + strClubName + " has been created.", Toast.LENGTH_LONG).show();
             finish();
         }
 

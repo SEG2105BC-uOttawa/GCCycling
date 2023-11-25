@@ -4,7 +4,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase;
 import android.content.Context;
 import android.content.ContentValues;
-import android.util.Log;
 
 public class DBClubs extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 3;
@@ -20,6 +19,15 @@ public class DBClubs extends SQLiteOpenHelper {
 
     public static final String EVENT_TIME = "EVENT_TIME";
     public static final String EVENT_DETAILS = "EVENT_DETAILS";
+
+    public static final String EVENT_DIFFICULTY = "EVENT_DIFFICULTY";
+
+    public static final String EVENT_ROUTE = "EVENT_ROUTE";
+
+    public static final String EVENT_FEE = "EVENT_FEE";
+    public static final String EVENT_PARTICIPANT_LIMIT = "EVENT_PARTICIPANT_LIMIT";
+
+
 
     public static String clubName;
 
@@ -68,7 +76,36 @@ public class DBClubs extends SQLiteOpenHelper {
         db.insert(this.clubName, null, cv);
     }
 
+    public void insertEvent(String clubName, String type, String difficulty, String route, String fee, String participantLimit) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        this.clubName = clubName;
+
+        cv.put(EVENT_TYPE, type);
+        cv.put(EVENT_DIFFICULTY, difficulty);
+        cv.put(EVENT_ROUTE, route);
+        cv.put(EVENT_FEE, fee);
+        cv.put(EVENT_PARTICIPANT_LIMIT, participantLimit);
+
+        addClub(this.clubName);
+        db.insert(this.clubName, null, cv);
+    }
+
     public boolean findEvent(String clubName, String eventName) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        this.clubName = clubName;
+        String query = "Select * FROM " + this.clubName + " WHERE " + EVENT_NAME + " =\"" + eventName + "\"";
+        db.close();
+
+        if (query != null) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean findEventType(String clubName, String eventName) {
         SQLiteDatabase db = this.getReadableDatabase();
         this.clubName = clubName;
         String query = "Select * FROM " + this.clubName + " WHERE " + EVENT_NAME + " =\"" + eventName + "\"";

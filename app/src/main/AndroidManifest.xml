@@ -66,7 +66,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".CompleteAccount"
+            android:name=".CompleteAccountManager"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
