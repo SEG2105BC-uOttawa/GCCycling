@@ -1,5 +1,6 @@
 package com.example.gcccyclingapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -9,14 +10,20 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class CompleteAccount extends AppCompatActivity {
+    private String clubUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.complete_account);
+
+        Intent intent = getIntent();
+        if (intent.hasExtra("name")) {
+            String clubUser = intent.getStringExtra("name");
+        }
     }
 
     public void complete(View view){
-        DBClubs db = new DBClubs(this);
+        DBAdmin db = new DBAdmin(this);
 
         EditText link = (EditText) findViewById(R.id.socialTxt);
         EditText name = (EditText) findViewById(R.id.nameTxt);
@@ -30,7 +37,7 @@ public class CompleteAccount extends AppCompatActivity {
 
         Boolean check = false;
         if(Validate.isNotValidLink(strLink) || Validate.isNotValidPhoneNumber(strNumber)){
-            TextView warning = (TextView) findViewById(R.id.warningtxt);
+            TextView warning = (TextView) findViewById(R.id.warningTxt);
             warning.setText("Either Social Media Link or Phone Number are incorrect please fill those out");
         } else {
             check = true;
@@ -42,7 +49,7 @@ public class CompleteAccount extends AppCompatActivity {
 //            finish();
 //        }
         if(check){
-            //db.completeClubAccount(strClubName,strLink,strName,strNumber);
+            db.completeClubAccount(clubUser, strClubName, strLink, strName, strNumber);
             Toast.makeText(CompleteAccount.this, "Club " + strClubName + " has been created.", Toast.LENGTH_LONG).show();
             finish();
         }

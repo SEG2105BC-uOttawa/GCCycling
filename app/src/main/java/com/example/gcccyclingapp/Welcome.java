@@ -2,6 +2,7 @@ package com.example.gcccyclingapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -41,21 +42,17 @@ public class Welcome extends AppCompatActivity {
             }
 
             if(role.equals("admin")) {
-                Button setEvent = (Button) findViewById(R.id.viewParticipantsBtn);
-                setEvent.setVisibility(View.VISIBLE);
+                Button setParticipantsBtn = (Button) findViewById(R.id.viewParticipantsBtn);
+                Button setClubsBtn = (Button) findViewById(R.id.viewClubsBtn);
+                Button setEventBtn = (Button) findViewById(R.id.viewEventsBtn);
+
+                setParticipantsBtn.setVisibility(View.VISIBLE);
+                setClubsBtn.setVisibility(View.VISIBLE);
+                setEventBtn.setVisibility(View.VISIBLE);
             }
 
-            if(role.equals("admin")) {
-                Button setEvent = (Button) findViewById(R.id.viewClubsBtn);
-                setEvent.setVisibility(View.VISIBLE);
-            }
-
-            if(role.equals("admin")) {
-                Button setEvent = (Button) findViewById(R.id.viewEventsBtn);
-                setEvent.setVisibility(View.VISIBLE);
-            }
-
-            if(role.equals("Club Owner")){
+            if(role.equals("Club")){
+                Log.d("Logged in", "Club owner");
                 Button setEvent = (Button) findViewById(R.id.completeClubBtn);
                 setEvent.setVisibility(View.VISIBLE);
             }
@@ -92,6 +89,10 @@ public class Welcome extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(Welcome.this, CompleteAccount.class);
+
+                    String name = bundle.getString("name");
+                    intent.putExtra("clubUser", name);
+
                     startActivity(intent);
                 }
             });

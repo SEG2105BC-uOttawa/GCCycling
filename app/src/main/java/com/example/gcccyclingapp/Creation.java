@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class Creation extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private String accountType;
+    public Club c;
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -64,7 +65,7 @@ public class Creation extends AppCompatActivity implements AdapterView.OnItemSel
             }
             else if (accountType.equals("Club Owner")) {
                 System.out.println("Club");
-                Club c = new Club(strName, strUsername, strPassword, accountType);
+                c = new Club(strName, strUsername, strPassword, accountType);
                 admin.createClub(c);
                 Intent i = new Intent(getApplicationContext(), Welcome.class);
                 i.putExtra("name", strUsername);

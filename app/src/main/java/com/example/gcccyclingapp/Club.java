@@ -2,20 +2,20 @@ package com.example.gcccyclingapp;
 
 public class Club extends Account {
 
-    private String clubName, link, contact, phone;
+    private String clubOwnerName, link, contact, phone;
     private String event;
 
-    public Club(String clubName, String username, String password, String role) {
+    public Club(String clubOwnerName, String username, String password, String role) {
         super(username, password, role);
-        this.clubName = clubName;
+        this.clubOwnerName = clubOwnerName;
     }
 
     public void setClubName(String clubName) {
-        this.clubName = clubName;
+        this.clubOwnerName = clubName;
     }
 
     public String getClubName() {
-        return this.clubName;
+        return this.clubOwnerName;
     }
 
     public void setLink(String link) {
