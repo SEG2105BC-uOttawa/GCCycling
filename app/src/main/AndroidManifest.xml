@@ -18,13 +18,13 @@
             android:name=".EventCreation"
             android:exported="false" />
         <activity
-            android:name=".EventInfo"
+            android:name=".EventTypeInfo"
             android:exported="false" />
         <activity
-            android:name=".EditEvent"
+            android:name=".EditEventType"
             android:exported="false" />
         <activity
-            android:name=".ViewEvent"
+            android:name=".ViewEventType"
             android:exported="false" />
         <activity
             android:name=".ViewClub"

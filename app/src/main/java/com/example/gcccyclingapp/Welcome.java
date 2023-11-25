@@ -80,7 +80,7 @@ public class Welcome extends AppCompatActivity {
             btnEvent.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(Welcome.this, ViewEvent.class);
+                    Intent intent = new Intent(Welcome.this, ViewEventType.class);
                     startActivity(intent);
                 }
             });
