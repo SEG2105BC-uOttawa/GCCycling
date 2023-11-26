@@ -7,8 +7,9 @@ public class Validate {
     // Note: Because of the way the regex works, the functions also return false
     // if the given string is empty
     private static final String PHONE_NUMBER_REGEX = ".[0-9]+..[0-9]+-[0-9]+";
-    private static final String LINK_REGEX = "[a-z0-9]+\\.[a-z0-9]+.*";
+    private static final String LINK_REGEX = "[a-zA-Z][a-zA-Z0-9+.-:]*";
     private static final String USERNAME_REGEX = "[a-zA-Z0-9-_]+";
+    private static final String NAME_REGEX = "[a-zA-Z0-9-_ ]+";
     private static final String TIME_REGEX = "[a-zA-Z0-9:]+";
     private static final String NUMERIC_REGEX = "[a-zA-Z0-9]+";
     private static final String ALPHA_NUMERIC_REGEX = "[a-zA-Z0-9]+";
@@ -25,10 +26,16 @@ public class Validate {
         return !matcher.matches();
     }
 
-    public static boolean isValidUsername(String username) {
+    public static boolean isNotValidUsername(String username) {
         Pattern pattern = Pattern.compile(USERNAME_REGEX);
         Matcher matcher = pattern.matcher(username);
-        return matcher.matches();
+        return !matcher.matches();
+    }
+
+    public static boolean isNotValidName(String name) {
+        Pattern pattern = Pattern.compile(NAME_REGEX);
+        Matcher matcher = pattern.matcher(name);
+        return !matcher.matches();
     }
 
     public static boolean isNotValidTime(String time) {
