@@ -30,15 +30,19 @@ public class ClubParticipants extends AppCompatActivity {
             clubName = bundle.getString("name");
         }
 
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
         DB = new DBAdmin(this);
         String[] participantNames = DB.getAllParticipants(clubName);
+
+        if (participantNames[0] == null) {
+            participantNames = new String[]{"No participants"};
+        }
 
         ArrayAdapter<String> adapter = new ArrayAdapter(this, R.layout.account_list_item, R.id.list_item, participantNames);
         listView = (ListView) findViewById(R.id.participantList);
         listView.setAdapter(adapter);
-
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             public void onItemClick(AdapterView<?> parent, View view, int position, long id){
