@@ -1,7 +1,11 @@
 package com.example.gcccyclingapp;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 public class ClubManagement extends AppCompatActivity{
@@ -29,6 +33,43 @@ public class ClubManagement extends AppCompatActivity{
         eventRoute = route.getText().toString();
         eventFee = fee.getText().toString();
         eventParticipantLimit = participantLimit.getText().toString();
+
+        Boolean check = true;
+        String warningText = "";
+
+        if (eventName.equals("")) {
+            warningText += "Name is invalid. ";
+            check = false;
+        }
+
+        if (clubDB.findEvent(clubName, eventName)) {
+            warningText += "Event already exists. ";
+            check = false;
+        }
+
+        if (eventType.equals("")) {
+            warningText += "Type is invalid. ";
+            check = false;
+        }
+        if (eventDifficulty.equals("")) {
+            warningText += "Difficulty is invalid. ";
+            check = false;
+        }
+        if (eventRoute.equals("")) {
+            warningText += "Route is invalid. ";
+            check = false;
+        }
+        if (eventFee.equals("")) {
+            warningText += "Fee is invalid. ";
+            check = false;
+        }
+        if (eventParticipantLimit.equals("")) {
+            warningText += "Participant Limit is invalid. ";
+            check = false;
+        }
+
+        TextView warning = (TextView) findViewById(R.id.warningtxt);
+        warning.setText(warningText);
 
         clubDB.insertEvent(clubName, eventName, eventType, eventDifficulty, eventRoute, eventFee, eventParticipantLimit);
 
@@ -60,4 +101,5 @@ public class ClubManagement extends AppCompatActivity{
         DBClubs clubDB = new DBClubs(this);
         clubDB.deleteEvent(clubName, event);
     }
+
 }
