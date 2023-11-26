@@ -102,8 +102,8 @@ public class DBClubs extends SQLiteOpenHelper {
             String fee = cursor.getString(4);
             String route = cursor.getString(5);
             String limit = cursor.getString(6);
-//            event = new Event(type, difficulty, fee, route, limit);
-//            events[i] = event;
+            event = new Event(name, type, difficulty, fee, route, limit);
+            events[i] = event;
             i++;
         }
         cursor.close();

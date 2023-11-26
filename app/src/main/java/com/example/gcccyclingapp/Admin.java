@@ -1,7 +1,9 @@
 package com.example.gcccyclingapp;
 
 import android.content.Context;
-import android.media.metrics.Event;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Admin extends Account {
     DBAdmin dbAdmin;
@@ -23,8 +25,20 @@ public class Admin extends Account {
     }
 
     public void deleteClub(DBAdmin dbAdmin, DBClubs dbClubs, Club club){
-//        dbClubs.deleteClub(club.getClubName());
+        dbClubs.deleteClub(club.getClubName());
         dbAdmin.deleteClub(club.getClubName());
+    }
+
+    public Map<String, Event[]> getAllClubs_Events() {
+
+        Map<String, Event[]> clubs_events = new HashMap<>();
+        String[] clubs = dbAdmin.getAllClubs();
+
+        for (String club : clubs) {
+            Event[] events = dbClubs.getAllEvents(club);
+            clubs_events.put(club, events);
+        }
+        return clubs_events;
     }
 
 
