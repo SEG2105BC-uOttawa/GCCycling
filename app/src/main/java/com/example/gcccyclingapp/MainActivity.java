@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         String strPassword = password.getText().toString();
         //place holder to make sure that we can use this if statement, you can change the if conditions if you have to
         //using admin for username and password just to test change to be more general
-        if (Validate.isValidUsername(strUsername)) {
+        if (!Validate.isNotValidUsername(strUsername)) {
             if (strUsername.equals("admin") && strPassword.equals("admin")) {
                 Intent i = new Intent(getApplicationContext(), Welcome.class);
                 i.putExtra("name", strUsername);
@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void create(View view) {
-        Intent i = new Intent(getApplicationContext(), Creation.class);
+        Intent i = new Intent(getApplicationContext(), AccountCreation.class);
         startActivity(i);
     }
 

@@ -11,7 +11,7 @@ import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class Creation extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class AccountCreation extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private String accountType;
     public Club c;
         @Override
@@ -50,7 +50,7 @@ public class Creation extends AppCompatActivity implements AdapterView.OnItemSel
             String strUsername = username.getText().toString();
             String strPassword = password.getText().toString();
 
-            if (Validate.isNotAlphaNumeric(strName) || !Validate.isValidUsername(strUsername) || strPassword.isEmpty()) {
+            if (Validate.isNotAlphaNumeric(strName) |Validate.isNotValidUsername(strUsername) || strPassword.isEmpty()) {
                 TextView tv1 = (TextView) findViewById(R.id.txtIncomplete);
                 tv1.setText("Please fill in all fields with valid characters.");
             }
