@@ -115,14 +115,13 @@
     </TableLayout>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/completeAccountBtn2"
         android:layout_width="149dp"
         android:layout_height="61dp"
         android:layout_marginStart="131dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="131dp"
         android:layout_marginBottom="100dp"
-        android:onClick="complete"
         android:text="Complete Account"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -139,7 +138,7 @@
         android:layout_marginEnd="114dp"
         android:gravity="center_horizontal"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintBottom_toTopOf="@+id/completeAccountBtn2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tableLayout" />

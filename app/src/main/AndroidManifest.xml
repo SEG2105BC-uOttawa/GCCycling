@@ -51,7 +51,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Creation"
+            android:name=".AccountCreation"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -70,6 +70,24 @@
         </activity>
         <activity
             android:name=".CompleteAccountManager"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ClubAwards"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ClubParticipants"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />

@@ -29,6 +29,8 @@ public class DBAdmin extends SQLiteOpenHelper{
     public static final String PARTICIPANT_NAME = "PARTICIPANT_NAME";
     public static final String PARTICIPANT_USERNAME = "PARTICIPANT_USERNAME";
     public static final String PARTICIPANT_PASSWORD = "PARTICIPANT_PASSWORD";
+    public static final String PARTICIPANT_AWARDS = "PARTICIPANT_AWARDS";
+    public static final String PARTICIPANT_CLUBS = "PARTICIPANT_CLUBS";
 
     public static final String EVENTS_TABLE = "EVENTS_TABLE";
     public static final String EVENT_TYPE = "EVENT_TYPE";
@@ -61,7 +63,12 @@ public class DBAdmin extends SQLiteOpenHelper{
                 + CLUB_LINK +" TEXT, "
                 + CLUB_CONTACT +" TEXT, "
                 + CLUB_PHONE + " TEXT)";
-        String createParticipantTableStatement = "CREATE TABLE " + PARTICIPANT_TABLE + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, " + PARTICIPANT_NAME + " TEXT, " + PARTICIPANT_USERNAME +" TEXT, " + PARTICIPANT_PASSWORD + " TEXT)";
+        String createParticipantTableStatement = "CREATE TABLE " + PARTICIPANT_TABLE + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + PARTICIPANT_NAME + " TEXT, "
+                + PARTICIPANT_USERNAME +" TEXT, "
+                + PARTICIPANT_PASSWORD +" TEXT, "
+                + PARTICIPANT_AWARDS +" TEXT, "
+                + PARTICIPANT_CLUBS + " TEXT)";
         String createEventTableStatement = "CREATE TABLE " + EVENTS_TABLE + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + EVENT_TYPE +" TEXT, "
                 + EVENT_AGE +" TEXT, "
@@ -105,6 +112,8 @@ public class DBAdmin extends SQLiteOpenHelper{
         cv.put(PARTICIPANT_NAME, participantName); // inserts data into club column
         cv.put(PARTICIPANT_USERNAME, participantUser); // inserts data into club column
         cv.put(PARTICIPANT_PASSWORD, participantPWD); // inserts data into club column
+        cv.put(PARTICIPANT_AWARDS, "");
+        cv.put(PARTICIPANT_CLUBS, "");
 
         db.insert(PARTICIPANT_TABLE, null, cv);
     }
@@ -194,6 +203,21 @@ public class DBAdmin extends SQLiteOpenHelper{
         while (cursorParticipants.moveToNext()){
             participantsNames[i] = cursorParticipants.getString(0); //only one column selected
             i++;
+        }
+        cursorParticipants.close();
+        return participantsNames;
+    }
+    public String[] getAllParticipants(String clubName){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursorParticipants = db.rawQuery("SELECT " + PARTICIPANT_USERNAME + ", " + PARTICIPANT_CLUBS + " FROM " + PARTICIPANT_TABLE, null);
+        String[] participantsNames = new String[cursorParticipants.getCount()];
+
+        int i = 0;
+        while (cursorParticipants.moveToNext()){
+            if (cursorParticipants.getString(1).contains(clubName)) {
+                participantsNames[i] = cursorParticipants.getString(0);
+                i++;
+            }
         }
         cursorParticipants.close();
         return participantsNames;
@@ -294,6 +318,56 @@ public class DBAdmin extends SQLiteOpenHelper{
         db.execSQL("UPDATE "+ CLUB_TABLE + " SET " + CLUB_LINK + " = '" + link  + "' WHERE " + CLUB_NAME + " = '" + clubName + "'");
         db.execSQL("UPDATE "+ CLUB_TABLE + " SET " + CLUB_CONTACT + " = '" + contactName  + "' WHERE " + CLUB_NAME + " = '" + clubName + "'");
         db.execSQL("UPDATE "+ CLUB_TABLE + " SET " + CLUB_PHONE + " = '" + phone  + "' WHERE " + CLUB_NAME + " = '" + clubName + "'");
+    }
+
+    public void addAwardToParticipant(String username, String award) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        // Get current awards
+        Cursor cursor = db.rawQuery("SELECT " + PARTICIPANT_AWARDS + " FROM " + PARTICIPANT_TABLE + " WHERE " + PARTICIPANT_USERNAME + " = '" + username + "'", null);
+        String awards = "";
+
+        if (cursor.moveToFirst()) {
+            awards = cursor.getString(0);
+        }
+
+        cursor.close();
+        cv.put(PARTICIPANT_CLUBS, awards + ("," + award));
+        db.update(PARTICIPANT_TABLE, cv, PARTICIPANT_USERNAME + "=?", new String[]{username});
+
+    }
+    public void addClubToParticipant(String username, String clubName) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        Cursor cursor = db.rawQuery("SELECT " + PARTICIPANT_CLUBS + " FROM " + PARTICIPANT_TABLE + " WHERE " + PARTICIPANT_USERNAME + " = '" + username + "'", null);
+        String clubs = "";
+
+        if (cursor.moveToFirst()) {
+            clubs = cursor.getString(0);
+        }
+
+        cursor.close();
+        cv.put(PARTICIPANT_CLUBS, clubs + ("," + clubName));
+        db.update(PARTICIPANT_TABLE, cv, PARTICIPANT_USERNAME + "=?", new String[]{username});
+    }
+
+    public void removeClubFromParticipant(String username, String clubName) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        // Get current awards
+        Cursor cursor = db.rawQuery("SELECT " + PARTICIPANT_CLUBS + " FROM " + PARTICIPANT_TABLE + " WHERE " + PARTICIPANT_USERNAME + " = '" + username + "'", null);
+        String events = "";
+
+        if (cursor.moveToFirst()) {
+            events = cursor.getString(0);
+        }
+
+        cursor.close();
+        cv.put(PARTICIPANT_CLUBS, events.replace(clubName + ",", ""));
+        db.update(PARTICIPANT_TABLE, cv, PARTICIPANT_USERNAME + "=?", new String[]{username});
     }
 
 }

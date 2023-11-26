@@ -24,18 +24,21 @@ public class CompleteAccountManager extends AppCompatActivity {
             this.clubUser = intent.getStringExtra("clubUser");
         }
 
-        btnCompleteAccount = findViewById(R.id.button);
+        btnCompleteAccount = findViewById(R.id.completeAccountBtn2);
 
         btnCompleteAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(CompleteAccountManager.this, EventCreation.class);
-                startActivity(intent);
+                if (complete()) {
+                    Intent intent = new Intent(CompleteAccountManager.this, EventCreation.class);
+                    intent.putExtra("name", clubUser);
+                    startActivity(intent);
+                }
             }
         });
     }
 
-    public void complete(View view){
+    public boolean complete(){
         DBAdmin db = new DBAdmin(this);
 
         EditText link = (EditText) findViewById(R.id.socialTxt);
@@ -48,12 +51,10 @@ public class CompleteAccountManager extends AppCompatActivity {
         String strNumber = number.getText().toString();
 //        String strClubName = clubName.getText().toString();
 
-        Boolean check = false;
         if(Validate.isNotValidLink(strLink) || Validate.isNotValidPhoneNumber(strNumber)){
             TextView warning = (TextView) findViewById(R.id.warningtxt);
             warning.setText("Either Social Media Link or Phone Number are incorrect please fill those out");
-        } else {
-            check = true;
+            return false;
         }
 
 //        if(check == true){
@@ -61,11 +62,11 @@ public class CompleteAccountManager extends AppCompatActivity {
 //            Toast.makeText(CompleteAccount.this, "Club " + strClubName + " has been created.", Toast.LENGTH_LONG).show();
 //            finish();
 //        }
-        if(check){
+        else {
 //            Toast.makeText(CompleteAccountManager.this, "Club " + strClubName + " has been created.", Toast.LENGTH_LONG).show();
             Toast.makeText(CompleteAccountManager.this, "Club " + clubUser + " has been completed.", Toast.LENGTH_LONG).show();
             db.completeClubAccount(clubUser, strLink, strName, strNumber);
-            finish();
+            return true;
         }
 
     }
