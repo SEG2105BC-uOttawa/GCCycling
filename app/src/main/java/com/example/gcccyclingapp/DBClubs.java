@@ -11,26 +11,11 @@ public class DBClubs extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "clubs.db";
     public static final String EVENT_NAME = "EVENT_NAME";
     public static final String EVENT_TYPE = "EVENT_TYPE";
-
-//    public static final String EVENT_AGE = "EVENT_AGE";
-//
-//    public static final String EVENT_PACE = "EVENT_PACE";
-//
-//    public static final String EVENT_LEVEL = "EVENT_LEVEL";
-//    public static final String EVENT_LOCATION = "EVENT_LOCATION";
-//
-//    public static final String EVENT_TIME = "EVENT_TIME";
-//    public static final String EVENT_DETAILS = "EVENT_DETAILS";
-
     public static final String EVENT_DIFFICULTY = "EVENT_DIFFICULTY";
     public static final String EVENT_ROUTE = "EVENT_ROUTE";
     public static final String EVENT_FEE = "EVENT_FEE";
     public static final String EVENT_PARTICIPANT_LIMIT = "EVENT_PARTICIPANT_LIMIT";
-
-
-
     public static String clubName;
-
 
     public DBClubs(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -44,17 +29,13 @@ public class DBClubs extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
     }
 
+    // will be called everytime a new club is created
     public void addClub(String clubName) {
         SQLiteDatabase db = getWritableDatabase();
         this.clubName = clubName;
         String createEventTableStatement = "CREATE TABLE IF NOT EXISTS " + this.clubName + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + EVENT_NAME +" TEXT, "
                 + EVENT_TYPE +" TEXT, "
-//                + EVENT_AGE +" TEXT, "
-//                + EVENT_PACE + " TEXT, "
-//                + EVENT_LEVEL + " TEXT, "
-//                + EVENT_LOCATION + " TEXT, "
-//                + EVENT_TIME + " TEXT, "
-//                + EVENT_DETAILS + " TEXT)"
                 + EVENT_DIFFICULTY + " TEXT, "
                 + EVENT_FEE + " TEXT, "
                 + EVENT_ROUTE + " TEXT, "
@@ -62,37 +43,20 @@ public class DBClubs extends SQLiteOpenHelper {
 
         db.execSQL(createEventTableStatement);
     }
-//    public void insertEvent(String clubName, String difficulty, String fee, String route, String limit){
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        ContentValues cv = new ContentValues();
-//
-//        this.clubName = clubName;
-//
-//        cv.put(EVENT_TYPE, type);
-//        cv.put(EVENT_AGE, age);
-//        cv.put(EVENT_PACE, pace);
-//        cv.put(EVENT_LEVEL, level);
-//        cv.put(EVENT_LOCATION, location);
-//        cv.put(EVENT_TIME, time);
-//        cv.put(EVENT_DETAILS, details);
-//
-//        addClub(this.clubName);
-//        db.insert(this.clubName, null, cv);
-//    }
 
-    public void insertEvent(String clubName, String type, String difficulty, String route, String fee, String participantLimit) {
+    // inserts event into its corresponding club table
+    public void insertEvent(String clubName, String name, String type, String difficulty, String route, String fee, String participantLimit) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
-
         this.clubName = clubName;
 
+        cv.put(EVENT_NAME, name);
         cv.put(EVENT_TYPE, type);
         cv.put(EVENT_DIFFICULTY, difficulty);
         cv.put(EVENT_ROUTE, route);
         cv.put(EVENT_FEE, fee);
         cv.put(EVENT_PARTICIPANT_LIMIT, participantLimit);
 
-        addClub(this.clubName);
         db.insert(this.clubName, null, cv);
     }
 
@@ -105,27 +69,12 @@ public class DBClubs extends SQLiteOpenHelper {
         if (query != null) {
             return true;
         }
-
-        return false;
-    }
-
-    public boolean findEventType(String clubName, String eventName) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        this.clubName = clubName;
-        String query = "Select * FROM " + this.clubName + " WHERE " + EVENT_NAME + " =\"" + eventName + "\"";
-        db.close();
-
-        if (query != null) {
-            return true;
-        }
-
         return false;
     }
 
     public void deleteEvent(String clubName, String eventName) {
         SQLiteDatabase db = getWritableDatabase();
         this.clubName = clubName;
-        String query = "Select * FROM " + this.clubName;
         db.delete(this.clubName, eventName, null);
         db.close();
     }
@@ -147,11 +96,12 @@ public class DBClubs extends SQLiteOpenHelper {
 
         int i = 0;
         while (cursor.moveToNext()){
-            String type = cursor.getString(1);
-            String difficulty = cursor.getString(2);
-            String fee = cursor.getString(3);
-            String route = cursor.getString(4);
-            String limit = cursor.getString(5);
+            String name = cursor.getString(1);
+            String type = cursor.getString(2);
+            String difficulty = cursor.getString(3);
+            String fee = cursor.getString(4);
+            String route = cursor.getString(5);
+            String limit = cursor.getString(6);
 //            event = new Event(type, difficulty, fee, route, limit);
 //            events[i] = event;
             i++;

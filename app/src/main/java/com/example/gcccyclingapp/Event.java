@@ -12,4 +12,48 @@ public class Event {
         this.route = route;
         this.limit = limit;
     }
+
+    public String getName() {
+        return this.name;
+    }
+    public void setName(String name) {
+        this.name= name;
+    }
+
+    public String getType() {
+        return this.type;
+    }
+    public void setType(String type) {
+        this.type= type;
+    }
+
+    public String getDifficulty() {
+        return this.difficulty;
+    }
+    public void setDifficulty(String difficulty) {
+        this.difficulty= difficulty;
+    }
+
+    public String getFee() {
+        return this.fee;
+    }
+    public void setFee(String fee) {
+        this.fee= fee;
+    }
+
+    public String getRoute() {
+        return this.route;
+    }
+    public void setRoute(String route) {
+        this.route= route;
+    }
+
+    public String getLimit() {
+        return this.limit;
+    }
+    public void setLimit(String limit) {
+        this.limit= limit;
+    }
+
+
 }
