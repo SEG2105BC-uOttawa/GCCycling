@@ -127,10 +127,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/warningTxt" />
+        app:layout_constraintTop_toBottomOf="@+id/warningTxtMsg" />
 
     <TextView
-        android:id="@+id/warningTxt"
+        android:id="@+id/warningTxtMsg"
         android:layout_width="201dp"
         android:layout_height="78dp"
         android:layout_marginStart="114dp"

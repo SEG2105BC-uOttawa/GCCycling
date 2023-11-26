@@ -18,11 +18,14 @@ public class Welcome extends AppCompatActivity {
     Button btnComplete;
     public Admin admin;
 
+    private DBAdmin db;
+
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.welcome_screen);
 
+            db = new DBAdmin(this);
             String name = null;
             String role = null;
 
@@ -52,9 +55,18 @@ public class Welcome extends AppCompatActivity {
             }
 
             if(role.equals("Club")){
-                Log.d("Logged in", "Club owner");
-                Button setEvent = (Button) findViewById(R.id.completeClubBtn);
-                setEvent.setVisibility(View.VISIBLE);
+                String[] info = db.getClubInfo(name);
+
+                if (info == null) {
+                    Log.d("Logged in", "Club owner");
+                    Button setEvent = (Button) findViewById(R.id.completeClubBtn);
+                    setEvent.setVisibility(View.VISIBLE);
+                }
+                else {
+                    Intent intent = new Intent(Welcome.this, EventCreation.class);
+                    intent.putExtra("name", name);
+                    startActivity(intent);
+                }
             }
 
             btnParticipant = findViewById(R.id.viewParticipantsBtn);

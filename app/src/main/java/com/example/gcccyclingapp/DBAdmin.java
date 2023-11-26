@@ -102,6 +102,9 @@ public class DBAdmin extends SQLiteOpenHelper{
         cv.put(CLUB_NAME, clubName); // inserts data into club column
         cv.put(CLUB_USERNAME, clubUser); // inserts data into club column
         cv.put(CLUB_PASSWORD, clubPWD); // inserts data into club column
+        cv.put(CLUB_LINK, "");
+        cv.put(CLUB_CONTACT, "");
+        cv.put(CLUB_PHONE, "");
 
         db.insert(CLUB_TABLE, null, cv);
     }
@@ -179,6 +182,29 @@ public class DBAdmin extends SQLiteOpenHelper{
             cursorC.close();
             return "Club";
         }
+    }
+
+    public String[] getClubInfo(String clubName){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT " + CLUB_LINK + ", " + CLUB_CONTACT + ", " + CLUB_PHONE + " FROM " + CLUB_TABLE + " WHERE " + CLUB_NAME + " = '" + clubName + "'", null);
+        String[] clubInfo = new String[cursor.getColumnCount()];
+        cursor.moveToFirst();
+
+        boolean complete = true;
+        for (int i=0; i < cursor.getColumnCount(); i++) {
+            String info = cursor.getString(i);
+            if (info.equals("")) {
+                complete = false;
+                break;
+            }
+            else {
+                clubInfo[i] = info;
+            }
+        }
+        cursor.close();
+
+
+        return (complete ? clubInfo : null);
     }
 
     public String[] getAllClubs(){

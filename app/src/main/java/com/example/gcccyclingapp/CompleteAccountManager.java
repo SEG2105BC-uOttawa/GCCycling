@@ -52,7 +52,7 @@ public class CompleteAccountManager extends AppCompatActivity {
 //        String strClubName = clubName.getText().toString();
 
         if(Validate.isNotValidLink(strLink) || Validate.isNotValidPhoneNumber(strNumber)){
-            TextView warning = (TextView) findViewById(R.id.warningtxt);
+            TextView warning = (TextView) findViewById(R.id.warningTxtMsg);
             warning.setText("Either Social Media Link or Phone Number are incorrect please fill those out");
             return false;
         }
