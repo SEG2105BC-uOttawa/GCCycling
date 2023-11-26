@@ -2,6 +2,7 @@ package com.example.gcccyclingapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -9,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Spinner;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class AccountCreation extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -18,6 +20,9 @@ public class AccountCreation extends AppCompatActivity implements AdapterView.On
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.creation_screen);
+
+            ActionBar actionBar = getSupportActionBar();
+            actionBar.setDisplayHomeAsUpEnabled(true);
 
             Spinner accountType = findViewById(R.id.accountType);
             ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.account_types, android.R.layout.simple_spinner_item);
@@ -73,6 +78,14 @@ public class AccountCreation extends AppCompatActivity implements AdapterView.On
                 startActivity(i);
             }
         }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            this.finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 
 }

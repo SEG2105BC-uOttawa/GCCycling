@@ -14,8 +14,9 @@ public class Welcome extends AppCompatActivity {
     int LAUNCH_EVENT_CREATION = 1;
     Button btnParticipant;
     Button btnClub;
-    Button btnEvent;
+    Button btnEventType;
     Button btnComplete;
+    Button btnClubEvent;
     public Admin admin;
 
     private DBAdmin db;
@@ -48,10 +49,12 @@ public class Welcome extends AppCompatActivity {
                 Button setParticipantsBtn = (Button) findViewById(R.id.viewParticipantsBtn);
                 Button setClubsBtn = (Button) findViewById(R.id.viewClubsBtn);
                 Button setEventBtn = (Button) findViewById(R.id.viewEventsBtn);
+                Button setClubEventBtn = (Button) findViewById(R.id.viewClubEventsBtn);
 
                 setParticipantsBtn.setVisibility(View.VISIBLE);
                 setClubsBtn.setVisibility(View.VISIBLE);
                 setEventBtn.setVisibility(View.VISIBLE);
+                setClubEventBtn.setVisibility(View.VISIBLE);
             }
 
             if(role.equals("Club")){
@@ -71,8 +74,9 @@ public class Welcome extends AppCompatActivity {
 
             btnParticipant = findViewById(R.id.viewParticipantsBtn);
             btnClub = findViewById(R.id.viewClubsBtn);
-            btnEvent = findViewById(R.id.viewEventsBtn);
+            btnEventType = findViewById(R.id.viewEventsBtn);
             btnComplete = findViewById(R.id.completeClubBtn);
+            btnClubEvent = findViewById(R.id.viewClubEventsBtn);
             btnParticipant.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -89,7 +93,7 @@ public class Welcome extends AppCompatActivity {
                 }
             });
 
-            btnEvent.setOnClickListener(new View.OnClickListener() {
+            btnEventType.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(Welcome.this, ViewEventType.class);
@@ -108,10 +112,18 @@ public class Welcome extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
+
+            btnClubEvent.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(Welcome.this, ViewClubEvent.class);
+                    startActivity(intent);
+                }
+            });
         }
 
         public void createEvent(View view) {
-            Intent i = new Intent(getApplicationContext(), EventTypeCreation.class);
+            Intent i = new Intent(getApplicationContext(), EventTypeCreationAdmin.class);
             startActivityForResult(i, LAUNCH_EVENT_CREATION);
         }
 

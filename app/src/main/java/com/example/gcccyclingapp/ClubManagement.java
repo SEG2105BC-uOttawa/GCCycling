@@ -1,11 +1,8 @@
 package com.example.gcccyclingapp;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 public class ClubManagement extends AppCompatActivity{
@@ -13,7 +10,7 @@ public class ClubManagement extends AppCompatActivity{
     private String eventType, eventName, eventDifficulty, eventRoute, eventFee, eventParticipantLimit;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.create_event_type);
+        setContentView(R.layout.create_event_type_admin);
     }
 
     // the created event will automatically be added to the club's database of events

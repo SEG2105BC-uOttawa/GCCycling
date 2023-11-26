@@ -12,7 +12,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class EventTypeCreation extends AppCompatActivity {
+public class EventTypeCreationAdmin extends AppCompatActivity {
 
     String eventSelected;
 
@@ -20,7 +20,7 @@ public class EventTypeCreation extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.create_event_type);
+        setContentView(R.layout.create_event_type_admin);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -104,7 +104,7 @@ public class EventTypeCreation extends AppCompatActivity {
 
             db.insertEvent(strType, strAge, strPace, strLevel, strLocation, strTime, strDetails);
 
-            Toast.makeText(EventTypeCreation.this, "Event type " + strType + " has been created.", Toast.LENGTH_LONG).show();
+            Toast.makeText(EventTypeCreationAdmin.this, "Event type " + strType + " has been created.", Toast.LENGTH_LONG).show();
             finish();
         }
 
