@@ -13,7 +13,7 @@ public class ViewCreatedEventClubOwner extends AppCompatActivity {
     String clubName;
     ListView listView;
     DBClubs DB;
-    Event[] createdEvents;
+    String[] createdEvents;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
