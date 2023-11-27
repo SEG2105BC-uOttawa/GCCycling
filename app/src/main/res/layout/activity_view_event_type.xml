@@ -15,7 +15,7 @@
             android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="81dp"
-            android:text="Events"
+            android:text="Event Types"
             android:textSize="21sp"
             android:textStyle="bold"
             android:gravity="center"

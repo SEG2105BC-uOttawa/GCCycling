@@ -116,7 +116,7 @@ public class Welcome extends AppCompatActivity {
             btnClubEvent.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(Welcome.this, ViewClubEvent.class);
+                    Intent intent = new Intent(Welcome.this, ViewClubEventAdmin.class);
                     startActivity(intent);
                 }
             });
