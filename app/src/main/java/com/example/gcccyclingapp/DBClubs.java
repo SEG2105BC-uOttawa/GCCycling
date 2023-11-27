@@ -1,5 +1,6 @@
 package com.example.gcccyclingapp;
 
+import android.annotation.SuppressLint;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase;
@@ -13,9 +14,10 @@ public class DBClubs extends SQLiteOpenHelper {
     public static final String EVENT_NAME = "EVENT_NAME";
     public static final String EVENT_TYPE = "EVENT_TYPE";
     public static final String EVENT_DIFFICULTY = "EVENT_DIFFICULTY";
-    public static final String EVENT_ROUTE = "EVENT_ROUTE";
     public static final String EVENT_FEE = "EVENT_FEE";
     public static final String EVENT_PARTICIPANT_LIMIT = "EVENT_PARTICIPANT_LIMIT";
+    public static final String EVENT_DATE = "EVENT_DATE";
+    public static final String EVENT_ROUTE = "EVENT_ROUTE";
     public static String clubName;
 
     public DBClubs(Context context) {
@@ -39,14 +41,15 @@ public class DBClubs extends SQLiteOpenHelper {
                 + EVENT_TYPE +" TEXT, "
                 + EVENT_DIFFICULTY + " TEXT, "
                 + EVENT_FEE + " TEXT, "
-                + EVENT_ROUTE + " TEXT, "
-                + EVENT_PARTICIPANT_LIMIT + " TEXT)";
+                + EVENT_PARTICIPANT_LIMIT + " TEXT, "
+                + EVENT_DATE + "TEXT, "
+                + EVENT_ROUTE + " TEXT)";
 
         db.execSQL(createEventTableStatement);
     }
 
     // inserts event into its corresponding club table
-    public void insertEvent(String clubName, String name, String type, String difficulty, String route, String fee, String participantLimit) {
+    public void insertEvent(String clubName, String name, String type, String difficulty, String fee, String participantLimit, String date, String route) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         this.clubName = clubName;
@@ -54,9 +57,10 @@ public class DBClubs extends SQLiteOpenHelper {
         cv.put(EVENT_NAME, name);
         cv.put(EVENT_TYPE, type);
         cv.put(EVENT_DIFFICULTY, difficulty);
-        cv.put(EVENT_ROUTE, route);
         cv.put(EVENT_FEE, fee);
         cv.put(EVENT_PARTICIPANT_LIMIT, participantLimit);
+        cv.put(EVENT_DATE, date);
+        cv.put(EVENT_ROUTE, route);
 
         db.insert(this.clubName, null, cv);
     }
@@ -80,7 +84,7 @@ public class DBClubs extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void updateEvent(String clubName, String name, String type, String difficulty, String route, String fee, String participantLimit){
+    public void updateEvent(String clubName, String name, String type, String difficulty, String fee, String participantLimit, String date, String route){
         SQLiteDatabase db = this.getWritableDatabase();
 
         Log.d("DB", "Event updated");
@@ -90,9 +94,10 @@ public class DBClubs extends SQLiteOpenHelper {
         db.execSQL("UPDATE "+ table + " SET " + EVENT_NAME + " = '" + name);
         db.execSQL("UPDATE "+ table + " SET " + EVENT_TYPE + " = '" + type);
         db.execSQL("UPDATE "+ table + " SET " + EVENT_DIFFICULTY + " = '" + difficulty);
-        db.execSQL("UPDATE "+ table + " SET " + EVENT_FEE + " = '" + route);
-        db.execSQL("UPDATE "+ table + " SET " + EVENT_ROUTE + " = '" + fee);
+        db.execSQL("UPDATE "+ table + " SET " + EVENT_FEE + " = '" + fee);
         db.execSQL("UPDATE "+ table + " SET " + EVENT_PARTICIPANT_LIMIT + " = '" + participantLimit);
+        db.execSQL("UPDATE "+ table + " SET " + EVENT_DATE + " = '" + date);
+        db.execSQL("UPDATE "+ table + " SET " + EVENT_ROUTE + " = '" + route);
     }
 
     public void deleteClub(String clubName) {
@@ -112,13 +117,31 @@ public class DBClubs extends SQLiteOpenHelper {
 
         int i = 0;
         while (cursor.moveToNext()){
+            String name = cursor.getString(1); //only one column selected
+            i++;
+        }
+        cursor.close();
+        return events;
+    }
+
+    public Event[] getCreatedEventInfo(String clubName) {
+        String table = clubName;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + table, null);
+
+        Event[] events = new Event[cursor.getCount()];
+        Event event;
+
+        int i = 0;
+        while (cursor.moveToNext()){
             String name = cursor.getString(1);
             String type = cursor.getString(2);
             String difficulty = cursor.getString(3);
             String fee = cursor.getString(4);
-            String route = cursor.getString(5);
-            String limit = cursor.getString(6);
-            event = new Event(name, type, difficulty, fee, route, limit);
+            String limit = cursor.getString(5);
+            String date = cursor.getString(6);
+            String route = cursor.getString(7);
+            event = new Event(name, type, difficulty, fee, limit, date, route);
             events[i] = event;
             i++;
         }

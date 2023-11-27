@@ -30,7 +30,7 @@ public class CompleteAccountManager extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (complete()) {
-                    Intent intent = new Intent(CompleteAccountManager.this, EventCreation.class);
+                    Intent intent = new Intent(CompleteAccountManager.this, ClubOwnerPage.class);
                     intent.putExtra("name", clubUser);
                     startActivity(intent);
                 }

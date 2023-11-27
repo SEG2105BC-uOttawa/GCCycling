@@ -91,7 +91,7 @@ public class EventTypeCreationAdmin extends AppCompatActivity {
 
         if (check) {
             Intent returnIntent = new Intent();
-            returnIntent.putExtra("type", strAge);
+            returnIntent.putExtra("type", strType);
             returnIntent.putExtra("age", strAge);
             returnIntent.putExtra("pace", strPace);
             returnIntent.putExtra("level", strLevel);
@@ -100,7 +100,7 @@ public class EventTypeCreationAdmin extends AppCompatActivity {
             returnIntent.putExtra("details", strDetails);
 //            returnIntent.putExtra("event_type", eventSelected);
             setResult(RESULT_OK, returnIntent);
-            Log.d("Event", strType);
+            Log.d("Event Type", strType);
 
             db.insertEvent(strType, strAge, strPace, strLevel, strLocation, strTime, strDetails);
 

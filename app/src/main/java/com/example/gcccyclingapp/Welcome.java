@@ -66,7 +66,7 @@ public class Welcome extends AppCompatActivity {
                 }
                 else {
                     String[] info = db.getClubInfo(name);
-                    Intent intent = new Intent(Welcome.this, EventCreation.class);
+                    Intent intent = new Intent(Welcome.this, ClubOwnerPage.class);
                     intent.putExtra("name", name);
                     startActivity(intent);
                 }
