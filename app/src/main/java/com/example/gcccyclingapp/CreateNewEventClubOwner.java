@@ -123,6 +123,8 @@ public class CreateNewEventClubOwner extends AppCompatActivity {
             setResult(RESULT_OK, returnIntent);
             Log.d("Event Created Of Type", strType);
 
+            Log.d("Insert event", "Club: " + clubName);
+
             db.insertEvent(clubName, strName, strType, strDifficulty, strFees, strLimit, strDate, strDetails);
 
             Toast.makeText(CreateNewEventClubOwner.this, "Event of type " + strType + " has been created.", Toast.LENGTH_LONG).show();

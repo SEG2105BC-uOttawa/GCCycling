@@ -4,6 +4,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -35,6 +36,8 @@ public class ViewCreatedEventClubOwner extends AppCompatActivity {
         DB = new DBClubs(this);
 
         createdEvents = DB.getAllEvents(clubName);
+
+        Log.d("createdEvents", createdEvents[0]);
 
         ArrayAdapter<String> adapter = new ArrayAdapter(this, R.layout.event_list_item, R.id.event, createdEvents);
         listView = (ListView) findViewById(R.id.eventList);

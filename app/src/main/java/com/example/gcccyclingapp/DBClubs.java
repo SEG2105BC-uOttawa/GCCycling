@@ -9,7 +9,7 @@ import android.content.ContentValues;
 import android.util.Log;
 
 public class DBClubs extends SQLiteOpenHelper {
-    public static final int DATABASE_VERSION = 4;
+    public static final int DATABASE_VERSION = 6;
     public static final String DATABASE_NAME = "clubs.db";
     public static final String EVENT_NAME = "EVENT_NAME";
     public static final String EVENT_TYPE = "EVENT_TYPE";
@@ -42,7 +42,7 @@ public class DBClubs extends SQLiteOpenHelper {
                 + EVENT_DIFFICULTY + " TEXT, "
                 + EVENT_FEE + " TEXT, "
                 + EVENT_PARTICIPANT_LIMIT + " TEXT, "
-                + EVENT_DATE + "TEXT, "
+                + EVENT_DATE + " TEXT, "
                 + EVENT_ROUTE + " TEXT)";
 
         db.execSQL(createEventTableStatement);
@@ -145,6 +145,32 @@ public class DBClubs extends SQLiteOpenHelper {
         }
         cursorClubs.close();
         return eventNames;
+    }
+
+    public Event[] getAllEventsObject(String clubName){
+        String table = clubName;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + table, null);
+        Event[] events = new Event[cursor.getCount()];
+        Event event;
+        int i = 0;
+        while (cursor.moveToNext()){
+            String name = cursor.getString(1);
+            String type = cursor.getString(2);
+            String difficulty = cursor.getString(3);
+            String fee = cursor.getString(4);
+            String limit = cursor.getString(5);
+            String date = cursor.getString(6);
+            String route = cursor.getString(7);
+
+//            event = new Event(type, difficulty, fee, route, limit);
+//            events[i] = event;
+            event = new Event(name, type, difficulty, fee, route, limit, date);
+            events[i] = event;
+            i++;
+        }
+        cursor.close();
+        return events;
     }
 
 
