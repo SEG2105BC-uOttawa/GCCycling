@@ -9,12 +9,17 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 public class CreateNewEventClubOwner extends AppCompatActivity {
 
     String clubName;
+    DBAdmin DB;
+    String[] eventTypes;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,12 +30,27 @@ public class CreateNewEventClubOwner extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
 
+        Spinner eventTypeSpinner = findViewById(R.id.eventTypetxt);
+        displayEventTypeSpinner(eventTypeSpinner);
+
         if(bundle.getString("name")!=null){
             clubName = bundle.getString("name");
         }
         else {
             clubName = null;
         }
+    }
+
+    private void displayEventTypeSpinner(Spinner spinner){
+
+        DB = new DBAdmin(this);
+        eventTypes = DB.getAllEvents();
+
+        ArrayAdapter<String> adapter = new ArrayAdapter(this, R.layout.event_list_item, R.id.event, eventTypes);
+        spinner = (Spinner) findViewById(R.id.eventTypetxt);
+        spinner.setAdapter(adapter);
+
+
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -45,7 +65,7 @@ public class CreateNewEventClubOwner extends AppCompatActivity {
         DBClubs db = new DBClubs(this);
 
         EditText name = (EditText) findViewById(R.id.eventNametxt);
-        EditText type = (EditText) findViewById(R.id.eventTypetxt);
+        Spinner type = (Spinner) findViewById(R.id.eventTypetxt);
         EditText difficulty = (EditText) findViewById(R.id.difficultytxt);
         EditText fees = (EditText) findViewById(R.id.feestxt);
         EditText limit = (EditText) findViewById(R.id.limittxt);
@@ -53,12 +73,13 @@ public class CreateNewEventClubOwner extends AppCompatActivity {
         EditText route = (EditText) findViewById(R.id.detailstxt);
 
         String strName = name.getText().toString();
-        String strType = type.getText().toString();
+        String strType = type.getSelectedItem().toString();
         String strDifficulty = difficulty.getText().toString();
         String strFees = fees.getText().toString();
         String strLimit = limit.getText().toString();
         String strDate = date.getText().toString();
         String strDetails = route.getText().toString();
+
 
         Boolean check = true;
         String warningText = "";

@@ -16,7 +16,7 @@
             android:layout_width="300dp"
             android:layout_height="69dp"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="36dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="32dp"
             android:layout_weight="1"
             android:gravity="center_horizontal"
@@ -33,6 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="60dp"
             android:layout_marginEnd="60dp"
+            android:layout_marginTop="60dp"
             android:text="Enter Details About The Route Below:"
             android:textColor="#03A9F4"
             android:textSize="20sp"
@@ -50,8 +51,8 @@
         <TableLayout
             android:id="@+id/eventInfoTable"
             android:layout_width="410dp"
-            android:layout_height="280dp"
-            android:layout_marginBottom="300dp"
+            android:layout_height="360dp"
+            android:layout_marginBottom="280dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -87,13 +88,12 @@
                     android:layout_height="wrap_content"
                     android:text="  Select Event Type " />
 
-                <EditText
+                <Spinner
                     android:id="@+id/eventTypetxt"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="Event Type"
-                    android:inputType="text" />
+                    android:layout_marginLeft="5dp"
+                    android:spinnerMode="dropdown" />
 
             </TableRow>
 
@@ -178,7 +178,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/detailstxt"
             android:layout_width="411dp"
-            android:layout_height="144dp"
+            android:layout_height="120dp"
             android:layout_marginBottom="128dp"
             android:hint="Enter Details"
             android:lines="5"
