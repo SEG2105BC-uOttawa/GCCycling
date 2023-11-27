@@ -58,14 +58,14 @@ public class Welcome extends AppCompatActivity {
             }
 
             if(role.equals("Club")){
-                String[] info = db.getClubInfo(name);
 
-                if (info == null) {
+                if (db.getClubInfo(name) == null) {
                     Log.d("Logged in", "Club owner");
                     Button setEvent = (Button) findViewById(R.id.completeClubBtn);
                     setEvent.setVisibility(View.VISIBLE);
                 }
                 else {
+                    String[] info = db.getClubInfo(name);
                     Intent intent = new Intent(Welcome.this, EventCreation.class);
                     intent.putExtra("name", name);
                     startActivity(intent);

@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase;
 import android.content.Context;
 import android.content.ContentValues;
+import android.util.Log;
 
 public class DBClubs extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 4;
@@ -77,6 +78,21 @@ public class DBClubs extends SQLiteOpenHelper {
         this.clubName = clubName;
         db.delete(this.clubName, eventName, null);
         db.close();
+    }
+
+    public void updateEvent(String clubName, String name, String type, String difficulty, String route, String fee, String participantLimit){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Log.d("DB", "Event updated");
+
+        String table = clubName;
+
+        db.execSQL("UPDATE "+ table + " SET " + EVENT_NAME + " = '" + name);
+        db.execSQL("UPDATE "+ table + " SET " + EVENT_TYPE + " = '" + type);
+        db.execSQL("UPDATE "+ table + " SET " + EVENT_DIFFICULTY + " = '" + difficulty);
+        db.execSQL("UPDATE "+ table + " SET " + EVENT_FEE + " = '" + route);
+        db.execSQL("UPDATE "+ table + " SET " + EVENT_ROUTE + " = '" + fee);
+        db.execSQL("UPDATE "+ table + " SET " + EVENT_PARTICIPANT_LIMIT + " = '" + participantLimit);
     }
 
     public void deleteClub(String clubName) {
