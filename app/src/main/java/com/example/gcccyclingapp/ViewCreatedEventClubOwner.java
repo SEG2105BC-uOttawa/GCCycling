@@ -42,7 +42,6 @@ public class ViewCreatedEventClubOwner extends AppCompatActivity {
 
         unregisterForContextMenu(listView);
 
-
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
