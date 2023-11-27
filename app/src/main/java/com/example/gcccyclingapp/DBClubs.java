@@ -107,46 +107,46 @@ public class DBClubs extends SQLiteOpenHelper {
         db.close();
     }
 
-    public Event[] getAllEvents(String clubName) {
-        String table = clubName;
+    @SuppressLint("Range")
+    public String[] getEventInfo(String clubName, String eventName){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + table, null);
+//        Cursor cursor = db.rawQuery("SELECT " + EVENT_AGE + " FROM " + EVENTS_TABLE + " WHERE EVENT_TYPE = '" + eventType +"'", null);
+        Cursor cursor = db.rawQuery("SELECT * FROM " + clubName + " WHERE EVENT_NAME = '" + eventName + "'", null); // get all col info for specific event type
+        String[] eventInfo;
 
-        Event[] events = new Event[cursor.getCount()];
-        Event event;
+        if (cursor.moveToFirst()) {
+            String[] columnNames = cursor.getColumnNames();
 
-        int i = 0;
-        while (cursor.moveToNext()){
-            String name = cursor.getString(1); //only one column selected
-            i++;
+            eventInfo = new String[columnNames.length];
+
+            // Get col values
+            for (int i = 0; i < columnNames.length; i++) {
+                eventInfo[i] = cursor.getString(cursor.getColumnIndex(columnNames[i]));
+                Log.d("eventInfo:", columnNames[i] + ": " + eventInfo[i]);
+            }
+        } else {
+            Log.d("getEventInfo", "No rows found for event: " + eventName);
+            eventInfo = new String[0];
         }
+
         cursor.close();
-        return events;
+        return eventInfo;
     }
 
-    public Event[] getCreatedEventInfo(String clubName) {
-        String table = clubName;
+    public String[] getAllEvents(String clubName){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + table, null);
-
-        Event[] events = new Event[cursor.getCount()];
-        Event event;
+        Cursor cursorClubs = db.rawQuery("SELECT " + EVENT_NAME + " FROM " + clubName, null);
+        String[] eventNames = new String[cursorClubs.getCount()];
 
         int i = 0;
-        while (cursor.moveToNext()){
-            String name = cursor.getString(1);
-            String type = cursor.getString(2);
-            String difficulty = cursor.getString(3);
-            String fee = cursor.getString(4);
-            String limit = cursor.getString(5);
-            String date = cursor.getString(6);
-            String route = cursor.getString(7);
-            event = new Event(name, type, difficulty, fee, limit, date, route);
-            events[i] = event;
+        while (cursorClubs.moveToNext()){
+            eventNames[i] = cursorClubs.getString(0); //only one column selected
             i++;
         }
-        cursor.close();
-        return events;
+        cursorClubs.close();
+        return eventNames;
     }
+
+
 
 }
