@@ -36,6 +36,10 @@ public class ClubParticipants extends AppCompatActivity {
         DB = new DBAdmin(this);
         String[] participantNames = DB.getAllParticipants(clubName);
 
+        if (participantNames.length == 0) {
+            participantNames = new String[]{"No participants"};
+        }
+
         if (participantNames[0] == null) {
             participantNames = new String[]{"No participants"};
         }
