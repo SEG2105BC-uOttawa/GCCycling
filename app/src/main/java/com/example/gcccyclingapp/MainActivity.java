@@ -42,7 +42,17 @@ public class MainActivity extends AppCompatActivity {
                 i.putExtra("role", dbAdmin.getAccountType(strUsername, strPassword));
                 Log.d("Role", dbAdmin.getAccountType(strUsername, strPassword));
                 startActivity(i);
-            } else {
+            } else if (strUsername.equals("gccadmin") && strPassword.equals("GCCRocks!")) {
+                Admin admin = new Admin(this);
+                admin.createClub(new Club("GCC Cycling", "gccadmin", "GCCRocks!", "Club Owner"));
+
+                Intent i = new Intent(getApplicationContext(), Welcome.class);
+                i.putExtra("name", strUsername);
+                i.putExtra("role", dbAdmin.getAccountType(strUsername, strPassword));
+                Log.d("Role", dbAdmin.getAccountType(strUsername, strPassword));
+                startActivity(i);
+            }
+            else {
                 TextView tv1 = (TextView) findViewById(R.id.txtTryAgain);
                 tv1.setText("Either password or username does not match");
             }
