@@ -72,7 +72,14 @@ public class CreateNewEventClubOwner extends AppCompatActivity {
         EditText route = (EditText) findViewById(R.id.detailstxt);
 
         String strName = name.getText().toString();
-        String strType = type.getSelectedItem().toString();
+        String strType;
+
+        if (type.getSelectedItem() != null) {
+            strType = type.getSelectedItem().toString();
+        }
+        else {
+            strType = "N/A";
+        }
         String strDifficulty = difficulty.getText().toString();
         String strFees = fees.getText().toString();
         String strLimit = limit.getText().toString();
