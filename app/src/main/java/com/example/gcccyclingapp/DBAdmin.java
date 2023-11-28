@@ -208,6 +208,7 @@ public class DBAdmin extends SQLiteOpenHelper{
             return (complete ? clubInfo : null);
         } else {
             cursor.close();
+            return null;
         }
 
     }
