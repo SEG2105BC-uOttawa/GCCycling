@@ -29,17 +29,17 @@ public class Admin extends Account {
         dbAdmin.deleteClub(club.getClubName());
     }
 
-//    public Map<String, Event[]> getAllClubs_Events() {
-//
-//        Map<String, Event[]> clubs_events = new HashMap<>();
-//        String[] clubs = dbAdmin.getAllClubs();
-//
-//        for (String club : clubs) {
-//            String[] events = dbClubs.getAllEvents(club);
-//            clubs_events.put(club, events);
-//        }
-//        return clubs_events;
-//    }
+    public Map<String, Event[]> getAllClubs_Events() {
+
+        Map<String, Event[]> clubs_events = new HashMap<>();
+        String[] clubs = dbAdmin.getAllClubs();
+
+        for (String club : clubs) {
+            Event[] events = dbClubs.getAllEventsObject(club);
+            clubs_events.put(club, events);
+        }
+        return clubs_events;
+    }
 
 
 //    public void addParticipant(Club club, Participant participant){ // add a participant to a club, will have to change for future use
