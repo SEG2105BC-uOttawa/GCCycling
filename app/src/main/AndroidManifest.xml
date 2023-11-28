@@ -22,13 +22,13 @@
             android:exported="false" />
         <activity
             android:name=".AdminViewClubEventInfo"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".ViewCreatedEventClubOwner"
             android:exported="false" />
         <activity
             android:name=".CreateNewEventClubOwner"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".ViewClubEventAdmin"
             android:exported="false" />

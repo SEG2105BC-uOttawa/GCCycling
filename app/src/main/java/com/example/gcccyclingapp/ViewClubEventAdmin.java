@@ -41,10 +41,10 @@ public class ViewClubEventAdmin extends AppCompatActivity {
         for (String club : clubs_events.keySet()) {
             Event[] events = clubs_events.get(club);
             for (Event event : events) {
-                Log.d("event", event.name);
+                Log.d("event", event.getName());
                 Log.d("club", club);
                 Map<String, String> item = new HashMap<>();
-                item.put("event", event.name);
+                item.put("event", event.getName());
                 item.put("club", club);
                 listItems.add(item);
             }
