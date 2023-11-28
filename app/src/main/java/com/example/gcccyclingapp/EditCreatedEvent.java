@@ -33,15 +33,15 @@ public class EditCreatedEvent extends AppCompatActivity {
         Spinner eventTypeSpinner = findViewById(R.id.eventTypetxt);
         displayEventTypeSpinner(eventTypeSpinner);
 
-        if(bundle.getString("name")!=null){
-            clubName = bundle.getString("name");
+        if(bundle.getString("clubName")!=null){
+            clubName = bundle.getString("clubName");
         }
         else {
             clubName = null;
         }
 
-        if(bundle.getString("event")!=null){
-            eventName = bundle.getString("event");
+        if(bundle.getString("eventName")!=null){
+            eventName = bundle.getString("eventName");
         }
         else {
             eventName = null;

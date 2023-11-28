@@ -1,6 +1,7 @@
 package com.example.gcccyclingapp;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -26,15 +27,18 @@ public class CreatedEventInfo extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
 
-        if(bundle.getString("name")!=null){
-            clubName = bundle.getString("name");
+        Log.d("CreatedEventInfo", "clubName = " + bundle.getString("clubName"));
+
+
+        if(bundle.getString("clubName")!=null){
+            clubName = bundle.getString("clubName");
         }
         else {
             clubName = null;
         }
 
-        if(bundle.getString("event")!=null){
-            eventName = bundle.getString("event");
+        if(bundle.getString("eventName")!=null){
+            eventName = bundle.getString("eventName");
         }
         else {
             eventName = null;

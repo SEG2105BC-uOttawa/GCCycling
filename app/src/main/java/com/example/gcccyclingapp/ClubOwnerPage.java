@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -50,6 +51,7 @@ public class ClubOwnerPage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ClubOwnerPage.this, ViewCreatedEventClubOwner.class);
+                Log.d("ClubOwnerPage", "clubName = " + clubName);
                 intent.putExtra("name", clubName);
                 startActivity(intent);
             }

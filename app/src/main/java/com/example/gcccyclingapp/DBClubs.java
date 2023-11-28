@@ -80,7 +80,11 @@ public class DBClubs extends SQLiteOpenHelper {
     public void deleteEvent(String clubName, String eventName) {
         SQLiteDatabase db = getWritableDatabase();
         this.clubName = clubName;
-        db.delete(this.clubName, eventName, null);
+
+        String whereClause = EVENT_NAME + " = ?";
+        String[] whereArgs = new String[]{eventName};
+
+        db.delete(this.clubName, whereClause, whereArgs);
         db.close();
     }
 
@@ -91,13 +95,13 @@ public class DBClubs extends SQLiteOpenHelper {
 
         String table = clubName;
 
-        db.execSQL("UPDATE "+ table + " SET " + EVENT_NAME + " = '" + name);
-        db.execSQL("UPDATE "+ table + " SET " + EVENT_TYPE + " = '" + type);
-        db.execSQL("UPDATE "+ table + " SET " + EVENT_DIFFICULTY + " = '" + difficulty);
-        db.execSQL("UPDATE "+ table + " SET " + EVENT_FEE + " = '" + fee);
-        db.execSQL("UPDATE "+ table + " SET " + EVENT_PARTICIPANT_LIMIT + " = '" + participantLimit);
-        db.execSQL("UPDATE "+ table + " SET " + EVENT_DATE + " = '" + date);
-        db.execSQL("UPDATE "+ table + " SET " + EVENT_ROUTE + " = '" + route);
+        db.execSQL("UPDATE "+ table + " SET " + EVENT_NAME + " = '" + name + "'");
+        db.execSQL("UPDATE "+ table + " SET " + EVENT_TYPE + " = '" + type + "'");
+        db.execSQL("UPDATE "+ table + " SET " + EVENT_DIFFICULTY + " = '" + difficulty + "'");
+        db.execSQL("UPDATE "+ table + " SET " + EVENT_FEE + " = '" + fee + "'");
+        db.execSQL("UPDATE "+ table + " SET " + EVENT_PARTICIPANT_LIMIT + " = '" + participantLimit + "'");
+        db.execSQL("UPDATE "+ table + " SET " + EVENT_DATE + " = '" + date + "'");
+        db.execSQL("UPDATE "+ table + " SET " + EVENT_ROUTE + " = '" + route + "'");
     }
 
     public void deleteClub(String clubName) {
@@ -110,9 +114,13 @@ public class DBClubs extends SQLiteOpenHelper {
     @SuppressLint("Range")
     public String[] getEventInfo(String clubName, String eventName){
         SQLiteDatabase db = this.getReadableDatabase();
+        Log.d("DBClubs", "clubName: " + clubName);
+        Log.d("DBClubs", "eventName: " + eventName);
 //        Cursor cursor = db.rawQuery("SELECT " + EVENT_AGE + " FROM " + EVENTS_TABLE + " WHERE EVENT_TYPE = '" + eventType +"'", null);
         Cursor cursor = db.rawQuery("SELECT * FROM " + clubName + " WHERE EVENT_NAME = '" + eventName + "'", null); // get all col info for specific event type
         String[] eventInfo;
+
+
 
         if (cursor.moveToFirst()) {
             String[] columnNames = cursor.getColumnNames();

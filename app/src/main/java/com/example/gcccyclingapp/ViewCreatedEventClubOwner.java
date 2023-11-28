@@ -33,6 +33,7 @@ public class ViewCreatedEventClubOwner extends AppCompatActivity {
 
         if(bundle.getString("name")!=null){
             clubName = bundle.getString("name");
+            Log.d("ViewCreatedEventClubOwner", "clubName = " + clubName);
         }
         else {
             clubName = null;
@@ -73,7 +74,8 @@ public class ViewCreatedEventClubOwner extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         Intent editPage = new Intent(getApplicationContext(), EditCreatedEvent.class);
-                        editPage.putExtra("name", createdEvent);
+                        editPage.putExtra("clubName", clubName);
+                        editPage.putExtra("eventName", createdEvent);
 //                        startActivity(editPage);
                         startActivityForResult(editPage, EDIT_CREATED_EVENT_REQUEST_CODE);
                     }
@@ -86,7 +88,8 @@ public class ViewCreatedEventClubOwner extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         Intent infoPage = new Intent(getApplicationContext(), CreatedEventInfo.class);
-                        infoPage.putExtra("name", createdEvent);
+                        infoPage.putExtra("clubName", clubName);
+                        infoPage.putExtra("eventName", createdEvent);
                         startActivity(infoPage);
                     }
                 }).show();
