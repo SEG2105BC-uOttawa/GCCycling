@@ -1,8 +1,8 @@
 package com.example.gcccyclingapp;
 
 public class EventType {
-    String name, type, location,time, details;
-    int age, level;
+    private String name, type, location,time, details;
+    private int age, level;
 
     Double pace;
     public EventType(String name, String type, int age, Double pace, int level, String location, String time, String details ) {
@@ -34,19 +34,19 @@ public class EventType {
         this.name= type;
     }
 
-    public int getAge() {
-        return this.age;
-    }
-    public void setAge(int age) {
-        this.age= age;
-    }
-
-    public Double getPace() {
-        return this.pace;
-    }
-    public void setPace(Double pace) {
-        this.pace = pace;
-    }
+//    public int getAge() {
+//        return this.age;
+//    }
+//    public void setAge(int age) {
+//        this.age= age;
+//    }
+//
+//    public Double getPace() {
+//        return this.pace;
+//    }
+//    public void setPace(Double pace) {
+//        this.pace = pace;
+//    }
 
     public int getLevel() {
         return this.level;
@@ -55,19 +55,19 @@ public class EventType {
         this.level= level;
     }
 
-    public String getLocation() {
-        return this.location;
-    }
-    public void setLocation(String location) {
-        this.location= location;
-    }
-
-    public String getTime() {
-        return this.name;
-    }
-    public void setTime(String time) {
-        this.time = time;
-    }
+//    public String getLocation() {
+//        return this.location;
+//    }
+//    public void setLocation(String location) {
+//        this.location= location;
+//    }
+//
+//    public String getTime() {
+//        return this.name;
+//    }
+//    public void setTime(String time) {
+//        this.time = time;
+//    }
 
     public String getDetails() {
         return this.name;

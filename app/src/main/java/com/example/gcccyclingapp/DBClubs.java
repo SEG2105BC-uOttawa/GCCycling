@@ -65,17 +65,17 @@ public class DBClubs extends SQLiteOpenHelper {
         db.insert(this.clubName, null, cv);
     }
 
-    public boolean findEvent(String clubName, String eventName) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        this.clubName = clubName;
-        String query = "Select * FROM " + this.clubName + " WHERE " + EVENT_NAME + " =\"" + eventName + "\"";
-        db.close();
-
-        if (query != null) {
-            return true;
-        }
-        return false;
-    }
+//    public boolean findEvent(String clubName, String eventName) {
+//        SQLiteDatabase db = this.getReadableDatabase();
+//        this.clubName = clubName;
+//        String query = "Select * FROM " + this.clubName + " WHERE " + EVENT_NAME + " =\"" + eventName + "\"";
+//        db.close();
+//
+//        if (query != null) {
+//            return true;
+//        }
+//        return false;
+//    }
 
     public void deleteEvent(String clubName, String eventName) {
         SQLiteDatabase db = getWritableDatabase();
