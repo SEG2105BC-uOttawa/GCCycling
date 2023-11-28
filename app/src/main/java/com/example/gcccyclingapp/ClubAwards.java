@@ -22,59 +22,55 @@ public class ClubAwards extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_participant);
+        setContentView(R.layout.activity_view_awards);
 
-        String clubName = "";
-        Bundle bundle = getIntent().getExtras();
-        if(bundle.getString("name")!=null){
-            clubName = bundle.getString("name");
-        }
+//        String clubName = "";
+//        Bundle bundle = getIntent().getExtras();
+//        if(bundle.getString("name")!=null){
+//            clubName = bundle.getString("name");
+//        }
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-
-        DB = new DBAdmin(this);
-        String[] participantNames = DB.getAllParticipants(clubName);
-
-        if (participantNames.length == 0) {
-            participantNames = new String[]{"No participants"};
-        }
-
-        if (participantNames[0] == null) {
-            participantNames = new String[]{"No participants"};
-        }
-
-        ArrayAdapter<String> adapter = new ArrayAdapter(this, R.layout.account_list_item, R.id.list_item, participantNames);
-        listView = (ListView) findViewById(R.id.participantList);
-        listView.setAdapter(adapter);
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id){
-
-                final String selectedParticipantName = (String) parent.getItemAtPosition(position);
-
-                addAwardPopUp(selectedParticipantName);
-            }
-        });
-    }
-
-    private void addAwardPopUp(final String participantName){
-        AlertDialog.Builder popUp = new AlertDialog.Builder(this);
-        EditText awardNameInput = new EditText(this);
-
-        popUp.setTitle("Send an award to " + participantName)
-                .setView(awardNameInput)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        DB.addAwardToParticipant(participantName, awardNameInput.getText().toString());
-                    }
-                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        // don't do anything.
-                    }
-                }).show();
+//
+//        DB = new DBAdmin(this);
+//        String[] participantNames = DB.getAllParticipants(clubName);
+//
+//        if (participantNames[0] == null) {
+//            participantNames = new String[]{"No participants"};
+//        }
+//
+//        ArrayAdapter<String> adapter = new ArrayAdapter(this, R.layout.account_list_item, R.id.list_item, participantNames);
+//        listView = (ListView) findViewById(R.id.participantList);
+//        listView.setAdapter(adapter);
+//
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id){
+//
+//                final String selectedParticipantName = (String) parent.getItemAtPosition(position);
+//
+//                addAwardPopUp(selectedParticipantName);
+//            }
+//        });
+//    }
+//
+//    private void addAwardPopUp(final String participantName){
+//        AlertDialog.Builder popUp = new AlertDialog.Builder(this);
+//        EditText awardNameInput = new EditText(this);
+//
+//        popUp.setTitle("Send an award to " + participantName)
+//                .setView(awardNameInput)
+//                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialogInterface, int i) {
+//                        DB.addAwardToParticipant(participantName, awardNameInput.getText().toString());
+//                    }
+//                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialogInterface, int i) {
+//                        // don't do anything.
+//                    }
+//                }).show();
     }
 
     @Override
@@ -84,5 +80,5 @@ public class ClubAwards extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
+   }
 }
