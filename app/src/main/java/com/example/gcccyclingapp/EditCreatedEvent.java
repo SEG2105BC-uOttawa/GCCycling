@@ -1,8 +1,7 @@
 package com.example.gcccyclingapp;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-
+import androidx.appcompat.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,20 +13,22 @@ import android.widget.Toast;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
-public class CreateNewEventClubOwner extends AppCompatActivity {
-
+public class EditCreatedEvent extends AppCompatActivity {
     String clubName;
+    String eventName;
     DBAdmin DB;
     String[] eventTypes;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_new_event_club_owner);
+        setContentView(R.layout.activity_edit_created_event);
+
+        DBClubs db = new DBClubs(this);
+
+        Bundle bundle = getIntent().getExtras();
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-
-        Bundle bundle = getIntent().getExtras();
 
         Spinner eventTypeSpinner = findViewById(R.id.eventTypetxt);
         displayEventTypeSpinner(eventTypeSpinner);
@@ -38,6 +39,32 @@ public class CreateNewEventClubOwner extends AppCompatActivity {
         else {
             clubName = null;
         }
+
+        if(bundle.getString("event")!=null){
+            eventName = bundle.getString("event");
+        }
+        else {
+            eventName = null;
+        }
+
+        EditText name = (EditText) findViewById(R.id.eventNametxt);
+        Spinner type = (Spinner) findViewById(R.id.eventTypetxt);
+        EditText difficulty = (EditText) findViewById(R.id.difficultytxt);
+        EditText fees = (EditText) findViewById(R.id.feestxt);
+        EditText limit = (EditText) findViewById(R.id.limittxt);
+        EditText date = (EditText) findViewById(R.id.datetxt);
+        EditText route = (EditText) findViewById(R.id.detailstxt);
+
+        String[] info = db.getEventInfo(clubName, eventName);
+        int selectedEventTypeIndex = getSelectedEventTypeIndex(info[2]);
+
+        name.setText(eventName);
+        type.setSelection(selectedEventTypeIndex);
+        difficulty.setText(info[3]);
+        fees.setText(info[4]);
+        limit.setText(info[5]);
+        date.setText(info[6]);
+        route.setText(info[7]);
     }
 
     private void displayEventTypeSpinner(Spinner spinner){
@@ -49,7 +76,16 @@ public class CreateNewEventClubOwner extends AppCompatActivity {
         spinner = (Spinner) findViewById(R.id.eventTypetxt);
         spinner.setAdapter(adapter);
 
+    }
 
+    //gets the index of the selected event type in our array of event types
+    private int getSelectedEventTypeIndex(String eventType) {
+        for (int i = 0; i < eventTypes.length; i++) {
+            if (eventTypes[i].equals(eventType)) {
+                return i;
+            }
+        }
+        return 0;
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -119,14 +155,15 @@ public class CreateNewEventClubOwner extends AppCompatActivity {
             returnIntent.putExtra("limit", strLimit);
             returnIntent.putExtra("date", strDate);
             returnIntent.putExtra("route", strDetails);
-            setResult(RESULT_OK, returnIntent);
             Log.d("Event Created Of Type", strType);
 
             Log.d("Insert event", "Club: " + clubName);
 
-            db.insertEvent(clubName, strName, strType, strDifficulty, strFees, strLimit, strDate, strDetails);
+            db.updateEvent(clubName, strName, strType, strDifficulty, strFees, strLimit, strDate, strDetails);
 
-            Toast.makeText(CreateNewEventClubOwner.this, "Event of type " + strType + " has been created.", Toast.LENGTH_LONG).show();
+            Toast.makeText(EditCreatedEvent.this, "Event of type " + strType + " has been updated.", Toast.LENGTH_LONG).show();
+
+            setResult(RESULT_OK, returnIntent);
             finish();
         }
     }

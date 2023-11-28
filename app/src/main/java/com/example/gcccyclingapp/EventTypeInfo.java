@@ -14,7 +14,7 @@ public class EventTypeInfo extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_event_info);
+        setContentView(R.layout.activity_event_type_info);
 
         DBAdmin db = new DBAdmin(this);
 
