@@ -46,6 +46,10 @@ public class ViewCreatedEventClubOwner extends AppCompatActivity {
 
         createdEvents = DB.getAllEvents(clubName);
 
+        if (createdEvents.length == 0) {
+            createdEvents = new String[]{"No events created"};
+        }
+
         Log.d("createdEvents", createdEvents[0]);
 
         ArrayAdapter<String> adapter = new ArrayAdapter(this, R.layout.event_list_item, R.id.event, createdEvents);
