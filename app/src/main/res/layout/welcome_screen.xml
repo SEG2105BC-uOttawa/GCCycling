@@ -100,7 +100,7 @@
             android:maxWidth="200dp"
             android:minWidth="200dp"
             android:onClick="createEvent"
-            android:text="View Events"
+            android:text="View Club Events"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -19,25 +19,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        DBClubs dbc = new DBClubs(this);
-
-//        dbc.insertEvent("club", "test1", "test1", "test1", "test1", "test1", "test1");
-//        dbc.insertEvent("club", "test2", "test2", "test2", "test2", "test2", "test2");
-//        dbc.insertEvent("club", "test3", "test3", "test3", "test3", "test3", "test3");
-
-        // testing getAllClubs_Events
-//        Admin admin = new Admin(this);
-//        Map<String, Event[]> clubs_events = admin.getAllClubs_Events();
-//
-//        for (String club : clubs_events.keySet()) {
-//            Log.d("Club", club + ": ");
-//            for (Event event : clubs_events.get(club)) {
-//                Log.d("Event", event.name + " ");
-//            }
-//        }
-
-
     }
     
 
