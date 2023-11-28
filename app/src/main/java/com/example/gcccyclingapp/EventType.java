@@ -1,7 +1,7 @@
 package com.example.gcccyclingapp;
 
 public class EventType {
-    private String name, type, location,time, details;
+    String name, type, location,time, details;
     private int age, level;
 
     Double pace;
