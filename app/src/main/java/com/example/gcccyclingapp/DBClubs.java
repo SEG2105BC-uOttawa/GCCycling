@@ -91,18 +91,23 @@ public class DBClubs extends SQLiteOpenHelper {
 
     public void updateEvent(String clubName, String name, String type, String difficulty, String fee, String participantLimit, String date, String route){
         SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT rowid FROM " + clubName + " WHERE EVENT_NAME = '" + name + "'", null); // get all col info for specific event type
+        if (cursor.moveToNext()) {
+            String rowId = cursor.getString(0);
+            Log.d("DB", "Event updated");
 
-        Log.d("DB", "Event updated");
+            ContentValues cv = new ContentValues();
+            cv.put(EVENT_NAME, name);
+            cv.put(EVENT_TYPE, type);
+            cv.put(EVENT_DIFFICULTY, difficulty);
+            cv.put(EVENT_FEE, fee);
+            cv.put(EVENT_PARTICIPANT_LIMIT, participantLimit);
+            cv.put(EVENT_DATE, date);
+            cv.put(EVENT_ROUTE, route);
 
-        String table = clubName;
-
-        db.execSQL("UPDATE "+ table + " SET " + EVENT_NAME + " = '" + name + "'");
-        db.execSQL("UPDATE "+ table + " SET " + EVENT_TYPE + " = '" + type + "'");
-        db.execSQL("UPDATE "+ table + " SET " + EVENT_DIFFICULTY + " = '" + difficulty + "'");
-        db.execSQL("UPDATE "+ table + " SET " + EVENT_FEE + " = '" + fee + "'");
-        db.execSQL("UPDATE "+ table + " SET " + EVENT_PARTICIPANT_LIMIT + " = '" + participantLimit + "'");
-        db.execSQL("UPDATE "+ table + " SET " + EVENT_DATE + " = '" + date + "'");
-        db.execSQL("UPDATE "+ table + " SET " + EVENT_ROUTE + " = '" + route + "'");
+            db.update(clubName, cv, "rowid=?", new String[]{rowId});
+        }
+        cursor.close();
     }
 
     public void deleteClub(String clubName) {
