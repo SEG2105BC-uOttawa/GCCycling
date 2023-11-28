@@ -36,7 +36,7 @@ public class DBClubs extends SQLiteOpenHelper {
     public void addClub(String clubName) {
         SQLiteDatabase db = getWritableDatabase();
         this.clubName = clubName;
-        String createEventTableStatement = "CREATE TABLE IF NOT EXISTS " + this.clubName + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, "
+        String createEventTableStatement = "CREATE TABLE IF NOT EXISTS '" + this.clubName + "' (ID INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + EVENT_NAME +" TEXT, "
                 + EVENT_TYPE +" TEXT, "
                 + EVENT_DIFFICULTY + " TEXT, "
