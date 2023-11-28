@@ -2,6 +2,7 @@ package com.example.gcccyclingapp;
 
 import android.annotation.SuppressLint;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase;
 import android.content.Context;
@@ -143,7 +144,17 @@ public class DBClubs extends SQLiteOpenHelper {
 
     public String[] getAllEvents(String clubName){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursorClubs = db.rawQuery("SELECT " + EVENT_NAME + " FROM " + clubName, null);
+        Cursor cursorClubs;
+
+        while (true) {
+            try {
+                cursorClubs = db.rawQuery("SELECT " + EVENT_NAME + " FROM " + clubName, null);
+                break;
+            } catch (SQLException e) {
+                this.addClub(clubName);
+            }
+        }
+
         String[] eventNames = new String[cursorClubs.getCount()];
 
         int i = 0;
