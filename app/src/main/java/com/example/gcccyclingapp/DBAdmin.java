@@ -190,21 +190,27 @@ public class DBAdmin extends SQLiteOpenHelper{
         String[] clubInfo = new String[cursor.getColumnCount()];
         cursor.moveToFirst();
 
-        boolean complete = true;
-        for (int i=0; i < cursor.getColumnCount(); i++) {
-            String info = cursor.getString(i);
-            if (info.equals("")) {
-                complete = false;
-                break;
+        if (cursor.moveToFirst()) {
+            boolean complete = true;
+            for (int i=0; i < cursor.getColumnCount(); i++) {
+                String info = cursor.getString(i);
+                if (info.equals("")) {
+                    complete = false;
+                    break;
+                }
+                else {
+                    clubInfo[i] = info;
+                }
             }
-            else {
-                clubInfo[i] = info;
-            }
+            cursor.close();
+
+
+            return (complete ? clubInfo : null);
+        } else {
+            cursor.close();
+            return null;
         }
-        cursor.close();
 
-
-        return (complete ? clubInfo : null);
     }
 
     public String[] getAllClubs(){
