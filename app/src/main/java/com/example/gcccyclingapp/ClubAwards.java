@@ -22,7 +22,7 @@ public class ClubAwards extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_awards);
+        setContentView(R.layout.activity_view_participant);
 
 //        String clubName = "";
 //        Bundle bundle = getIntent().getExtras();
