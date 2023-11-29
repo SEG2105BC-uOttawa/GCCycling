@@ -13,17 +13,27 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-
+    DBAdmin dbAdmin;
+    DBClubs dbClubs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        dbAdmin = new DBAdmin(getApplicationContext());
+        dbClubs = new DBClubs((getApplicationContext()));
+
+
+        // preload club account
+        dbAdmin.insertClub("gccadmin", "gccadmin", "GCCRocks!");
+        dbClubs.addClub("gccadmin");
+
     }
     
 
     public void verify(View view) {
-        DBAdmin dbAdmin = new DBAdmin(getApplicationContext());
+
         EditText username = (EditText) findViewById(R.id.edtTxtUsername);
         EditText password = (EditText) findViewById(R.id.edtTxtPassword);
         String strUsername = username.getText().toString().trim();

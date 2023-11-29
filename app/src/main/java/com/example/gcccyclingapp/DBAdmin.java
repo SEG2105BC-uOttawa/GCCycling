@@ -83,6 +83,7 @@ public class DBAdmin extends SQLiteOpenHelper{
         db.execSQL(createClubTableStatement);
         db.execSQL(createParticipantTableStatement);
         db.execSQL(createEventTableStatement);
+
     }
 
     @Override
