@@ -115,6 +115,34 @@
     </TableLayout>
 
     <Button
+        android:id="@+id/addLogoBtn"
+        android:layout_width="149dp"
+        android:layout_height="61dp"
+        android:layout_marginStart="210dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="131dp"
+        android:layout_marginBottom="255dp"
+        android:text="Add A Logo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/clubLogo"
+        android:layout_width="149dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="131dp"
+        android:layout_marginBottom="250dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <Button
         android:id="@+id/completeAccountBtn2"
         android:layout_width="149dp"
         android:layout_height="61dp"
@@ -134,7 +162,7 @@
         android:layout_width="201dp"
         android:layout_height="78dp"
         android:layout_marginStart="114dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="150dp"
         android:layout_marginEnd="114dp"
         android:gravity="center_horizontal"
         android:textSize="16sp"
