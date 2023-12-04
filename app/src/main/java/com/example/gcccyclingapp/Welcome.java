@@ -17,6 +17,7 @@ public class Welcome extends AppCompatActivity {
     Button btnEventType;
     Button btnComplete;
     Button btnClubEvent;
+    Button btnBrowseClubs;
     public Admin admin;
 
     private DBAdmin db;
@@ -70,13 +71,22 @@ public class Welcome extends AppCompatActivity {
                     intent.putExtra("name", name);
                     startActivity(intent);
                 }
+
             }
+
+            if(role.equals("Participant")){
+                Button browseEvents = (Button) findViewById(R.id.browseClubsBtn);
+                browseEvents.setVisibility(View.VISIBLE);
+            }
+
 
             btnParticipant = findViewById(R.id.viewParticipantsBtn);
             btnClub = findViewById(R.id.viewClubsBtn);
             btnEventType = findViewById(R.id.viewEventsBtn);
             btnComplete = findViewById(R.id.completeClubBtn);
             btnClubEvent = findViewById(R.id.viewClubEventsBtn);
+            btnBrowseClubs = findViewById(R.id.browseClubsBtn);
+
             btnParticipant.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -117,6 +127,14 @@ public class Welcome extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(Welcome.this, ViewClubEventAdmin.class);
+                    startActivity(intent);
+                }
+            });
+
+            btnBrowseClubs.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(Welcome.this, ParticipantBrowse.class);
                     startActivity(intent);
                 }
             });
