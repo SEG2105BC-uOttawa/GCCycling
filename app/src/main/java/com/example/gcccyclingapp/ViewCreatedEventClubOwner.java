@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class ViewCreatedEventClubOwner extends AppCompatActivity {
@@ -21,6 +22,7 @@ public class ViewCreatedEventClubOwner extends AppCompatActivity {
     ListView listView;
     DBClubs DB;
     String[] createdEvents;
+    TextView noEventsMessage;
 
     private static final int EDIT_CREATED_EVENT_REQUEST_CODE = 1;
 
@@ -46,27 +48,38 @@ public class ViewCreatedEventClubOwner extends AppCompatActivity {
 
         createdEvents = DB.getAllEvents(clubName);
 
+//        if (createdEvents.length == 0) {
+//            createdEvents = new String[]{"No events created"};
+//        }
+
+
+        noEventsMessage = (TextView) findViewById(R.id.noEventsMessage);
+
         if (createdEvents.length == 0) {
-            createdEvents = new String[]{"No events created"};
+            noEventsMessage.setVisibility(View.VISIBLE); // if there are no events, show a message stating so
+        } else {
+            listView = (ListView) findViewById(R.id.browseEventsListClub);
+            listView.setVisibility(View.VISIBLE);
+
+            ArrayAdapter<String> adapter = new ArrayAdapter(this, R.layout.event_list_item, R.id.event, createdEvents);
+
+            listView.setAdapter(adapter);
+
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                    final String selectedEventType = (String) adapterView.getItemAtPosition(position);
+
+                    showEditDeleteOptions(selectedEventType);
+                }
+            });
+
         }
 
-        Log.d("createdEvents", createdEvents[0]);
-
-        ArrayAdapter<String> adapter = new ArrayAdapter(this, R.layout.event_list_item, R.id.event, createdEvents);
-        listView = (ListView) findViewById(R.id.eventList);
-        listView.setAdapter(adapter);
-
-        unregisterForContextMenu(listView);
 
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                final String selectedEventType = (String) adapterView.getItemAtPosition(position);
 
-                showEditDeleteOptions(selectedEventType);
-            }
-        });
+
 
     }
 

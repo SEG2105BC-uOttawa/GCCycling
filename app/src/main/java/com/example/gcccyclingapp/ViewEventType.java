@@ -34,7 +34,7 @@ public class ViewEventType extends AppCompatActivity {
         String[] eventInfo;
 
         ArrayAdapter<String> adapter = new ArrayAdapter(this, R.layout.event_list_item, R.id.event, eventTypes);
-        listView = (ListView) findViewById(R.id.eventList);
+        listView = (ListView) findViewById(R.id.browseEventsList);
         listView.setAdapter(adapter);
 
         unregisterForContextMenu(listView);

@@ -26,8 +26,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         // preload club account
-        dbAdmin.insertClub("gccadmin", "gccadmin", "GCCRocks!");
-        dbClubs.addClub("gccadmin");
+        dbAdmin.insertClub("GCC", "gccadmin", "GCCRocks!");
+        dbClubs.addClub("GCC");
 
         // testing event discovery method in Participant
 //        Participant p = new Participant("test", "test", "test", "test", this);
@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
             } else if (dbAdmin.verifyLogin(strUsername, strPassword)) {
                 Intent i = new Intent(getApplicationContext(), Welcome.class);
                 i.putExtra("name", strUsername);
+                i.putExtra("password", strPassword);
                 i.putExtra("role", dbAdmin.getAccountType(strUsername, strPassword));
                 Log.d("Role", dbAdmin.getAccountType(strUsername, strPassword));
                 startActivity(i);

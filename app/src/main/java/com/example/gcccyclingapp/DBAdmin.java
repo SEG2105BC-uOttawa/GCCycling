@@ -12,10 +12,13 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class DBAdmin extends SQLiteOpenHelper{
 
-    public static final int DATABASE_VERSION = 7;
+    public static final int DATABASE_VERSION = 9;
     public static final String DATABASE_NAME = "admin.db";
 
     public static final String CLUB_TABLE = "CLUB_TABLE";
@@ -412,6 +415,23 @@ public class DBAdmin extends SQLiteOpenHelper{
         cursor.close();
         cv.put(PARTICIPANT_CLUBS, events.replace(clubName + ",", ""));
         db.update(PARTICIPANT_TABLE, cv, PARTICIPANT_USERNAME + "=?", new String[]{username});
+    }
+
+    public List<String> getParticipantClubs(String username) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT " + PARTICIPANT_CLUBS + " FROM " + PARTICIPANT_TABLE + " WHERE " + PARTICIPANT_USERNAME + " = '" + username + "'", null);
+
+        List<String> participantClubs = new ArrayList<>();
+
+        if (cursor.moveToFirst()) {
+            String clubs = cursor.getString(0);
+            if (clubs != null && !clubs.isEmpty()) {
+                participantClubs = Arrays.asList(clubs.split(","));
+            }
+        }
+        cursor.close();
+        return participantClubs;
+
     }
 
 

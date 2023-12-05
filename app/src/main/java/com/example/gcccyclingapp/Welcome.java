@@ -19,6 +19,7 @@ public class Welcome extends AppCompatActivity {
     Button btnClubEvent;
     Button btnBrowseClubs;
     public Admin admin;
+    Participant p;
 
     private DBAdmin db;
 
@@ -29,10 +30,11 @@ public class Welcome extends AppCompatActivity {
 
             db = new DBAdmin(this);
             String name = null;
+            String password = null;
             String role = null;
 
             Bundle bundle = getIntent().getExtras();
-            if(bundle.getString("name")!=null && bundle.getString("role") != null){
+            if(bundle.getString("name")!=null && bundle.getString("role")!=null){
                 name = bundle.getString("name");
                 role = bundle.getString("role");
             }
@@ -75,7 +77,8 @@ public class Welcome extends AppCompatActivity {
             }
 
             if(role.equals("Participant")){
-                Button browseEvents = (Button) findViewById(R.id.browseClubsBtn);
+                this.p = new Participant(name, name, password, role, this);
+                Button browseEvents = (Button) findViewById(R.id.browseEventsBtn);
                 browseEvents.setVisibility(View.VISIBLE);
             }
 
@@ -85,7 +88,7 @@ public class Welcome extends AppCompatActivity {
             btnEventType = findViewById(R.id.viewEventsBtn);
             btnComplete = findViewById(R.id.completeClubBtn);
             btnClubEvent = findViewById(R.id.viewClubEventsBtn);
-            btnBrowseClubs = findViewById(R.id.browseClubsBtn);
+            btnBrowseClubs = findViewById(R.id.browseEventsBtn);
 
             btnParticipant.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -134,7 +137,8 @@ public class Welcome extends AppCompatActivity {
             btnBrowseClubs.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(Welcome.this, ParticipantBrowse.class);
+                    Intent intent = new Intent(Welcome.this, ParticipantBrowseEvents.class);
+                    intent.putExtra("participant", p.username);
                     startActivity(intent);
                 }
             });
