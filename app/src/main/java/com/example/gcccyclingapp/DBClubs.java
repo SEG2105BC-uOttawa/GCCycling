@@ -9,6 +9,9 @@ import android.content.Context;
 import android.content.ContentValues;
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DBClubs extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 6;
     public static final String DATABASE_NAME = "clubs.db";
@@ -197,6 +200,99 @@ public class DBClubs extends SQLiteOpenHelper {
         }
         cursor.close();
         return events;
+    }
+
+
+    // search by criteria methods
+    public String[] getAllEventsByLocation(String[] eventsTypes, DBAdmin dbA){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursorClubs = null;
+        List<String> eventNamesList = new ArrayList<>();
+
+        String[] clubs = dbA.getAllClubs();
+
+        for (int i = 0; i < clubs.length; i++) {
+            for (int j = 0; j < eventsTypes.length; j++) {
+                System.out.println("Checking "+eventsTypes[j]+" in "+clubs[i]);
+                try {
+                    cursorClubs = db.rawQuery("SELECT " + EVENT_NAME + " FROM " + clubs[i] + " WHERE " + EVENT_TYPE + " = '" + eventsTypes[j]+"'", null);
+                    while (cursorClubs.moveToNext()){
+                        eventNamesList.add(cursorClubs.getString(0));
+                    }
+                } catch (SQLException e) {
+                    System.out.println("Error in getAllEventsByLocation: "+e);
+                }
+            }
+        }
+
+        cursorClubs.close();
+        return eventNamesList.toArray(new String[0]);
+    }
+
+    public String[] getAllEventsByDate(String date, DBAdmin dbA){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursorClubs = null;
+
+        String[] clubs = dbA.getAllClubs();
+
+        for (int i = 0; i < clubs.length; i++) {
+            while (true) {
+                try {
+                    cursorClubs = db.rawQuery("SELECT " + EVENT_NAME + " FROM " + clubs[i] + " WHERE " + EVENT_DATE + " = '" + date+"'", null);
+                    break;
+                } catch (SQLException e) {
+                    System.out.println("Error in getAllEventsByLocation: "+e);
+                }
+            }
+        }
+
+        if (cursorClubs == null) { // check if null
+            Log.d("getAllEventsByDate", "No clubs with that date");
+            return null;
+        }
+
+        String[] eventNames = new String[cursorClubs.getCount()];
+
+        int i = 0;
+        while (cursorClubs.moveToNext()){
+            eventNames[i] = cursorClubs.getString(0); //only one column selected
+            i++;
+        }
+        cursorClubs.close();
+        return eventNames;
+    }
+
+    public String[] getAllEventsByType(String type, DBAdmin dbA){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursorClubs = null;
+
+        String[] clubs = dbA.getAllClubs();
+
+        for (int i = 0; i < clubs.length; i++) {
+            while (true) {
+                try {
+                    cursorClubs = db.rawQuery("SELECT " + EVENT_NAME + " FROM " + clubs[i] + " WHERE " + EVENT_TYPE + " = '" + type+"'", null);
+                    break;
+                } catch (SQLException e) {
+                    System.out.println("Error in getAllEventsByType: "+e);
+                }
+            }
+        }
+
+        if (cursorClubs == null) { // check if null
+            Log.d("getAllEventsByType", "No clubs with that type");
+            return null;
+        }
+
+        String[] eventNames = new String[cursorClubs.getCount()];
+
+        int i = 0;
+        while (cursorClubs.moveToNext()){
+            eventNames[i] = cursorClubs.getString(0); //only one column selected
+            i++;
+        }
+        cursorClubs.close();
+        return eventNames;
     }
 
 

@@ -61,7 +61,7 @@ public class AccountCreation extends AppCompatActivity implements AdapterView.On
             }
             else if (accountType.equals("Participant")) {
                 System.out.println("Participant");
-                Participant p = new Participant(strName, strUsername, strPassword, accountType);
+                Participant p = new Participant(strName, strUsername, strPassword, accountType, this);
                 admin.createParticipant(p);
                 Intent i = new Intent(getApplicationContext(), Welcome.class);
                 i.putExtra("name", strUsername);

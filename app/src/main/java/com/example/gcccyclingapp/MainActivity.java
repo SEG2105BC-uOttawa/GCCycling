@@ -29,6 +29,14 @@ public class MainActivity extends AppCompatActivity {
         dbAdmin.insertClub("gccadmin", "gccadmin", "GCCRocks!");
         dbClubs.addClub("gccadmin");
 
+        // testing event discovery method in Participant
+//        Participant p = new Participant("test", "test", "test", "test", this);
+//        String[] events = p.eventDiscoveryByCriteria("type", "eventTypeA");
+//
+//        for (String event:events) {
+//            System.out.println(event);
+//        }
+
     }
     
 
@@ -47,15 +55,6 @@ public class MainActivity extends AppCompatActivity {
                 i.putExtra("role", "admin");
                 startActivity(i);
             } else if (dbAdmin.verifyLogin(strUsername, strPassword)) {
-                Intent i = new Intent(getApplicationContext(), Welcome.class);
-                i.putExtra("name", strUsername);
-                i.putExtra("role", dbAdmin.getAccountType(strUsername, strPassword));
-                Log.d("Role", dbAdmin.getAccountType(strUsername, strPassword));
-                startActivity(i);
-            } else if (strUsername.equals("gccadmin") && strPassword.equals("GCCRocks!")) {
-                Admin admin = new Admin(this);
-                admin.createClub(new Club("GCC Cycling", "gccadmin", "GCCRocks!", "Club Owner"));
-
                 Intent i = new Intent(getApplicationContext(), Welcome.class);
                 i.putExtra("name", strUsername);
                 i.putExtra("role", dbAdmin.getAccountType(strUsername, strPassword));

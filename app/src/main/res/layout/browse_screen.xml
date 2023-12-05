@@ -10,7 +10,7 @@
         android:layout_height="81dp"
         android:background="@color/purple_200"
         android:gravity="center"
-        android:text="Created Events"
+        android:text="Browse Events"
         android:textColor="@color/white"
         android:textSize="21sp"
         android:textStyle="bold"
