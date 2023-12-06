@@ -44,7 +44,8 @@ public class addAwardToParticipantTest {
         DBAdmin dbAdmin = new DBAdmin(mMockContext, mockSQLiteOpenHelper);
 //        db = dbAdmin.getWritableDatabase();
 
-        assertTrue(dbAdmin.addAwardToParticipant("bob", "sam"));
+        assertTrue(dbAdmin.addAwardToParticipant("p", "award")); // works when running app
+                                                                                // for some reason unit test wont work
 
     }
 }

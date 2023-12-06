@@ -32,7 +32,7 @@ import static org.mockito.Mockito.when;
 
 
 @RunWith(MockitoJUnitRunner.class)
-public class updateListViewTest {
+public class updateListViewTest { // works when running app, for some reason unit test wont work
     @Mock
     ListView mockListView;
 

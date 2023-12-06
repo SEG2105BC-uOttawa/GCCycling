@@ -18,7 +18,7 @@ import java.util.List;
 
 public class DBAdmin extends SQLiteOpenHelper{
 
-    public static final int DATABASE_VERSION = 9;
+    public static final int DATABASE_VERSION = 10;
     public static final String DATABASE_NAME = "admin.db";
 
     public static final String CLUB_TABLE = "CLUB_TABLE";
@@ -373,7 +373,8 @@ public class DBAdmin extends SQLiteOpenHelper{
     public void completeClubAccount(String clubName, String link, String contactName, String phone){
         SQLiteDatabase db = this.getWritableDatabase();
 
-        Log.d("DB", "Club updated");
+
+        Log.d("DB", clubName+" updated");
 
         db.execSQL("UPDATE "+ CLUB_TABLE + " SET " + CLUB_LINK + " = '" + link  + "' WHERE " + CLUB_NAME + " = '" + clubName + "'");
         db.execSQL("UPDATE "+ CLUB_TABLE + " SET " + CLUB_CONTACT + " = '" + contactName  + "' WHERE " + CLUB_NAME + " = '" + clubName + "'");
@@ -393,7 +394,7 @@ public class DBAdmin extends SQLiteOpenHelper{
         }
 
         cursor.close();
-        cv.put(PARTICIPANT_CLUBS, awards + ("," + award));
+        cv.put(PARTICIPANT_AWARDS, awards + ("," + award));
         db.update(PARTICIPANT_TABLE, cv, PARTICIPANT_USERNAME + "=?", new String[]{username});
         return true;
     }
@@ -409,7 +410,8 @@ public class DBAdmin extends SQLiteOpenHelper{
         }
 
         cursor.close();
-        cv.put(PARTICIPANT_CLUBS, clubs + ("," + clubName + "-" + eventName));
+//        cv.put(PARTICIPANT_CLUBS, clubs + ("," + clubName + "-" + eventName));
+        cv.put(PARTICIPANT_CLUBS, clubs + ("," + clubName));
         db.update(PARTICIPANT_TABLE, cv, PARTICIPANT_USERNAME + "=?", new String[]{username});
     }
 
