@@ -296,5 +296,4 @@ public class ParticipantBrowseEvents extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
 }

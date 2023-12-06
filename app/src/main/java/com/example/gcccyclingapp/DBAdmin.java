@@ -257,17 +257,19 @@ public class DBAdmin extends SQLiteOpenHelper{
     public String[] getAllParticipants(String clubName){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursorParticipants = db.rawQuery("SELECT " + PARTICIPANT_USERNAME + ", " + PARTICIPANT_CLUBS + " FROM " + PARTICIPANT_TABLE, null);
-        String[] participantsNames = new String[cursorParticipants.getCount()];
+        ArrayList<String> participantsNames = new ArrayList<>();
 
         int i = 0;
         while (cursorParticipants.moveToNext()){
             if (cursorParticipants.getString(1).contains(clubName)) {
-                participantsNames[i] = cursorParticipants.getString(0);
-                i++;
+                String temp = cursorParticipants.getString(0);
+                if (temp != null) {
+                    participantsNames.add(temp);
+                }
             }
         }
         cursorParticipants.close();
-        return participantsNames;
+        return participantsNames.toArray(new String[0]);
     }
     public String[] getAllEvents(){
         SQLiteDatabase db = this.getReadableDatabase();
