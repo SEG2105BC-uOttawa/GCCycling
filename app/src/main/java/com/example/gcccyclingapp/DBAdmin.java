@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -11,10 +12,13 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class DBAdmin extends SQLiteOpenHelper{
 
-    public static final int DATABASE_VERSION = 7;
+    public static final int DATABASE_VERSION = 9;
     public static final String DATABASE_NAME = "admin.db";
 
     public static final String CLUB_TABLE = "CLUB_TABLE";
@@ -83,6 +87,7 @@ public class DBAdmin extends SQLiteOpenHelper{
         db.execSQL(createClubTableStatement);
         db.execSQL(createParticipantTableStatement);
         db.execSQL(createEventTableStatement);
+
     }
 
     @Override
@@ -98,15 +103,25 @@ public class DBAdmin extends SQLiteOpenHelper{
     public void insertClub(String clubName, String clubUser, String clubPWD){ // change to work with Club class
         SQLiteDatabase db = this.getWritableDatabase(); // for insert actions
         ContentValues cv = new ContentValues();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + CLUB_TABLE + " WHERE " + CLUB_NAME + " = ?", new String[]{clubName});
 
-        cv.put(CLUB_NAME, clubName); // inserts data into club column
-        cv.put(CLUB_USERNAME, clubUser); // inserts data into club column
-        cv.put(CLUB_PASSWORD, clubPWD); // inserts data into club column
-        cv.put(CLUB_LINK, "");
-        cv.put(CLUB_CONTACT, "");
-        cv.put(CLUB_PHONE, "");
+        boolean exists = (cursor.getCount() > 0); // if more than zero, club exists
 
-        db.insert(CLUB_TABLE, null, cv);
+        if (!exists) {
+            cv.put(CLUB_NAME, clubName); // inserts data into club column
+            cv.put(CLUB_USERNAME, clubUser); // inserts data into club column
+            cv.put(CLUB_PASSWORD, clubPWD); // inserts data into club column
+            cv.put(CLUB_LINK, "");
+            cv.put(CLUB_CONTACT, "");
+            cv.put(CLUB_PHONE, "");
+
+            db.insert(CLUB_TABLE, null, cv);
+        } else {
+            Log.d("DBAdmin inserClub", clubName + " already exists.");
+        }
+
+
+
     }
     public void insertParticipant(String participantName, String participantUser, String participantPWD){ // change to work with Club class
         SQLiteDatabase db = this.getWritableDatabase(); // for insert actions
@@ -400,6 +415,62 @@ public class DBAdmin extends SQLiteOpenHelper{
         cursor.close();
         cv.put(PARTICIPANT_CLUBS, events.replace(clubName + ",", ""));
         db.update(PARTICIPANT_TABLE, cv, PARTICIPANT_USERNAME + "=?", new String[]{username});
+    }
+
+    public List<String> getParticipantClubs(String username) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT " + PARTICIPANT_CLUBS + " FROM " + PARTICIPANT_TABLE + " WHERE " + PARTICIPANT_USERNAME + " = '" + username + "'", null);
+
+        List<String> participantClubs = new ArrayList<>();
+
+        if (cursor.moveToFirst()) {
+            String clubs = cursor.getString(0);
+            if (clubs != null && !clubs.isEmpty()) {
+                participantClubs = Arrays.asList(clubs.split(","));
+            }
+        }
+        cursor.close();
+        return participantClubs;
+
+    }
+
+    public String getEventLocation(String event) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        System.out.println("Event type: "+event);
+
+        Cursor cursor = db.rawQuery("SELECT "+ EVENT_LOCATION + " FROM " + EVENTS_TABLE + " WHERE " + EVENT_TYPE + " = '" + event +"'", null);
+
+        if (cursor.moveToFirst()) {
+            String location = cursor.getString(0);
+            cursor.close();
+            System.out.println("Location: " + location);
+            return location;
+        } else {
+            cursor.close();
+            return null;
+        }
+    }
+
+
+    // search by criteria methods
+    public String[] getAllEventsByLocation(String location){
+        System.out.println("Location: " + location);
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursorEvents = db.rawQuery("SELECT "+ EVENT_TYPE + " FROM " + EVENTS_TABLE + " WHERE " + EVENT_LOCATION + " = '" + location +"'", null);
+        String[] eventNames = new String[cursorEvents.getCount()];
+
+        int i = 0;
+        while (cursorEvents.moveToNext()){
+            eventNames[i] = cursorEvents.getString(0); //only one column selected
+            i++;
+        }
+        for (String eventType:eventNames
+             ) {
+            System.out.println("Event Type at "+location+": "+eventType);
+        }
+        cursorEvents.close();
+        return eventNames;
     }
 
 }

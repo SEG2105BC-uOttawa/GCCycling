@@ -24,7 +24,7 @@
             />
 
         <ListView
-            android:id="@+id/eventList"
+            android:id="@+id/browseEventsList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -169,7 +169,7 @@ public class EditCreatedEvent extends AppCompatActivity {
 
             Log.d("Insert event", "Club: " + clubName);
 
-            db.updateEvent(clubName, strName, strType, strDifficulty, strFees, strLimit, strDate, strDetails);
+            db.updateEvent(clubName, eventName, strName, strType, strDifficulty, strFees, strLimit, strDate, strDetails);
 
             Toast.makeText(EditCreatedEvent.this, "Event of type " + strType + " has been updated.", Toast.LENGTH_LONG).show();
 

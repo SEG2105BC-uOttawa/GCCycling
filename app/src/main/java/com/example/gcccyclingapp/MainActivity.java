@@ -13,17 +13,27 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-
+    DBAdmin dbAdmin;
+    DBClubs dbClubs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        dbAdmin = new DBAdmin(getApplicationContext());
+        dbClubs = new DBClubs((getApplicationContext()));
+
+
+        // preload club account
+        dbAdmin.insertClub("GCC", "gccadmin", "GCCRocks!");
+        dbClubs.addClub("GCC");
+
     }
     
 
     public void verify(View view) {
-        DBAdmin dbAdmin = new DBAdmin(getApplicationContext());
+
         EditText username = (EditText) findViewById(R.id.edtTxtUsername);
         EditText password = (EditText) findViewById(R.id.edtTxtPassword);
         String strUsername = username.getText().toString().trim();
@@ -39,15 +49,7 @@ public class MainActivity extends AppCompatActivity {
             } else if (dbAdmin.verifyLogin(strUsername, strPassword)) {
                 Intent i = new Intent(getApplicationContext(), Welcome.class);
                 i.putExtra("name", strUsername);
-                i.putExtra("role", dbAdmin.getAccountType(strUsername, strPassword));
-                Log.d("Role", dbAdmin.getAccountType(strUsername, strPassword));
-                startActivity(i);
-            } else if (strUsername.equals("gccadmin") && strPassword.equals("GCCRocks!")) {
-                Admin admin = new Admin(this);
-                admin.createClub(new Club("GCC Cycling", "gccadmin", "GCCRocks!", "Club Owner"));
-
-                Intent i = new Intent(getApplicationContext(), Welcome.class);
-                i.putExtra("name", strUsername);
+                i.putExtra("password", strPassword);
                 i.putExtra("role", dbAdmin.getAccountType(strUsername, strPassword));
                 Log.d("Role", dbAdmin.getAccountType(strUsername, strPassword));
                 startActivity(i);

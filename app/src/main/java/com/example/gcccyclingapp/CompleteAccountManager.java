@@ -1,19 +1,28 @@
 package com.example.gcccyclingapp;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class CompleteAccountManager extends AppCompatActivity {
     private String clubUser;
     Button btnCompleteAccount;
-
+    Button btnClubLogo;
+    ImageView imageView;
+    ActivityResultLauncher<Intent> resultLauncher;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +34,12 @@ public class CompleteAccountManager extends AppCompatActivity {
         }
 
         btnCompleteAccount = findViewById(R.id.completeAccountBtn2);
+        btnClubLogo = findViewById(R.id.addLogoBtn);
+        imageView = findViewById(R.id.clubLogo);
+
+        registerResult();
+
+        btnClubLogo.setOnClickListener(view -> pickImage());
 
         btnCompleteAccount.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -33,6 +48,25 @@ public class CompleteAccountManager extends AppCompatActivity {
                     Intent intent = new Intent(CompleteAccountManager.this, ClubOwnerPage.class);
                     intent.putExtra("name", clubUser);
                     startActivity(intent);
+                }
+            }
+        });
+    }
+
+    public void pickImage(){
+        Intent intent = new Intent(MediaStore.ACTION_PICK_IMAGES);
+        resultLauncher.launch(intent);
+    }
+
+    public void registerResult(){
+        resultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+            @Override
+            public void onActivityResult(ActivityResult result) {
+                try{
+                    Uri imageUri = result.getData().getData();
+                    imageView.setImageURI(imageUri);
+                } catch (Exception e){
+                    Toast.makeText(CompleteAccountManager.this, "No Image Selected", Toast.LENGTH_LONG).show();
                 }
             }
         });

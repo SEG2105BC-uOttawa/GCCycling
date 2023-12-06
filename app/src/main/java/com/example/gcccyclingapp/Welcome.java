@@ -17,7 +17,9 @@ public class Welcome extends AppCompatActivity {
     Button btnEventType;
     Button btnComplete;
     Button btnClubEvent;
+    Button btnBrowseClubs;
     public Admin admin;
+    Participant p;
 
     private DBAdmin db;
 
@@ -28,10 +30,11 @@ public class Welcome extends AppCompatActivity {
 
             db = new DBAdmin(this);
             String name = null;
+            String password = null;
             String role = null;
 
             Bundle bundle = getIntent().getExtras();
-            if(bundle.getString("name")!=null && bundle.getString("role") != null){
+            if(bundle.getString("name")!=null && bundle.getString("role")!=null){
                 name = bundle.getString("name");
                 role = bundle.getString("role");
             }
@@ -70,13 +73,23 @@ public class Welcome extends AppCompatActivity {
                     intent.putExtra("name", name);
                     startActivity(intent);
                 }
+
             }
+
+            if(role.equals("Participant")){
+                this.p = new Participant(name, name, password, role, this);
+                Button browseEvents = (Button) findViewById(R.id.browseEventsBtn);
+                browseEvents.setVisibility(View.VISIBLE);
+            }
+
 
             btnParticipant = findViewById(R.id.viewParticipantsBtn);
             btnClub = findViewById(R.id.viewClubsBtn);
             btnEventType = findViewById(R.id.viewEventsBtn);
             btnComplete = findViewById(R.id.completeClubBtn);
             btnClubEvent = findViewById(R.id.viewClubEventsBtn);
+            btnBrowseClubs = findViewById(R.id.browseEventsBtn);
+
             btnParticipant.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -117,6 +130,15 @@ public class Welcome extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(Welcome.this, ViewClubEventAdmin.class);
+                    startActivity(intent);
+                }
+            });
+
+            btnBrowseClubs.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(Welcome.this, ParticipantBrowseEvents.class);
+                    intent.putExtra("participant", p.username);
                     startActivity(intent);
                 }
             });
