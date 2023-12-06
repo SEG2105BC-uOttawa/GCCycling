@@ -12,19 +12,18 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/yourAwardsTxt"
             android:layout_width="match_parent"
             android:layout_height="81dp"
-            android:text="Club Awards"
-            android:textSize="21sp"
-            android:textStyle="bold"
-            android:gravity="center"
             android:background="@color/purple_200"
+            android:gravity="center"
+            android:text="Your Awards"
             android:textColor="@color/white"
-            />
+            android:textSize="21sp"
+            android:textStyle="bold" />
 
         <ListView
-            android:id="@+id/participantList"
+            android:id="@+id/awardList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
