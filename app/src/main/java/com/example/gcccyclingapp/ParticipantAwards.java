@@ -27,7 +27,7 @@ public class ParticipantAwards extends AppCompatActivity {
         DB = new DBAdmin(this);
         String[] awards = DB.getParticipantAwards(participant);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter(this, R.layout.event_list_item, R.id.list_item, awards);
+        ArrayAdapter<String> adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, awards);
         listView = (ListView) findViewById(R.id.awardList);
         listView.setAdapter(adapter);
 

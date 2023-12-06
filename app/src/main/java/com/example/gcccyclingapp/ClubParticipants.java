@@ -110,6 +110,8 @@ public class ClubParticipants extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         if (event != null) {
                             DB.removeEventFromParticipant(participant, clubName, event);
+                            Toast.makeText(ClubParticipants.this, "Participant has been removed!", Toast.LENGTH_LONG).show();
+
                         }
                     }
                 }).setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -161,6 +163,8 @@ public class ClubParticipants extends AppCompatActivity {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     DB.addAwardToParticipant(participant, awardNameInput.getText().toString());
+                    Toast.makeText(ClubParticipants.this, "Award has been sent!", Toast.LENGTH_LONG).show();
+
                 }
             }).setNegativeButton("No", new DialogInterface.OnClickListener() {
                 @Override
