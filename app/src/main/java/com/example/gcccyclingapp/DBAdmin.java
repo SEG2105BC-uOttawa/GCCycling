@@ -44,6 +44,7 @@ public class DBAdmin extends SQLiteOpenHelper{
     public static final String EVENT_LOCATION = "EVENT_LOCATION";
     public static final String EVENT_TIME = "EVENT_TIME";
     public static final String EVENT_DETAILS = "EVENT_DETAILS";
+    private SQLiteOpenHelper helper;
 
 
 
@@ -53,6 +54,16 @@ public class DBAdmin extends SQLiteOpenHelper{
 
     public DBAdmin(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
+
+    public DBAdmin(@Nullable Context context, SQLiteOpenHelper helper) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        this.helper = helper;
+    }
+
+    public SQLiteDatabase getWritableDatabase() {
+        return helper != null ? helper.getWritableDatabase() : super.getWritableDatabase(); // if helper is not null, call getWritableDatabase() (not in testing)
+                                                                                            // if helper is null, in testing, call getWritableDatabase() on superclass
     }
 
 
