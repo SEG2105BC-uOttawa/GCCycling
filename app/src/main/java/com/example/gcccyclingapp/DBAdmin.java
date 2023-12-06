@@ -352,7 +352,7 @@ public class DBAdmin extends SQLiteOpenHelper{
         db.execSQL("UPDATE "+ CLUB_TABLE + " SET " + CLUB_PHONE + " = '" + phone  + "' WHERE " + CLUB_NAME + " = '" + clubName + "'");
     }
 
-    public void addAwardToParticipant(String username, String award) {
+    public boolean addAwardToParticipant(String username, String award) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
@@ -367,7 +367,7 @@ public class DBAdmin extends SQLiteOpenHelper{
         cursor.close();
         cv.put(PARTICIPANT_CLUBS, awards + ("," + award));
         db.update(PARTICIPANT_TABLE, cv, PARTICIPANT_USERNAME + "=?", new String[]{username});
-
+        return true;
     }
     public void addClubToParticipant(String username, String clubName) {
         SQLiteDatabase db = this.getWritableDatabase();
