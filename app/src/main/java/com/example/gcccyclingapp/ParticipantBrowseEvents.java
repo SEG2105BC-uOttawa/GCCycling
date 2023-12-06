@@ -77,6 +77,7 @@ public class ParticipantBrowseEvents extends AppCompatActivity {
 
 
         for (String club : clubsEvents.keySet()) {
+            System.out.println("Club: " + club);
             Event[] events = clubsEvents.get(club);
             for (Event event : events) {
                 Log.d("event", event.getName());
@@ -126,7 +127,7 @@ public class ParticipantBrowseEvents extends AppCompatActivity {
     }
     private void displayFilterSpinner(Spinner spinner){
 
-        String[] filters = {"Club", "Location", "Date", "Type"}; // options
+        String[] filters = {"Club", "Date", "Type"}; // options
 
         ArrayAdapter<String> adapter = new ArrayAdapter(this, R.layout.spinner_layout, R.id.text1, filters);
         spinner.setAdapter(adapter);
@@ -140,20 +141,20 @@ public class ParticipantBrowseEvents extends AppCompatActivity {
                 Map<String, Event[]> clubsEvents = admin.getAllClubs_Events();
 
                 switch(selectedFilter) {
-                    case "Location":
-                        for (String club : clubsEvents.keySet()) {
-                            Event[] events = clubsEvents.get(club);
-                            for (Event event : events) {
-                                Log.d("event", event.getName());
-                                Log.d("club", club);
-                                Map<String, String> item = new HashMap<>();
-                                item.put("event", event.getName());
-                                item.put("location", "Location: "+dba.getEventLocation(event.type));
-
-                                newListItems.add(item);
-                            }
-                        }
-                        break;
+//                    case "Location":
+//                        for (String club : clubsEvents.keySet()) {
+//                            Event[] events = clubsEvents.get(club);
+//                            for (Event event : events) {
+//                                Log.d("event", event.getName());
+//                                Log.d("club", club);
+//                                Map<String, String> item = new HashMap<>();
+//                                item.put("event", event.getName());
+//                                item.put("location", "Location: "+dba.getEventLocation(event.type));
+//
+//                                newListItems.add(item);
+//                            }
+//                        }
+//                        break;
                     case "Club":
                         for (String club : clubsEvents.keySet()) {
                             Event[] events = clubsEvents.get(club);

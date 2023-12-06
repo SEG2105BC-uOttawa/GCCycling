@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
         // preload club account
         dbAdmin.insertClub("GCC", "gccadmin", "GCCRocks!");
-        dbClubs.addClub("GCC");
+        dbClubs.addClub("gccadmin");
 
     }
     
