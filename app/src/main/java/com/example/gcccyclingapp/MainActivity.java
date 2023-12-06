@@ -29,14 +29,6 @@ public class MainActivity extends AppCompatActivity {
         dbAdmin.insertClub("GCC", "gccadmin", "GCCRocks!");
         dbClubs.addClub("GCC");
 
-        // testing event discovery method in Participant
-//        Participant p = new Participant("test", "test", "test", "test", this);
-//        String[] events = p.eventDiscoveryByCriteria("type", "eventTypeA");
-//
-//        for (String event:events) {
-//            System.out.println(event);
-//        }
-
     }
     
 

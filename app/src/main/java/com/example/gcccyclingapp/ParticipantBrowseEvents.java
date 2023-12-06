@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +21,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class ParticipantBrowseEvents extends AppCompatActivity {
 
@@ -30,8 +33,10 @@ public class ParticipantBrowseEvents extends AppCompatActivity {
     private DBAdmin dba;
     Admin admin;
     ListView listView;
+    Spinner filterSpinner;
     TextView noEventsMessage;
     String participant;
+    List<Map<String, String>> listItems;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +57,11 @@ public class ParticipantBrowseEvents extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
+        this.listView = (ListView) findViewById(R.id.browseEventsList);
+
+        filterSpinner = (Spinner) findViewById(R.id.filter);
+        displayFilterSpinner(filterSpinner);
+
         participantsClubs = dba.getParticipantClubs(participant); // array of all clubs the participant is part of
 
         clubs = dba.getAllClubs();
@@ -61,7 +71,7 @@ public class ParticipantBrowseEvents extends AppCompatActivity {
             clubsEvents.put(club, events); // each key (club name) has an array of Events
         }
 
-        List<Map<String, String>> listItems = new ArrayList<>();
+        listItems = new ArrayList<>();
         Map<String, Event[]> clubsEvents = admin.getAllClubs_Events();
 
 
@@ -75,16 +85,13 @@ public class ParticipantBrowseEvents extends AppCompatActivity {
 
                 if (!participantsClubs.isEmpty()) { // if the participant is part of clubs
                     if (participantsClubs.contains(club)) { // check if the club is one the participant is part of
-                        item.put("club", club + " - You are part of this club!");
+                        item.put("club", "Club: "+ club + " - You are part of this club!");
                     } else {
-                        item.put("club", club);
+                        item.put("club", "Club: "+ club);
                     }
                 } else { // if the participant is not in any clubs, just format everything normally
-                    item.put("club", club);
+                    item.put("club", "Club: "+ club);
                 }
-
-
-
                 listItems.add(item);
             }
         }
@@ -97,7 +104,7 @@ public class ParticipantBrowseEvents extends AppCompatActivity {
             String[] from = {"event", "club"};
             int[] to = {R.id.text1, R.id.text2};
 
-            listView = (ListView) findViewById(R.id.browseEventsList);
+            filterSpinner.setVisibility((View.VISIBLE));
             listView.setVisibility(View.VISIBLE);
             SimpleAdapter adapter = new SimpleAdapter(this, listItems, R.layout.browse_events_list_item, from, to);
             listView.setAdapter(adapter);
@@ -108,21 +115,105 @@ public class ParticipantBrowseEvents extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
 
-                Map<String, String> selectedMap = (Map<String, String>) adapterView.getItemAtPosition(position);
-
-                String info = selectedMap.toString();
-                System.out.println(info);
-
-                String[] infoArray = getSelectedMapInfo(info);
-
-                String club = infoArray[0];
-                String event = infoArray[1];
-
+                String club = events[position].club;
+                String event = events[position].name;
 
                 showEditDeleteOptions(club, event);
             }
         });
 
+    }
+    private void displayFilterSpinner(Spinner spinner){
+
+        String[] filters = {"Club", "Location", "Date", "Type"}; // options
+
+        ArrayAdapter<String> adapter = new ArrayAdapter(this, R.layout.spinner_layout, R.id.text1, filters);
+        spinner.setAdapter(adapter);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                String selectedFilter = (String) parentView.getItemAtPosition(position); // get selected filter as a string
+
+                List<Map<String, String>> newListItems = new ArrayList<>(); // new listItems to update listView
+                Map<String, Event[]> clubsEvents = admin.getAllClubs_Events();
+
+                switch(selectedFilter) {
+                    case "Location":
+                        for (String club : clubsEvents.keySet()) {
+                            Event[] events = clubsEvents.get(club);
+                            for (Event event : events) {
+                                Log.d("event", event.getName());
+                                Log.d("club", club);
+                                Map<String, String> item = new HashMap<>();
+                                item.put("event", event.getName());
+                                item.put("location", "Location: "+dba.getEventLocation(event.type));
+
+                                newListItems.add(item);
+                            }
+                        }
+                        break;
+                    case "Club":
+                        for (String club : clubsEvents.keySet()) {
+                            Event[] events = clubsEvents.get(club);
+                            for (Event event : events) {
+                                Log.d("event", event.getName());
+                                Log.d("club", club);
+                                Map<String, String> item = new HashMap<>();
+                                item.put("event", event.getName());
+
+                                if (!participantsClubs.isEmpty()) { // if the participant is part of clubs
+                                    if (participantsClubs.contains(club)) { // check if the club is one the participant is part of
+                                        item.put("club", "Club: "+ club + " - You are part of this club!");
+                                    } else {
+                                        item.put("club", "Club: "+ club);
+                                    }
+                                } else { // if the participant is not in any clubs, just format everything normally
+                                    item.put("club", "Club: "+ club);
+                                }
+                                newListItems.add(item);
+                            }
+                        }
+                        break;
+                    case "Date":
+                        for (String club : clubsEvents.keySet()) {
+                            Event[] events = clubsEvents.get(club);
+                            for (Event event : events) {
+                                Log.d("event", event.getName());
+                                Log.d("club", club);
+                                Map<String, String> item = new HashMap<>();
+                                item.put("event", event.getName());
+                                item.put("date", "Date: "+ event.date);
+
+                                newListItems.add(item);
+                            }
+                        }
+                        break;
+                    case "Type":
+                        for (String club : clubsEvents.keySet()) {
+                            Event[] events = clubsEvents.get(club);
+                            for (Event event : events) {
+                                Log.d("event", event.getName());
+                                Log.d("club", club);
+                                Map<String, String> item = new HashMap<>();
+                                item.put("event", event.getName());
+                                item.put("type", "Type: "+ event.type);
+
+                                newListItems.add(item);
+                            }
+                        }
+                        break;
+
+                }
+
+                updateListView(newListItems, selectedFilter); // refresh listView
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // Do nothing here if nothing is selected
+            }
+        });
     }
     private static String[] getSelectedMapInfo(String info) {
 
@@ -137,8 +228,6 @@ public class ParticipantBrowseEvents extends AppCompatActivity {
 
             System.out.println(values[i]);
         }
-
-
         return values;
     }
 
@@ -149,11 +238,7 @@ public class ParticipantBrowseEvents extends AppCompatActivity {
                 .setPositiveButton("Register", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-//                        Intent editPage = new Intent(getApplicationContext(), EditCreatedEvent.class);
-//                        editPage.putExtra("clubName", club);
-//                        editPage.putExtra("eventName", event);
-//                        startActivity(editPage);
-//                        startActivityForResult(editPage, EDIT_CREATED_EVENT_REQUEST_CODE);
+                        // need to implement
                     }
                 }).setNegativeButton("Info", new DialogInterface.OnClickListener() {
                     @Override
@@ -165,5 +250,21 @@ public class ParticipantBrowseEvents extends AppCompatActivity {
                     }
                 }).show();
     }
+
+    // update listView based on filter selected
+    private void updateListView(List<Map<String, String>> newListItems, String filter) {
+        if (newListItems.isEmpty()) {
+            noEventsMessage.setVisibility(View.VISIBLE);
+        } else {
+            String[] from = {"event", filter.toLowerCase()};
+            int[] to = {R.id.text1, R.id.text2};
+
+            SimpleAdapter adapter = new SimpleAdapter(this, newListItems, R.layout.browse_events_list_item, from, to);
+            listView.setAdapter(adapter);
+            noEventsMessage.setVisibility(View.GONE);
+            listView.setVisibility(View.VISIBLE);
+        }
+    }
+
 
 }

@@ -194,7 +194,7 @@ public class DBClubs extends SQLiteOpenHelper {
 
 //            event = new Event(type, difficulty, fee, route, limit);
 //            events[i] = event;
-            event = new Event(name, type, difficulty, fee, route, limit, date);
+            event = new Event(name, type, difficulty, fee, route, limit, date, clubName);
             events[i] = event;
             i++;
         }

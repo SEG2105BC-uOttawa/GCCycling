@@ -434,6 +434,24 @@ public class DBAdmin extends SQLiteOpenHelper{
 
     }
 
+    public String getEventLocation(String event) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        System.out.println("Event type: "+event);
+
+        Cursor cursor = db.rawQuery("SELECT "+ EVENT_LOCATION + " FROM " + EVENTS_TABLE + " WHERE " + EVENT_TYPE + " = '" + event +"'", null);
+
+        if (cursor.moveToFirst()) {
+            String location = cursor.getString(0);
+            cursor.close();
+            System.out.println("Location: " + location);
+            return location;
+        } else {
+            cursor.close();
+            return null;
+        }
+    }
+
 
     // search by criteria methods
     public String[] getAllEventsByLocation(String location){

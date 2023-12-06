@@ -2,9 +2,9 @@ package com.example.gcccyclingapp;
 
 public class Event {
 
-    String name, type, difficulty, fee, route, limit, date;
+    String name, type, difficulty, fee, route, limit, date, club;
 
-    public Event (String name, String type, String difficulty, String fee, String route, String limit, String date) {
+    public Event (String name, String type, String difficulty, String fee, String route, String limit, String date, String club) {
         this.name = name;
         this.type = type;
         this. difficulty = difficulty;
@@ -12,6 +12,7 @@ public class Event {
         this.route = route;
         this.limit = limit;
         this.date = date;
+        this.club = club;
     }
 
     public String getName() {
