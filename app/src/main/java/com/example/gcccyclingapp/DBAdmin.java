@@ -384,7 +384,7 @@ public class DBAdmin extends SQLiteOpenHelper{
         db.update(PARTICIPANT_TABLE, cv, PARTICIPANT_USERNAME + "=?", new String[]{username});
         return true;
     }
-    public void addClubToParticipant(String username, String clubName) {
+    public void addEventToParticipant(String username, String clubName, String eventName) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
@@ -396,11 +396,11 @@ public class DBAdmin extends SQLiteOpenHelper{
         }
 
         cursor.close();
-        cv.put(PARTICIPANT_CLUBS, clubs + ("," + clubName));
+        cv.put(PARTICIPANT_CLUBS, clubs + ("," + clubName + "-" + eventName));
         db.update(PARTICIPANT_TABLE, cv, PARTICIPANT_USERNAME + "=?", new String[]{username});
     }
 
-    public void removeClubFromParticipant(String username, String clubName) {
+    public void removeEventFromParticipant(String username, String clubName, String eventName) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
@@ -413,8 +413,48 @@ public class DBAdmin extends SQLiteOpenHelper{
         }
 
         cursor.close();
-        cv.put(PARTICIPANT_CLUBS, events.replace(clubName + ",", ""));
+        cv.put(PARTICIPANT_CLUBS, events.replace(clubName + "-" + eventName + ",", ""));
         db.update(PARTICIPANT_TABLE, cv, PARTICIPANT_USERNAME + "=?", new String[]{username});
+    }
+
+    public List<String> getParticipantEvents(String username, String clubName) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT " + PARTICIPANT_CLUBS + " FROM " + PARTICIPANT_TABLE + " WHERE " + PARTICIPANT_USERNAME + " = '" + username + "'", null);
+
+        List<String> participantClubs = new ArrayList<>();
+
+        if (cursor.moveToFirst()) {
+            String clubs = cursor.getString(0);
+            if (clubs != null && !clubs.isEmpty()) {
+                participantClubs = Arrays.asList(clubs.split(","));
+            }
+        }
+
+        List<String> clubEventsRegistered = new ArrayList<>();
+
+        for (String string : participantClubs) {
+            if (string.contains(clubName)) {
+                clubEventsRegistered.add(string.replaceAll(".*-", ""));
+            }
+        }
+
+        cursor.close();
+        return clubEventsRegistered;
+
+    }
+
+    public String[] getParticipantAwards(String username) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        // Get current awards
+        Cursor cursor = db.rawQuery("SELECT " + PARTICIPANT_AWARDS + " FROM " + PARTICIPANT_TABLE + " WHERE " + PARTICIPANT_USERNAME + " = '" + username + "'", null);
+        if (cursor.moveToFirst()) {
+            return cursor.getString(0).split(",");
+        }
+        else {
+            return new String[]{"No awards"};
+        }
     }
 
     public List<String> getParticipantClubs(String username) {
@@ -429,6 +469,11 @@ public class DBAdmin extends SQLiteOpenHelper{
                 participantClubs = Arrays.asList(clubs.split(","));
             }
         }
+
+        for (int i=0 ; i < participantClubs.size(); i++) {
+            participantClubs.set(i, participantClubs.get(i).replaceAll("-.*", ""));
+        }
+
         cursor.close();
         return participantClubs;
 

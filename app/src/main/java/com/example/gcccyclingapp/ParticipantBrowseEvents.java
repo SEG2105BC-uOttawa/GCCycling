@@ -238,7 +238,7 @@ public class ParticipantBrowseEvents extends AppCompatActivity {
                 .setPositiveButton("Register", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        // need to implement
+                        registerForEvent(participant, club, event);
                     }
                 }).setNegativeButton("Info", new DialogInterface.OnClickListener() {
                     @Override
@@ -269,7 +269,23 @@ public class ParticipantBrowseEvents extends AppCompatActivity {
         }
     }
 
+    public void registerForEvent(final String participantName, final String clubName, final String eventName){
+        AlertDialog.Builder popUp = new AlertDialog.Builder(this);
+        popUp.setTitle("Register for " + eventName + "?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dba.addEventToParticipant(participantName, clubName, eventName);
+                        Toast.makeText(ParticipantBrowseEvents.this, "You have registered for " + eventName, Toast.LENGTH_LONG).show();
 
-
-
+<<<<<<< HEAD
+                    }
+                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // don't do anything.
+                    }
+                }).show();
+    }
+>>>>>>> 72fd07348a6122c7bcbe2d0c9485f9b331872f13
 }

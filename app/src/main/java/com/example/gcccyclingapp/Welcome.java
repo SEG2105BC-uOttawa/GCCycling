@@ -18,6 +18,7 @@ public class Welcome extends AppCompatActivity {
     Button btnComplete;
     Button btnClubEvent;
     Button btnBrowseClubs;
+    Button btnViewAwards;
     public Admin admin;
     Participant p;
 
@@ -79,7 +80,9 @@ public class Welcome extends AppCompatActivity {
             if(role.equals("Participant")){
                 this.p = new Participant(name, name, password, role, this);
                 Button browseEvents = (Button) findViewById(R.id.browseEventsBtn);
+                Button viewAwards = (Button) findViewById(R.id.viewAwards);
                 browseEvents.setVisibility(View.VISIBLE);
+                viewAwards.setVisibility(View.VISIBLE);
             }
 
 
@@ -89,6 +92,7 @@ public class Welcome extends AppCompatActivity {
             btnComplete = findViewById(R.id.completeClubBtn);
             btnClubEvent = findViewById(R.id.viewClubEventsBtn);
             btnBrowseClubs = findViewById(R.id.browseEventsBtn);
+            btnViewAwards = findViewById(R.id.viewAwards);
 
             btnParticipant.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -138,6 +142,15 @@ public class Welcome extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(Welcome.this, ParticipantBrowseEvents.class);
+                    intent.putExtra("participant", p.username);
+                    startActivity(intent);
+                }
+            });
+
+            btnViewAwards.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(Welcome.this, ParticipantAwards.class);
                     intent.putExtra("participant", p.username);
                     startActivity(intent);
                 }
