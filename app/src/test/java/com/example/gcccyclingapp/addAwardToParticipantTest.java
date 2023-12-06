@@ -1,14 +1,19 @@
 package com.example.gcccyclingapp;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
+
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
-
 
 @RunWith(MockitoJUnitRunner.class)
 
@@ -20,11 +25,15 @@ public class addAwardToParticipantTest {
 
     @Mock
     Context mMockContext;
+    @Mock
+    SQLiteDatabase db;
     @Test
     public void addAwardToParticipantTest() {
+
         DBAdmin dbAdmin = new DBAdmin(mMockContext);
-        boolean result = dbAdmin.addAwardToParticipant("bob", "sam");
-        assertEquals(result,true);
+        db = dbAdmin.getWritableDatabase();
+
+        assertTrue(dbAdmin.addAwardToParticipant("bob", "sam"));
 
     }
 }

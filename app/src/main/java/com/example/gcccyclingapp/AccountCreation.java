@@ -44,7 +44,7 @@ public class AccountCreation extends AppCompatActivity implements AdapterView.On
 
         public void onNothingSelected(AdapterView<?> parent) {}
 
-        public void createAccount() {
+        public boolean createAccount() {
             Admin admin = new Admin(getApplicationContext());
 
             TextView name = findViewById(R.id.editTextName);
@@ -77,6 +77,7 @@ public class AccountCreation extends AppCompatActivity implements AdapterView.On
                 i.putExtra("role", "Club");
                 startActivity(i);
             }
+            return true;
         }
 
     public boolean onOptionsItemSelected(MenuItem item) {

@@ -231,7 +231,7 @@ public class ParticipantBrowseEvents extends AppCompatActivity {
         return values;
     }
 
-    private void showEditDeleteOptions(final String club, String event){
+    public boolean showEditDeleteOptions(final String club, String event){
         AlertDialog.Builder popUp = new AlertDialog.Builder(this);
         popUp.setTitle("Info or Register")
                 .setMessage("Choose an action ")
@@ -249,12 +249,14 @@ public class ParticipantBrowseEvents extends AppCompatActivity {
                         startActivity(infoPage);
                     }
                 }).show();
+        return true;
     }
 
     // update listView based on filter selected
-    private void updateListView(List<Map<String, String>> newListItems, String filter) {
+    public boolean updateListView(List<Map<String, String>> newListItems, String filter) {
         if (newListItems.isEmpty()) {
             noEventsMessage.setVisibility(View.VISIBLE);
+            return false;
         } else {
             String[] from = {"event", filter.toLowerCase()};
             int[] to = {R.id.text1, R.id.text2};
@@ -263,6 +265,7 @@ public class ParticipantBrowseEvents extends AppCompatActivity {
             listView.setAdapter(adapter);
             noEventsMessage.setVisibility(View.GONE);
             listView.setVisibility(View.VISIBLE);
+            return true;
         }
     }
 
@@ -275,6 +278,7 @@ public class ParticipantBrowseEvents extends AppCompatActivity {
                         dba.addEventToParticipant(participantName, clubName, eventName);
                         Toast.makeText(ParticipantBrowseEvents.this, "You have registered for " + eventName, Toast.LENGTH_LONG).show();
 
+<<<<<<< HEAD
                     }
                 }).setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
@@ -283,4 +287,5 @@ public class ParticipantBrowseEvents extends AppCompatActivity {
                     }
                 }).show();
     }
+>>>>>>> 72fd07348a6122c7bcbe2d0c9485f9b331872f13
 }
