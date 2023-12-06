@@ -278,7 +278,6 @@ public class ParticipantBrowseEvents extends AppCompatActivity {
                         dba.addEventToParticipant(participantName, clubName, eventName);
                         Toast.makeText(ParticipantBrowseEvents.this, "You have registered for " + eventName, Toast.LENGTH_LONG).show();
 
-<<<<<<< HEAD
                     }
                 }).setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
@@ -287,5 +286,4 @@ public class ParticipantBrowseEvents extends AppCompatActivity {
                     }
                 }).show();
     }
->>>>>>> 72fd07348a6122c7bcbe2d0c9485f9b331872f13
 }
