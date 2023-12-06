@@ -13,7 +13,6 @@ public class ClubOwnerPage extends AppCompatActivity {
 
     String clubName;
     Button viewParticipantsBtn;
-    Button sendAwardsBtn;
     Button createNewEventBtn;
     Button viewCreatedEventsBtn;
 
@@ -37,7 +36,6 @@ public class ClubOwnerPage extends AppCompatActivity {
         createNewEventBtn = findViewById(R.id.createNewEventBtn2);
         viewCreatedEventsBtn = findViewById(R.id.viewCreatedEventsBtn);
         viewParticipantsBtn = findViewById(R.id.viewClubParticipantsBtn);
-        sendAwardsBtn = findViewById(R.id.sendAwardsBtn);
 
         createNewEventBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,15 +62,6 @@ public class ClubOwnerPage extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        sendAwardsBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(ClubOwnerPage.this, ClubAwards.class);
-                intent.putExtra("name", clubName);
-                startActivity(intent);
-            }
-        });
-
     }
 
 

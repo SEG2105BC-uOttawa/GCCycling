@@ -13,12 +13,15 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.PopupMenu;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
-public class ClubParticipants extends AppCompatActivity {
+public class ClubParticipants extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     ListView listView;
     DBAdmin DB;
     String clubName;
+    String event;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,30 +47,45 @@ public class ClubParticipants extends AppCompatActivity {
             participantNames = new String[]{"No participants"};
         }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter(this, R.layout.account_list_item, R.id.list_item, participantNames);
+        ArrayAdapter<String> adapter = new ArrayAdapter(this, R.layout.account_list_item_club, R.id.list_item, participantNames);
         listView = (ListView) findViewById(R.id.participantList);
         listView.setAdapter(adapter);
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id){
-
-                final String selectedParticipantName = (String) parent.getItemAtPosition(position);
-
-                addAwardPopUp(selectedParticipantName);
-            }
-        });
     }
 
-    private void addAwardPopUp(final String participantName){
+    public void removeFromClub(final String participantName){
+        AlertDialog.Builder popUp = new AlertDialog.Builder(this);
+        Spinner events = new Spinner(this);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, DB.getAllEvents());
+        events.setAdapter(adapter);
+        events.setOnItemSelectedListener(this);
+
+        popUp.setTitle("Remove " + participantName + " from an event?")
+                .setView(events)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        if (event != null) {
+                            DB.removeEventFromParticipant(participantName, clubName, event);
+                        }
+                    }
+                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // don't do anything.
+                    }
+                }).show();
+    }
+
+    public void addAwardPopUp(final String participantName){
         AlertDialog.Builder popUp = new AlertDialog.Builder(this);
         EditText awardNameInput = new EditText(this);
 
-        popUp.setTitle("Remove " + participantName + " from club?")
+        popUp.setTitle("Send an award to " + participantName)
                 .setView(awardNameInput)
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        DB.removeClubFromParticipant(participantName, clubName);
+                        DB.addAwardToParticipant(participantName, awardNameInput.getText().toString());
                     }
                 }).setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
@@ -84,5 +102,15 @@ public class ClubParticipants extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        event = adapterView.getItemAtPosition(i).toString();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }
