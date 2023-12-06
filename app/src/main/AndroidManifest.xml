@@ -21,9 +21,6 @@
             android:name=".EditCreatedEvent"
             android:exported="false" />
         <activity
-            android:name=".AdminViewClubEventInfo"
-            android:exported="true" />
-        <activity
             android:name=".ViewCreatedEventClubOwner"
             android:exported="false" />
         <activity
@@ -96,7 +93,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ClubAwards"
+            android:name=".ParticipantAwards"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
