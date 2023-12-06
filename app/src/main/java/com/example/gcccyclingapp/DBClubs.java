@@ -3,6 +3,7 @@ package com.example.gcccyclingapp;
 import android.annotation.SuppressLint;
 import android.database.Cursor;
 import android.database.SQLException;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase;
 import android.content.Context;
@@ -66,7 +67,13 @@ public class DBClubs extends SQLiteOpenHelper {
         cv.put(EVENT_DATE, date);
         cv.put(EVENT_ROUTE, route);
 
-        db.insert(this.clubName, null, cv);
+        try {
+            db.insert(this.clubName, null, cv);
+        }
+        catch (SQLiteException e) {
+            addClub(clubName);
+            db.insert(this.clubName, null, cv);
+        }
     }
 
 //    public boolean findEvent(String clubName, String eventName) {
