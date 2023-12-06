@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -277,8 +278,6 @@ public class ParticipantBrowseEvents extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dba.addEventToParticipant(participantName, clubName, eventName);
                         Toast.makeText(ParticipantBrowseEvents.this, "You have registered for " + eventName, Toast.LENGTH_LONG).show();
-
-<<<<<<< HEAD
                     }
                 }).setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
@@ -287,5 +286,14 @@ public class ParticipantBrowseEvents extends AppCompatActivity {
                     }
                 }).show();
     }
->>>>>>> 72fd07348a6122c7bcbe2d0c9485f9b331872f13
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            this.finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }
