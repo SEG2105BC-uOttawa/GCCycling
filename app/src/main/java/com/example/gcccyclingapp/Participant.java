@@ -11,6 +11,12 @@ public class Participant extends Account {
     private DBAdmin DBa;
     private DBClubs DBc;
 
+    public Participant(String name, String username, String password, String role) {
+        super(username, password, role);
+        this.name = name;
+
+    }
+
     public Participant(String name, String username, String password, String role, Context context) {
         super(username, password, role);
         this.name = name;
