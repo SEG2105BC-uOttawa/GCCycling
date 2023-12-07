@@ -137,32 +137,48 @@ public class DBAdmin extends SQLiteOpenHelper{
     public void insertParticipant(String participantName, String participantUser, String participantPWD){ // change to work with Club class
         SQLiteDatabase db = this.getWritableDatabase(); // for insert actions
         ContentValues cv = new ContentValues();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + PARTICIPANT_TABLE + " WHERE " + PARTICIPANT_USERNAME + " = ?", new String[]{participantUser});
 
-        cv.put(PARTICIPANT_NAME, participantName); // inserts data into club column
-        cv.put(PARTICIPANT_USERNAME, participantUser); // inserts data into club column
-        cv.put(PARTICIPANT_PASSWORD, participantPWD); // inserts data into club column
-        cv.put(PARTICIPANT_AWARDS, "");
-        cv.put(PARTICIPANT_CLUBS, "");
+        boolean exists = (cursor.getCount() > 0); // if more than zero, club exists
 
-        db.insert(PARTICIPANT_TABLE, null, cv);
+        if (!exists) {
+            cv.put(PARTICIPANT_NAME, participantName); // inserts data into club column
+            cv.put(PARTICIPANT_USERNAME, participantUser); // inserts data into club column
+            cv.put(PARTICIPANT_PASSWORD, participantPWD); // inserts data into club column
+            cv.put(PARTICIPANT_AWARDS, "");
+            cv.put(PARTICIPANT_CLUBS, "");
+
+            db.insert(PARTICIPANT_TABLE, null, cv);
+        } else {
+            Log.d("DBAdmin insertParticipant", participantPWD + " already exists.");
+        }
+
     }
 
     public void insertEvent(String eventType, String eventAge, String eventPace, String eventLevel, String eventLocation, String eventTime, String eventDetails){
         SQLiteDatabase db = this.getWritableDatabase(); // for insert actions
         ContentValues cv = new ContentValues();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + EVENTS_TABLE + " WHERE " + EVENT_TYPE + " = ?", new String[]{eventType});
 
-        cv.put(EVENT_TYPE, eventType);
-        cv.put(EVENT_AGE, eventAge);
-        cv.put(EVENT_PACE, eventPace);
-        cv.put(EVENT_LEVEL, eventLevel);
-        cv.put(EVENT_LOCATION, eventLocation);
-        cv.put(EVENT_TIME, eventTime);
-        cv.put(EVENT_DETAILS, eventDetails);
+        boolean exists = (cursor.getCount() > 0); // if more than zero, club exists
 
-        Log.d("DB", "Event added");
+        if (!exists) {
+            cv.put(EVENT_TYPE, eventType);
+            cv.put(EVENT_AGE, eventAge);
+            cv.put(EVENT_PACE, eventPace);
+            cv.put(EVENT_LEVEL, eventLevel);
+            cv.put(EVENT_LOCATION, eventLocation);
+            cv.put(EVENT_TIME, eventTime);
+            cv.put(EVENT_DETAILS, eventDetails);
+
+            Log.d("DB", "Event added");
 
 
-        db.insert(EVENTS_TABLE, null, cv);
+            db.insert(EVENTS_TABLE, null, cv);
+        } else {
+            Log.d("DBAdmin insertParticipant", eventType + " already exists.");
+        }
+
     }
 
     public boolean verifyLogin(String username, String pwd){

@@ -63,7 +63,7 @@ public class ParticipantBrowseEvents extends AppCompatActivity {
         filterSpinner = (Spinner) findViewById(R.id.filter);
         displayFilterSpinner(filterSpinner);
 
-        participantsClubs = dba.getParticipantClubs(participant); // array of all clubs the participant is part of
+        participantsClubs = dba.getParticipantClubs(participant); // list of all clubs the participant is part of
 
         clubs = dba.getAllClubs();
 

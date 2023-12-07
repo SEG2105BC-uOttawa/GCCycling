@@ -29,6 +29,21 @@ public class MainActivity extends AppCompatActivity {
         dbAdmin.insertClub("gccadmin", "gccadmin", "GCCRocks!");
         dbClubs.addClub("gccadmin");
 
+        // preload participant account
+        dbAdmin.insertParticipant("cyclingaddict", "cyclingaddict", "cyclingIsLife!");
+
+        // preload event types
+        dbAdmin.insertEvent("Time Trial", "18", "10", "10", "Ottawa", "Morning", "Time trials, often referred to as \"TTs,\" are individual races against\n" +
+                "the clock. Cyclists start at intervals and race alone to complete a set course as\n" +
+                "quickly as possible. It's a test of a rider's ability to maintain a consistent pace and\n" +
+                "maximize speed.");
+        dbAdmin.insertEvent("Hill Climb", "18", "10", "10", "Ottawa", "Morning", "Hill climbing events challenge cyclists to ascend steep inclines or\n" +
+                "mountains as quickly as possible. Participants showcase their climbing abilities,\n" +
+                "endurance, and strength during these challenging races.\n");
+        dbAdmin.insertEvent("Road Stage Race", "18", "10", "10", "Ottawa", "Morning", "Road stage races are multi-day events composed of multiple\n" +
+                "stages, each with its own route and terrain. Cyclists compete over several days,\n" +
+                "and the overall winner is determined by the lowest cumulative time across all\n" +
+                "stages. Events like the Tour de France are classic examples");
     }
     
 
