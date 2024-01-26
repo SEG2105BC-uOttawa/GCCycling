@@ -24,11 +24,11 @@ In a nutshell, the GCC App is all about making biking more fun for everyone. Whe
 
 ### Event Actions
 
-<img style="center" src="./screenshots/create event.png" width="200px"/> <img style="center" src="./screenshots/view events.png" width="200px"/> <img style="center" src="./screenshots/view event types.png" width="200px"/> <img style="center" src="./screenshots/view event info.png" width="200px"/> <img style="center" src="./screenshots/event actions.png" width="200px"/>
+<img style="center" src="./screenshots/create event.png" width="200px"/> <img style="center" src="./screenshots/view events.png" width="200px"/> <img style="center" src="./screenshots/view event types.png" width="200px"/> <img style="center" src="./screenshots/view event info.png" width="200px"/>
 
 ## Other Actions
 
-<img style="center" src="./screenshots/view participants.png" width="200px"/> <img style="center" src="./screenshots/awards.png" width="200px"/>
+<img style="center" src="./screenshots/view participants.png" width="200px"/> <img style="center" src="./screenshots/awards.png" width="200px"/> <img style="center" src="./screenshots/event actions.png" width="200px"/>
 
 ## Lessons Learned
 
@@ -37,3 +37,7 @@ The biggest lesson we learned from this project was that communication is key. W
 Another lesson we learned was time management. For certain deliverables where we procrastinate as a group, we had to face the consequences which consisted of late nights trying to finish our tasks last minute. These experiences taught us all that effectively managing our time as a group is crucial to not only get our work done on time, but to also ensure that we produce high quality results.
 
 One big thing that all of us were able to take away from this project was the Android development experience. Android development is something that all of us were completely new to, meaning that we all had to take the time to do research online, as well as constant trial and error to figure out how to make our app function properly. We also got the chance to use SQLite as our main database engine, getting us all familiar with SQL as a language, as well as different common queries. These two combined gave us the chance to learn how the front-end and back-end of an application work together to form a complete Android app.
+
+## Project UML
+
+<img style="center" src="./screenshots/Project UML.png"/>
