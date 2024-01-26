@@ -16,10 +16,10 @@ In a nutshell, the GCC App is all about making biking more fun for everyone. Whe
 
 ### Account Creation & Login Page
 
-<img style="center" src="./screenshots/account creation.png" width="300px"/>
-<img style="center" src="./screenshots/login page.png" width="300px"/>
-<img style="center" src="./screenshots/complete account.png" width="300px"/>
-<img style="center" src="./screenshots/add photo.png" width="300px"/>
+<img style="center" src="./screenshots/account creation.png" width="200px"/>
+<img style="center" src="./screenshots/login page.png" width="200px"/>
+<img style="center" src="./screenshots/complete account.png" width="200px"/>
+<img style="center" src="./screenshots/add photo.png" width="200px"/>
 
 ###
 
