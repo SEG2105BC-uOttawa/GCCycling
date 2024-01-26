@@ -16,9 +16,19 @@ In a nutshell, the GCC App is all about making biking more fun for everyone. Whe
 
 ### Account Creation & Login Page
 
-<img style="center" src="./screenshots/account creation.png" width="200px"/> <img style="center" src="./screenshots/login page.png" width="200px"/> <img style="center" src="./screenshots/complete account.png" width="200px"/> <img style="center" src="./screenshots/add photo.png" width="200px"/>
+<img style="center" src="./screenshots/account creation.png" width="200px"/> <img style="center" src="./screenshots/complete account.png" width="200px"/> <img style="center" src="./screenshots/add photo.png" width="200px"/> <img style="center" src="./screenshots/login page.png" width="200px"/>
 
-###
+### Welcome Pages & User Features Menu
+
+<img style="center" src="./screenshots/admin welcome.png" width="200px"/> <img style="center" src="./screenshots/participant welcome.png" width="200px"/> <img style="center" src="./screenshots/club welcome.png" width="200px"/>
+
+### Event Actions
+
+<img style="center" src="./screenshots/create event.png" width="200px"/> <img style="center" src="./screenshots/view events.png" width="200px"/> <img style="center" src="./screenshots/view event types.png" width="200px"/> <img style="center" src="./screenshots/view event info.png" width="200px"/> <img style="center" src="./screenshots/event actions.png" width="200px"/>
+
+## Other Actions
+
+<img style="center" src="./screenshots/view participants.png" width="200px"/> <img style="center" src="./screenshots/awards.png" width="200px"/>
 
 ## Lessons Learned
 
